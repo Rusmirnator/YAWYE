@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.5.3" />
-    <PackageReference Include="Font.Awesome.AspDotNetCore" Version="5.15.1" />
   </ItemGroup>
 
 </Project>
