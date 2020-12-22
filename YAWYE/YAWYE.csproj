@@ -8,4 +8,13 @@
     <PackageReference Include="bootstrap" Version="4.5.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Meals\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\YAWYE.Core\YAWYE.Core.csproj" />
+    <ProjectReference Include="..\YAWYE.Data\YAWYE.Data.csproj" />
+  </ItemGroup>
+
 </Project>
