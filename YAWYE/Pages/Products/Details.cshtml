@@ -1,0 +1,19 @@
+﻿@page "{productId:int}"
+@model YAWYE.Pages.Products.DetailsModel
+@{
+}
+
+<table class="table">
+        <tr>
+            <td>@Model.Product.Name</td>
+            <td>@Model.Product.Make</td>
+            <td>@Model.Product.Kcal Kcal</td>
+            <td>@Model.Product.Protein g</td>
+            <td>@Model.Product.Carbohydrates g</td>
+            <td>@Model.Product.Fat g</td>
+            <td>@Model.Product.Fiber g</td>
+            <td>@Model.Product.Price PLN</td>
+        </tr>
+</table>
+<a asp-page="./UpdateProduct" class="btn btn-warning">Edit</a>
+<a asp-page="./ProductList" class="btn btn-primary">All products</a>

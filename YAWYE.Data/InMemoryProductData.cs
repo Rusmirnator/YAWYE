@@ -18,7 +18,7 @@ namespace YAWYE.Data
                 new Product {Id = 3, Name = "Krakowska sucha wieprzowa", Make = "Krakus", Kcal = 174, Protein = 28, Carbohydrates = 3, Fat = 20, Fiber = 0, BarCode = 1312075, Price = 2.49}
             };
         }
-        public Product Add()
+        public Product Add(Product newProduct)
         {
             throw new NotImplementedException();
         }
@@ -28,7 +28,7 @@ namespace YAWYE.Data
             throw new NotImplementedException();
         }
 
-        public Product Delete()
+        public Product Delete(int id)
         {
             throw new NotImplementedException();
         }
@@ -45,14 +45,32 @@ namespace YAWYE.Data
             return products.SingleOrDefault(p => p.Id == id);
         }
 
-        public Product RecalculateNutritions()
+        public Product RecalculateNutritions(Product recalculatedProduct)
         {
             throw new NotImplementedException();
         }
 
-        public Product Update()
+        public Product Update(Product updatedProduct)
         {
-            throw new NotImplementedException();
+            var product = products.SingleOrDefault(p => p.Id == updatedProduct.Id);
+            if (product != null)
+            {
+                product.Name = updatedProduct.Name;
+                product.Make = updatedProduct.Make;
+                product.Kcal = updatedProduct.Kcal;
+                product.Protein = updatedProduct.Protein;
+                product.Carbohydrates = updatedProduct.Carbohydrates;
+                product.Fat = updatedProduct.Fat;
+                product.Fiber = updatedProduct.Fiber;
+                product.Price = updatedProduct.Price;
+                product.BarCode = updatedProduct.BarCode;
+            }
+            return product;
         }
+        public int Commit()
+        {
+            return 0;
+        }
+
     }
 }

@@ -9,11 +9,12 @@ namespace YAWYE.Data
     {
         IEnumerable<Product> GetAll();
         Product GetById(int id);
-        Product Add();
-        Product Update();
-        Product Delete();
-        Product RecalculateNutritions();
+        Product Add(Product newProduct);
+        Product Update(Product updatedProduct);
+        Product Delete(int id);
+        Product RecalculateNutritions(Product recalculatedProduct);
         Product AddImageFromFile();
+        public int Commit();
 
 
     }

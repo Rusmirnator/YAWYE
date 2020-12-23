@@ -9,19 +9,19 @@ using YAWYE.Data;
 
 namespace YAWYE.Pages.Products
 {
-    public class UpdateProductModel : PageModel
+    public class DetailsModel : PageModel
     {
         private readonly IProductData productData;
         public Product Product { get; set; }
-        
-
-        public UpdateProductModel(IProductData productData)
+        public DetailsModel(IProductData productData)
         {
             this.productData = productData;
         }
-        public IActionResult OnGet(int? productId)
-        {
 
+        public IActionResult OnGet(int productId)
+        {
+            Product = productData.GetById(productId);
+            return Page();
         }
     }
 }

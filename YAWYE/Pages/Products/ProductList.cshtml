@@ -1,22 +1,27 @@
 ﻿@page
+
 @model YAWYE.Pages.Products.ProductListModel
 @{
 }
 
 <table class="table">
-    @foreach(var product in Model.Products)
+    @foreach (var product in Model.Products)
     {
         <tr>
             <td>@product.Id</td>
             <td>@product.Name</td>
             <td>@product.Make</td>
-            <td>@product.Kcal</td>
-            <td>@product.Protein</td>
-            <td>@product.Carbohydrates</td>
-            <td>@product.Fat</td>
-            <td>@product.Price</td>
-
+            <td>@product.Kcal Kcal</td>
+            <td>@product.Protein g</td>
+            <td>@product.Carbohydrates g</td>
+            <td>@product.Fat g</td>
+            <td>@product.Fiber g</td>
+            <td>@product.Price PLN</td>
+            <td><a asp-page="./Details" class="btn btn-outline-primary">Details</a></td>
         </tr>
+        
     }
 </table>
+<a asp-page="./AddProduct" class="btn btn-success">Add new</a>
+
 
