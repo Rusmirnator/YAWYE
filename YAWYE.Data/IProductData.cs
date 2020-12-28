@@ -15,8 +15,7 @@ namespace YAWYE.Data
         Product RecalculateNutritions(Product recalculatedProduct);
         Product AddImageFromFile();
         public int Commit();
-
-
+        IEnumerable<Product> GetProductByName(string name);
     }
     
 }

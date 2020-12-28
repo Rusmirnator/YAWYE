@@ -72,5 +72,12 @@ namespace YAWYE.Data
             return 0;
         }
 
+        public IEnumerable<Product> GetProductByName(string name = null)
+        {
+            return from p in products
+                   where string.IsNullOrEmpty(name) || p.Name.StartsWith(name)
+                   orderby p.Name
+                   select p;
+        }
     }
 }

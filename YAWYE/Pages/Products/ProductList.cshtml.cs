@@ -12,6 +12,9 @@ namespace YAWYE.Pages.Products
     public class ProductListModel : PageModel
     {
         private readonly IProductData productData;
+        [BindProperty(SupportsGet = true)]
+        public string SearchTerm { get; set; }
+
         public IEnumerable<Product> Products { get; set; }
 
         public ProductListModel(IProductData productData)
@@ -21,7 +24,8 @@ namespace YAWYE.Pages.Products
 
         public void OnGet()
         {
-            Products = productData.GetAll();
+            Products = productData.GetProductByName(SearchTerm);
         }
+
     }
 }

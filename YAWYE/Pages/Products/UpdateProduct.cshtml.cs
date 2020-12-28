@@ -21,7 +21,7 @@ namespace YAWYE.Pages.Products
         }
         public IActionResult OnGet(int? productId)
         {
-
+            return Page();
         }
     }
 }

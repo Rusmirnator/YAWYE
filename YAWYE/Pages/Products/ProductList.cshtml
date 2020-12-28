@@ -4,24 +4,27 @@
 @{
 }
 
-<table class="table">
+
+<form method="get">
+    <div class="form-group">
+        <div class="input-group">
+            <input type="search" class="form-control" asp-for="SearchTerm" />
+            <span class="btn btn-default">
+                <button class="btn">
+                    <i class="btn btn-primary">Search</i>
+                </button>
+            </span>
+        </div>
+    </div>
+
+</form>
+
     @foreach (var product in Model.Products)
     {
-        <tr>
-            <td>@product.Id</td>
-            <td>@product.Name</td>
-            <td>@product.Make</td>
-            <td>@product.Kcal Kcal</td>
-            <td>@product.Protein g</td>
-            <td>@product.Carbohydrates g</td>
-            <td>@product.Fat g</td>
-            <td>@product.Fiber g</td>
-            <td>@product.Price PLN</td>
-            <td><a asp-page="./Details" class="btn btn-outline-primary">Details</a></td>
-        </tr>
+        <partial name="_Summary" model="product" />
         
     }
-</table>
-<a asp-page="./AddProduct" class="btn btn-success">Add new</a>
+<a asp-page="./UpdateProduct" class="btn btn-primary">Edit</a>
 
+<a asp-page="./AddProduct" class="btn btn-success">Add new</a>
 
