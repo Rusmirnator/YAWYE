@@ -25,6 +25,7 @@ namespace YAWYE.Core
         public double Fiber { get; set; }
         public double Price { get; set; }
         public int BarCode { get; set; }
+        public string ImgPath { get; set; }
 
     }
 }

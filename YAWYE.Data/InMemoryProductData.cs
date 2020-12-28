@@ -13,14 +13,16 @@ namespace YAWYE.Data
         {
             products = new List<Product>
             {
-                new Product {Id = 1, Name = "Salami z czarnym pieprzem", Make = "Pilos", Kcal = 347, Protein = 25, Carbohydrates = 7, Fat = 33, Fiber = 0, BarCode = 1321075, Price = 3.50},
-                new Product {Id = 2, Name = "Salami z bazylią", Make = "Pilos", Kcal = 347, Protein = 25, Carbohydrates = 7, Fat = 33, Fiber = 0, BarCode = 1231075, Price = 3.30},
-                new Product {Id = 3, Name = "Krakowska sucha wieprzowa", Make = "Krakus", Kcal = 174, Protein = 28, Carbohydrates = 3, Fat = 20, Fiber = 0, BarCode = 1312075, Price = 2.49}
+                new Product {Id = 1, Name = "Salami z czarnym pieprzem", Make = "Pilos", Kcal = 347, Protein = 25, Carbohydrates = 7, Fat = 33, Fiber = 0, BarCode = 1321075, Price = 3.50, ImgPath="https://i.iplsc.com/0009WU4LET1M2EV7-C114.jpeg"},
+                new Product {Id = 2, Name = "Salami z bazylią", Make = "Pilos", Kcal = 347, Protein = 25, Carbohydrates = 7, Fat = 33, Fiber = 0, BarCode = 1231075, Price = 3.30, ImgPath="https://a.allegroimg.com/s512/111f78/d8f61b1949679a34130839af0fb3/SER-MLEKPOL-SALAMI-150G-10-sztuk"},
+                new Product {Id = 3, Name = "Krakowska sucha wieprzowa", Make = "Krakus", Kcal = 174, Protein = 28, Carbohydrates = 3, Fat = 20, Fiber = 0, BarCode = 1312075, Price = 2.49, ImgPath="https://www.carrefour.pl/images/product/190x190/nasze-rarytasy-krakowska-sucha-wieprzowa-100-g-pb0hjb.jpg"}
             };
         }
         public Product Add(Product newProduct)
         {
-            throw new NotImplementedException();
+            products.Add(newProduct);
+            newProduct.Id = products.Max(p => p.Id) + 1;
+            return newProduct;
         }
 
         public Product AddImageFromFile()

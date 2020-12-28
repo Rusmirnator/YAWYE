@@ -9,12 +9,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Meals\" />
+    <ProjectReference Include="..\YAWYE.Core\YAWYE.Core.csproj" />
+    <ProjectReference Include="..\YAWYE.Data\YAWYE.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\YAWYE.Core\YAWYE.Core.csproj" />
-    <ProjectReference Include="..\YAWYE.Data\YAWYE.Data.csproj" />
+    <Folder Include="Pages\Meals\" />
+    <Folder Include="Pages\ImgContent\" />
   </ItemGroup>
 
 </Project>

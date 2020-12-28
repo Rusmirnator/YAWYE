@@ -1,20 +1,20 @@
-﻿@page "{productId:int}"
-@model YAWYE.Pages.Products.DetailsModel
+﻿@using YAWYE.Core
+@model Product
 
 @{
 }
 
-<table class="table">
-        <tr>
-            <td>@Model.Product.Name</td>
-            <td>@Model.Product.Make</td>
-            <td>@Model.Product.Kcal Kcal</td>
-            <td>@Model.Product.Protein g</td>
-            <td>@Model.Product.Carbohydrates g</td>
-            <td>@Model.Product.Fat g</td>
-            <td>@Model.Product.Fiber g</td>
-            <td>@Model.Product.Price PLN</td>
-        </tr>
-</table>
+<div class="panel-body">
+    <table class="table table-sm">
+        <tr><td>Kcal: @Model.Kcal </td></tr>
+        <tr><td>Protein: @Model.Protein g </td></tr>
+        <tr><td>Carbohydrates: @Model.Carbohydrates g </td></tr>
+        <tr><td>Fat: @Model.Fat g </td></tr>
+        <tr><td>Fiber: @Model.Fiber g </td></tr>
+        <tr><td>Price: @Model.Price PLN </td></tr>
+        <tr><td>Barcode: @Model.BarCode</td></tr>
+    </table>
+</div>
+
 <a asp-page="./UpdateProduct" class="btn btn-warning">Edit</a>
 <a asp-page="./ProductList" class="btn btn-primary">All products</a>
