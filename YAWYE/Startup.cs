@@ -46,9 +46,10 @@ namespace YAWYE
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseStaticFiles();
+
 
             app.UseAuthorization();
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
