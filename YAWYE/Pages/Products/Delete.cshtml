@@ -1,0 +1,10 @@
+@page "{productId:int}"
+@model YAWYE.Pages.Products.DetailsModel
+
+@{
+}
+<h1>Are you sure you want to delete this product?</h1>
+<form method="post">
+    <button type="submit" class="btn btn-danger">Yes</button>
+    <a asp-page="./ProductList" class="btn btn-success">Cancel</a>
+</form>
