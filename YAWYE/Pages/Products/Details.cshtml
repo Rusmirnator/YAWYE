@@ -1,20 +1,21 @@
-﻿@using YAWYE.Core
-@model Product
+﻿@page "{productId:int}"
+@model YAWYE.Pages.Products.DetailsModel
 
 @{
 }
-
+<h2>@Model.Product.Name</h2>
 <div class="panel-body">
+    <h6> Nutritionts per 100g</h6>
     <table class="table table-sm">
-        <tr><td>Kcal: @Model.Kcal </td></tr>
-        <tr><td>Protein: @Model.Protein g </td></tr>
-        <tr><td>Carbohydrates: @Model.Carbohydrates g </td></tr>
-        <tr><td>Fat: @Model.Fat g </td></tr>
-        <tr><td>Fiber: @Model.Fiber g </td></tr>
-        <tr><td>Price: @Model.Price PLN </td></tr>
-        <tr><td>Barcode: @Model.BarCode</td></tr>
+        <tr><td>Kcal: @Model.Product.Kcal </td></tr>
+        <tr><td>Protein: @Model.Product.Protein g </td></tr>
+        <tr><td>Carbohydrates: @Model.Product.Carbohydrates g </td></tr>
+        <tr><td>Fat: @Model.Product.Fat g </td></tr>
+        <tr><td>Fiber: @Model.Product.Fiber g </td></tr>
+        <tr><td>Price: @Model.Product.Price PLN </td></tr>
+        <tr><td>Barcode: @Model.Product.BarCode</td></tr>
     </table>
 </div>
 
-<a asp-page="./UpdateProduct" class="btn btn-warning">Edit</a>
+<a asp-page="./UpdateProduct" asp-route-productId="@Model.Product.Id" class="btn btn-warning">Edit</a>
 <a asp-page="./ProductList" class="btn btn-primary">All products</a>

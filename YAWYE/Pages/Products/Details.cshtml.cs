@@ -18,10 +18,9 @@ namespace YAWYE.Pages.Products
             this.productData = productData;
         }
 
-        public IActionResult OnGet(int productId)
+        public void OnGet(int productId)
         {
             Product = productData.GetById(productId);
-            return Page();
         }
     }
 }

@@ -1,4 +1,54 @@
-﻿@page "{productId:int}"
+﻿@page "{productId:int?}"
 @model YAWYE.Pages.Products.UpdateProductModel
 @{
 }
+
+<form method="post">
+    <input type="hidden" asp-for="Product.Id" />
+    <div class="form-group">
+        <label asp-for="Product.Name"></label>
+        <input asp-for="Product.Name" class="form-control"/>
+        <span class="text-danger" asp-validation-for="Product.Name"></span>
+    </div>
+        <div class="form-group">
+        <label asp-for="Product.Make"></label>
+        <input asp-for="Product.Make" class="form-control"/>
+        <span class="text-danger" asp-validation-for="Product.Make"></span>
+    </div>
+        <div class="form-group">
+        <label asp-for="Product.Kcal"></label>
+        <input asp-for="Product.Kcal" class="form-control"/>
+        <span class="text-danger" asp-validation-for="Product.Kcal"></span>
+    </div>
+        <div class="form-group">
+        <label asp-for="Product.Protein"></label>
+        <input asp-for="Product.Protein" class="form-control"/>
+        <span class="text-danger" asp-validation-for="Product.Protein"></span>
+    </div>
+        <div class="form-group">
+        <label asp-for="Product.Carbohydrates"></label>
+        <input asp-for="Product.Carbohydrates" class="form-control"/>
+        <span class="text-danger" asp-validation-for="Product.Carbohydrates"></span>
+    </div>
+        <div class="form-group">
+        <label asp-for="Product.Fat"></label>
+        <input asp-for="Product.Fat" class="form-control"/>
+        <span class="text-danger" asp-validation-for="Product.Fat"></span>
+    </div>
+        <div class="form-group">
+        <label asp-for="Product.Fiber"></label>
+        <input asp-for="Product.Fiber" class="form-control"/>
+        <span class="text-danger" asp-validation-for="Product.Fiber"></span>
+    </div>
+        <div class="form-group">
+        <label asp-for="Product.Price"></label>
+        <input asp-for="Product.Price" class="form-control"/>
+        <span class="text-danger" asp-validation-for="Product.Price"></span>
+    </div>
+        <div class="form-group">
+        <label asp-for="Product.BarCode"></label>
+        <input asp-for="Product.BarCode" class="form-control"/>
+        <span class="text-danger" asp-validation-for="Product.BarCode"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+</form>

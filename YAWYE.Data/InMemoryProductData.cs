@@ -8,14 +8,14 @@ namespace YAWYE.Data
 {
     public class InMemoryProductData : IProductData
     {
-        List<Product> products;
+        public List<Product> products;
         public InMemoryProductData()
         {
             products = new List<Product>
             {
                 new Product {Id = 1, Name = "Salami z czarnym pieprzem", Make = "Pilos", Kcal = 347, Protein = 25, Carbohydrates = 7, Fat = 33, Fiber = 0, BarCode = 1321075, Price = 3.50, ImgPath="https://i.iplsc.com/0009WU4LET1M2EV7-C114.jpeg"},
                 new Product {Id = 2, Name = "Salami z bazylią", Make = "Pilos", Kcal = 347, Protein = 25, Carbohydrates = 7, Fat = 33, Fiber = 0, BarCode = 1231075, Price = 3.30, ImgPath="https://a.allegroimg.com/s512/111f78/d8f61b1949679a34130839af0fb3/SER-MLEKPOL-SALAMI-150G-10-sztuk"},
-                new Product {Id = 3, Name = "Krakowska sucha wieprzowa", Make = "Krakus", Kcal = 174, Protein = 28, Carbohydrates = 3, Fat = 20, Fiber = 0, BarCode = 1312075, Price = 2.49, ImgPath="./Images/próba.jpg"}
+                new Product {Id = 3, Name = "Krakowska sucha wieprzowa", Make = "Krakus", Kcal = 174, Protein = 28, Carbohydrates = 3, Fat = 20, Fiber = 0, BarCode = 1312075, Price = 2.49, ImgPath="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcFC1OFddOq70X8VawAcNKViOfOVrvCQxOhFHqKn2lSl1esTRVCz-EErdzaSM&usqp=CAc"}
             };
         }
         public Product Add(Product newProduct)
@@ -30,9 +30,11 @@ namespace YAWYE.Data
             throw new NotImplementedException();
         }
 
-        public Product Delete(int id)
+        public List<Product> Delete(int id)
         {
-            throw new NotImplementedException();
+            var product = products[id];
+            products.Remove(product);
+            return products;
         }
 
         public IEnumerable<Product> GetAll()

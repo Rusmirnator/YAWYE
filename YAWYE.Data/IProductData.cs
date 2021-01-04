@@ -11,7 +11,7 @@ namespace YAWYE.Data
         Product GetById(int id);
         Product Add(Product newProduct);
         Product Update(Product updatedProduct);
-        Product Delete(int id);
+        List<Product> Delete(int id);
         Product RecalculateNutritions(Product recalculatedProduct);
         Product AddImageFromFile();
         public int Commit();
