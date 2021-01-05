@@ -30,11 +30,11 @@ namespace YAWYE.Data
             throw new NotImplementedException();
         }
 
-        public List<Product> Delete(int id)
+        public Product Delete(int id)
         {
-            var product = products[id];
+            var product = products.FirstOrDefault(p => p.Id == id);
             products.Remove(product);
-            return products;
+            return product;
         }
 
         public IEnumerable<Product> GetAll()
