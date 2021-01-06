@@ -49,11 +49,6 @@ namespace YAWYE.Data
             return products.SingleOrDefault(p => p.Id == id);
         }
 
-        public Product RecalculateNutritions(Product recalculatedProduct)
-        {
-            throw new NotImplementedException();
-        }
-
         public Product Update(Product updatedProduct)
         {
             var product = products.SingleOrDefault(p => p.Id == updatedProduct.Id);
@@ -82,6 +77,11 @@ namespace YAWYE.Data
                    where string.IsNullOrEmpty(name) || p.Name.StartsWith(name)
                    orderby p.Name
                    select p;
+        }
+
+        public Product RecalculateNutritions(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

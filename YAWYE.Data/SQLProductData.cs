@@ -63,9 +63,18 @@ namespace YAWYE.Data
             return query;
         }
 
-        public Product RecalculateNutritions(Product recalculatedProduct)
+        public Product RecalculateNutritions(int id)
         {
-            throw new NotImplementedException();
+            var thisProduct = db.Products.Find(id);
+            var recalculatedProduct = new Product();
+            recalculatedProduct.Kcal = thisProduct.Kcal * (recalculatedProduct.Weight / 100);
+            recalculatedProduct.Protein = thisProduct.Protein * (recalculatedProduct.Weight / 100);
+            recalculatedProduct.Carbohydrates = thisProduct.Carbohydrates * (recalculatedProduct.Weight / 100);
+            recalculatedProduct.Fat = thisProduct.Fat * (recalculatedProduct.Weight / 100);
+            recalculatedProduct.Fat = thisProduct.Fiber * (recalculatedProduct.Weight / 100);
+            recalculatedProduct.Fat = thisProduct.Price * (recalculatedProduct.Weight / 100);
+            return recalculatedProduct;
+
         }
 
         public Product Update(Product updatedProduct)

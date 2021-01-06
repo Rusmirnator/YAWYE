@@ -2,3 +2,25 @@
 @model YAWYE.Pages.Meals.MealListModel
 @{
 }
+
+<form method="get">
+    <div class="form-group">
+        <div class="input-group">
+            <input type="search" class="form-control" asp-for="SearchTerm" />
+            <span class="btn btn-default">
+                <button class="btn">
+                    <i class="btn btn-primary">Search</i>
+                </button>
+                <a asp-page="./UpdateMeal" class="btn btn-success">Add new</a>
+            </span>
+        </div>
+    </div>
+
+
+</form>
+
+@foreach (var meal in Model.Meals)
+{
+    <partial name="_Summary" model="meal" />
+
+}

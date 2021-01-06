@@ -13,7 +13,7 @@ namespace YAWYE.Data
         Product Add(Product newProduct);
         Product Update(Product updatedProduct);
         Product Delete(int id);
-        Product RecalculateNutritions(Product recalculatedProduct);
+        Product RecalculateNutritions(int id);
         Product AddImageFromFile();
         public int Commit();
         IEnumerable<Product> GetProductByName(string name);

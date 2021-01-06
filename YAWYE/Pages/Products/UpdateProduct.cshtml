@@ -51,9 +51,15 @@
         <span class="text-danger" asp-validation-for="Product.BarCode"></span>
     </div>
     <div class="form-group">
+        <label asp-for="Product.Weight"></label>
+        <input asp-for="Product.Weight" class="form-control" />
+        <span class="text-danger" asp-validation-for="Product.Weight"></span>
+    </div>
+    <div class="form-group">
         <label asp-for="Product.ImgPath"></label>
         <input asp-for="Product.ImgPath" class="form-control" />
         <span class="text-danger" asp-validation-for="Product.ImgPath"></span>
     </div>
+
     <button type="submit" class="btn btn-success">Save</button>
 </form>

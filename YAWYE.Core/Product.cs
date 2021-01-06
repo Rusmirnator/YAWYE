@@ -7,10 +7,7 @@ namespace YAWYE.Core
 {
     public class Product
     {
-        public Product()
-        {
-            Weight = 100;
-        }
+
         public int Id { get; set; }
         public int Weight { get; set; }
         [Required, StringLength(50)]
