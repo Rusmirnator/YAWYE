@@ -6,15 +6,16 @@
 
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.5.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\YAWYE.Core\YAWYE.Core.csproj" />
     <ProjectReference Include="..\YAWYE.Data\YAWYE.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\Meals\" />
   </ItemGroup>
 
 </Project>
