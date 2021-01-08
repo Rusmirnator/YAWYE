@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using YAWYE.Core;
@@ -14,6 +15,12 @@ namespace YAWYE.Pages.Products
         private readonly IProductData productData;
         [BindProperty]
         public Product Product { get; set; }
+        public class CreatePost
+        {
+            public string ImageCaption { set; get; }
+            public string ImageDescription { set; get; }
+            public IFormFile MyImage { set; get; }
+        }
 
         public UpdateProductModel(IProductData productData)
         {
@@ -55,5 +62,6 @@ namespace YAWYE.Pages.Products
             return RedirectToPage("./Details", new { productId = Product.Id });
 
         }
+
     }
 }
