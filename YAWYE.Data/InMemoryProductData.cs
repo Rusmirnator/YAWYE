@@ -25,7 +25,7 @@ namespace YAWYE.Data
             return newProduct;
         }
 
-        public Product AddImageFromFile()
+        public string AddImageFromFile()
         {
             throw new NotImplementedException();
         }

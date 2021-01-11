@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Bootstrap.Less" Version="3.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.10" />
+  </ItemGroup>
+
 </Project>

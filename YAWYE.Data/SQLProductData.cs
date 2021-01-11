@@ -4,6 +4,8 @@ using System.Text;
 using YAWYE.Core;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace YAWYE.Data
 {
@@ -15,16 +17,15 @@ namespace YAWYE.Data
         {
             this.db = db;
         }
+
+        public IFormFile ProductImage { get; set; }
+
         public Product Add(Product newProduct)
         {
             db.Add(newProduct);
             return newProduct;
         }
 
-        public Product AddImageFromFile()
-        {
-            throw new NotImplementedException();
-        }
 
         public int Commit()
         {
