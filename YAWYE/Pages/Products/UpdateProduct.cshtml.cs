@@ -21,7 +21,7 @@ namespace YAWYE.Pages.Products
         [BindProperty]
         public Product Product { get; set; }
         [BindProperty]
-        public IFormFile ProductImage { get; set; }
+        public IFormFile Image { get; set; }
 
 
         public UpdateProductModel(IProductData productData, IWebHostEnvironment webHostEnvironment)
@@ -71,15 +71,15 @@ namespace YAWYE.Pages.Products
         private string AddImageFromFile()
         {
             string uniqueFileName = null;
-            if (ProductImage != null)
+            if (Image != null)
             {
                 string uploadsFolder =
                     Path.Combine(webHostEnvironment.WebRootPath, "Images");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + ProductImage.FileName;
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + Image.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    ProductImage.CopyTo(fileStream);
+                    Image.CopyTo(fileStream);
                 }
 
             }
