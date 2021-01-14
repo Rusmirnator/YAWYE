@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using YAWYE.Core;
 using YAWYE.Data;
 
@@ -45,7 +46,7 @@ namespace YAWYE.Pages.Products
             }
             return Page();
         }
-        public IActionResult OnPost()
+        public IActionResult OnPost(Product Product)
         {
             if (!ModelState.IsValid)
             {
@@ -53,13 +54,13 @@ namespace YAWYE.Pages.Products
             }
             if (Product.Id > 0)
             {
-                Product.ImgPath = AddImageFromFile();
                 productData.Update(Product);
+                Product.ImgPath = AddImageFromFile();
             }
             else
             {
-                Product.ImgPath = AddImageFromFile();
                 productData.Add(Product);
+                Product.ImgPath = AddImageFromFile();
             }
 
             productData.Commit();
