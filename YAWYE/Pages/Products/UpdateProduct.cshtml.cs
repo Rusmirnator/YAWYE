@@ -46,7 +46,7 @@ namespace YAWYE.Pages.Products
             }
             return Page();
         }
-        public IActionResult OnPost(Product Product)
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
@@ -55,7 +55,7 @@ namespace YAWYE.Pages.Products
             if (Product.Id > 0)
             {
                 productData.Update(Product);
-                Product.ImgPath = AddImageFromFile();
+                Product.ImgPath = webHostEnvironment.WebRootPath + @"\Images\" + AddImageFromFile();
             }
             else
             {
@@ -73,8 +73,7 @@ namespace YAWYE.Pages.Products
             string uniqueFileName = null;
             if (Image != null)
             {
-                string uploadsFolder =
-                    Path.Combine(webHostEnvironment.WebRootPath, "Images");
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Images");
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + Image.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
