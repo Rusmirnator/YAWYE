@@ -64,7 +64,6 @@ namespace YAWYE.Pages.Products
             }
 
             productData.Commit();
-            TempData["Message"] = $"{Product.Name} deleted!";
             return RedirectToPage("./Details", new { productId = Product.Id });
 
         }
