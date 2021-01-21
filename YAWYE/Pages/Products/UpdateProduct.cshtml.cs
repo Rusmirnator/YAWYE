@@ -61,9 +61,11 @@ namespace YAWYE.Pages.Products
             {
                 productData.Add(Product);
                 Product.ImgPath = AddImageFromFile();
+
             }
 
             productData.Commit();
+            TempData["Message"] = "Product saved!";
             return RedirectToPage("./Details", new { productId = Product.Id });
 
         }

@@ -12,6 +12,8 @@ namespace YAWYE.Pages.Products
     public class DetailsModel : PageModel
     {
         private readonly IProductData productData;
+        [TempData]
+        public string Message { get; set; }
         public Product Product { get; set; }
         public DetailsModel(IProductData productData)
         {

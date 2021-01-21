@@ -14,6 +14,8 @@ namespace YAWYE.Pages.Products
         private readonly IProductData productData;
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
+        [TempData]
+        public string Message { get; set; }
 
         public IEnumerable<Product> Products { get; set; }
 

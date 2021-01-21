@@ -26,6 +26,10 @@
         <partial name="_Summary" model="product" />
         
     }
+@if(Model.Message != null)
+{
+    <div class="alert alert-info">@Model.Message</div>
+}
 
 
 

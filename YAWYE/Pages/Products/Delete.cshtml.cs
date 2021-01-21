@@ -29,13 +29,13 @@ namespace YAWYE.Pages.Products
         }
         public IActionResult OnPost(int productId)
         {
-            Product = productData.Delete(productId);
+            var product = productData.Delete(productId);
             productData.Commit();
             if (Product != null)
             {
-                return RedirectToPage("./NotFound");
+                return RedirectToPage("./ProductList");
             }
-            TempData["Message"] = $"{Product.Name} deleted!";
+            TempData["Message"] = $"{product.Name} deleted!";
             return RedirectToPage("./ProductList");
         }
     }
