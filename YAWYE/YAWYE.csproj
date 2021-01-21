@@ -18,8 +18,4 @@
     <ProjectReference Include="..\YAWYE.Data\YAWYE.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Images\" />
-  </ItemGroup>
-
 </Project>

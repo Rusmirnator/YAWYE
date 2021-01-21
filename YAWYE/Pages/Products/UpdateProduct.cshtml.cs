@@ -55,7 +55,7 @@ namespace YAWYE.Pages.Products
             if (Product.Id > 0)
             {
                 productData.Update(Product);
-                Product.ImgPath = webHostEnvironment.ContentRootPath + "\\" + "Images\\" + AddImageFromFile();
+                Product.ImgPath = AddImageFromFile();
             }
             else
             {
@@ -72,7 +72,7 @@ namespace YAWYE.Pages.Products
             string uniqueFileName = null;
             if (Image != null)
             {
-                string uploadsFolder = Path.Combine(webHostEnvironment.ContentRootPath, "Images");
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Images");
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + Image.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
