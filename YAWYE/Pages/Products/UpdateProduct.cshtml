@@ -55,13 +55,15 @@
         <input asp-for="Product.Weight" class="form-control" />
         <span class="text-danger" asp-validation-for="Product.Weight"></span>
     </div>
+
     @if (Model.Product.ImgPath == null)
     {
-    <div class="form-group">
-        <label asp-for="Image"></label>
-        <input asp-for="Image" class="form-control" />
-    </div>
+            <div class="form-group">
+                <label asp-for="Image"></label>
+                <input asp-for="Image" class="form-control-file" />
+            </div>
     }
     <button type="submit" class="btn btn-success">Save</button>
 </form>
+
 

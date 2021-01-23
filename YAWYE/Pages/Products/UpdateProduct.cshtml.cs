@@ -22,6 +22,7 @@ namespace YAWYE.Pages.Products
         public Product Product { get; set; }
         [BindProperty]
         public IFormFile Image { get; set; }
+        
 
 
         public UpdateProductModel(IProductData productData, IWebHostEnvironment webHostEnvironment)
