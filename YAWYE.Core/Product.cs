@@ -24,6 +24,7 @@ namespace YAWYE.Core
         public double Price { get; set; }
         public int BarCode { get; set; }
         public string ImgPath { get; set; } //= "grocerydefault.jpg";
+        public bool HasImage { get; set; }
 
 
 

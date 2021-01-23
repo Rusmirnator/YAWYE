@@ -55,7 +55,10 @@ namespace YAWYE.Pages.Products
             if (Product.Id > 0)
             {
                 productData.Update(Product);
-                Product.ImgPath = AddImageFromFile();
+                if (Product.HasImage == false)
+                {
+                    Product.ImgPath = AddImageFromFile();
+                }
             }
             else
             {
@@ -83,6 +86,7 @@ namespace YAWYE.Pages.Products
                 }
 
             }
+            Product.HasImage = true;
             return uniqueFileName;
         }
 
