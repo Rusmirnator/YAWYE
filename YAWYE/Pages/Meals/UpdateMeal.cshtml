@@ -1,4 +1,16 @@
-﻿@page
+﻿@page "{mealId:int?}"
 @model YAWYE.Pages.Meals.UpdateMealModel
 @{
 }
+
+<form method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Meal.Id" />
+    <input type="hidden" asp-for="Meal.ImgPath" />
+    <div class="form-group">
+        <label asp-for="Meal.Name"></label>
+        <input asp-for="Meal.Name" class="form-control" />
+        <span class="text-danger" asp-validation-for="Meal.Name"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+</form>

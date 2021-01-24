@@ -5,15 +5,23 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using YAWYE.Core;
+using YAWYE.Data;
 
 namespace YAWYE.Pages.Meals
 {
     public class MealListModel : PageModel
     {
+        private readonly IMealData mealData;
+
+        public MealListModel(IMealData mealData)
+        {
+            this.mealData = mealData;
+        }
         public string SearchTerm { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
         public void OnGet()
         {
+            Meals = mealData.GetMealByName(SearchTerm);
         }
     }
 }

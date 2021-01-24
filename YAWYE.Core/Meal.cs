@@ -16,5 +16,6 @@ namespace YAWYE.Core
         public double Fiber { get; set; }
         public double Price { get; set; }
         public double Weight { get; set; }
+        public string ImgPath { get; set; }
     }
 }
