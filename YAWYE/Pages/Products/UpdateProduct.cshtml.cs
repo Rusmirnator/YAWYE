@@ -55,11 +55,11 @@ namespace YAWYE.Pages.Products
             }
             if (Product.Id > 0)
             {
-                productData.Update(Product);
-                if (Product.HasImage == false)
+                if (Product.ImgPath == null)
                 {
                     Product.ImgPath = AddImageFromFile();
                 }
+                productData.Update(Product);
             }
             else
             {
@@ -73,7 +73,7 @@ namespace YAWYE.Pages.Products
             return RedirectToPage("./Details", new { productId = Product.Id });
 
         }
-        private string AddImageFromFile()
+        public string AddImageFromFile()
         {
             string uniqueFileName = null;
             if (Image != null)
@@ -81,10 +81,8 @@ namespace YAWYE.Pages.Products
                 string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Images");
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + Image.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    Image.CopyTo(fileStream);
-                }
+                using var fileStream = new FileStream(filePath, FileMode.Create);
+                Image.CopyTo(fileStream);
 
             }
             Product.HasImage = true;

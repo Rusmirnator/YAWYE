@@ -5,6 +5,7 @@
 
 <form method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Product.Id" />
+    <input type="hidden" asp-for="Product.ImgPath" />
     <div class="form-group">
         <label asp-for="Product.Name"></label>
         <input asp-for="Product.Name" class="form-control" />
@@ -58,10 +59,10 @@
 
     @if (Model.Product.ImgPath == null)
     {
-            <div class="form-group">
-                <label asp-for="Image"></label>
-                <input asp-for="Image" class="form-control-file" />
-            </div>
+        <div class="form-group">
+            <label asp-for="Image"></label>
+            <input asp-for="Image" class="form-control-file" />
+        </div>
     }
     <button type="submit" class="btn btn-success">Save</button>
 </form>

@@ -14,7 +14,7 @@ namespace YAWYE.Data
         Product Update(Product updatedProduct);
         Product Delete(int id);
         Product RecalculateNutritions(int id);
-        //string AddImageFromFile();
+        string SetImgPath(string imagepath);
         public int Commit();
         IEnumerable<Product> GetProductByName(string name);
     }

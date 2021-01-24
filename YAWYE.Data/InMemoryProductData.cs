@@ -83,5 +83,10 @@ namespace YAWYE.Data
         {
             throw new NotImplementedException();
         }
+
+        public string SetImgPath(string imagepath)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

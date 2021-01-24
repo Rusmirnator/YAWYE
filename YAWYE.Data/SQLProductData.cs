@@ -18,8 +18,6 @@ namespace YAWYE.Data
             this.db = db;
         }
 
-        public IFormFile ProductImage { get; set; }
-
         public Product Add(Product newProduct)
         {
             db.Add(newProduct);
@@ -76,6 +74,11 @@ namespace YAWYE.Data
             recalculatedProduct.Fat = thisProduct.Price * (recalculatedProduct.Weight / 100);
             return recalculatedProduct;
 
+        }
+
+        public string SetImgPath(string imagepath)
+        {
+            throw new NotImplementedException();
         }
 
         public Product Update(Product updatedProduct)
