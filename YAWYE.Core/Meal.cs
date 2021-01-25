@@ -7,7 +7,8 @@ namespace YAWYE.Core
     public class Meal
     {
         public int Id { get; set; }
-        public IEnumerable<Product> MyMeal { get; set; }
+        public IEnumerable<Meal> MyMeals { get; set; }
+        public IEnumerable<Product> Ingredients { get; set; }
         public string Name { get; set; }
         public int Kcal { get; set; }
         public double Protein { get; set; }
