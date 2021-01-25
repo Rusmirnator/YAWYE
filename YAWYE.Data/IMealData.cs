@@ -11,7 +11,6 @@ namespace YAWYE.Data
         Meal Add(Meal newMeal);
         Meal Delete(int id);
         Meal Update(Meal updatedMeal);
-        Meal AddImageFromFile();
         Meal RecalculateNutriotions(int id);
         int Commit();
         IEnumerable<Meal> GetMealByName(string name);

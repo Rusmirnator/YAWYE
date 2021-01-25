@@ -33,6 +33,7 @@ namespace YAWYE
                 options.UseSqlServer(Configuration.GetConnectionString("YAWYEDb"));
             });
             services.AddScoped<IProductData, SQLProductData>();
+            services.AddScoped<IMealData, SQLMealData>();
             services.AddRazorPages();
         }
 

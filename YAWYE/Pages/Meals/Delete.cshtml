@@ -1,0 +1,11 @@
+@page "{mealId:int}"
+@model YAWYE.Pages.Meals.DeleteModel
+
+@{
+}
+<h1>Delete!</h1>
+<div>Are you sure you want to delete <i>@Model.Meal.Name</i>?</div>
+<form method="post">
+    <button class="btn btn-danger">Yes</button>
+    <a asp-page="./MealList" class="btn btn-success">Cancel</a>
+</form>

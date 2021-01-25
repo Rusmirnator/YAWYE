@@ -17,7 +17,10 @@ namespace YAWYE.Pages.Meals
         {
             this.mealData = mealData;
         }
+        [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
+        [TempData]
+        public string Message { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
         public void OnGet()
         {

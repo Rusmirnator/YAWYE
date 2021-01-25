@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.6.0" />
+    <PackageReference Include="glyphicon" Version="1.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.10">
       <PrivateAssets>all</PrivateAssets>

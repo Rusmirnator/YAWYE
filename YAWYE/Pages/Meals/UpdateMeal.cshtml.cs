@@ -12,6 +12,7 @@ namespace YAWYE.Pages.Meals
     public class UpdateMealModel : PageModel
     {
         private readonly IMealData mealData;
+        [BindProperty]
         public Meal Meal { get; set; }
 
         public UpdateMealModel(IMealData mealData)
@@ -44,20 +45,20 @@ namespace YAWYE.Pages.Meals
             {
                 if (Meal.ImgPath == null)
                 {
-                    Meal.ImgPath = "grocerydefault";
+                    Meal.ImgPath = "grocerydefault.jpg";
                 }
                 mealData.Update(Meal);
             }
             else
             {
                 mealData.Add(Meal);
-                Meal.ImgPath = "grocerydefault";
+                Meal.ImgPath = "grocerydefault.jpg";
 
             }
 
             mealData.Commit();
-            TempData["Message"] = "Product saved!";
-            return RedirectToPage("./Details", new { productId = Meal.Id });
+            TempData["Message"] = "Meal saved!";
+            return RedirectToPage("./Details", new { mealId = Meal.Id });
 
         }
     }

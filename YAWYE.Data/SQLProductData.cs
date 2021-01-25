@@ -75,12 +75,6 @@ namespace YAWYE.Data
             return recalculatedProduct;
 
         }
-
-        public string SetImgPath(string imagepath)
-        {
-            throw new NotImplementedException();
-        }
-
         public Product Update(Product updatedProduct)
         {
             var entity = db.Products.Attach(updatedProduct);

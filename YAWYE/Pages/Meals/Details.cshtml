@@ -1,0 +1,25 @@
+﻿@page "{mealId:int}"
+@model YAWYE.Pages.Meals.DetailsModel
+
+@{
+}
+<h2>@Model.Meal.Name</h2>
+<img src="~/Images/@Model.Meal.ImgPath" class="img img-thumbnail" width="200" height="200" alt="@Model.Meal.Name" />
+<div class="panel-body">
+    <h6> Nutritionts per @Model.Meal.Weight g</h6>
+    <table class="table table-sm">
+        <tr><td>Kcal: @Model.Meal.Kcal </td></tr>
+        <tr><td>Protein: @Model.Meal.Protein g </td></tr>
+        <tr><td>Carbohydrates: @Model.Meal.Carbohydrates g </td></tr>
+        <tr><td>Fat: @Model.Meal.Fat g </td></tr>
+        <tr><td>Fiber: @Model.Meal.Fiber g </td></tr>
+        <tr><td>Price: @Model.Meal.Price PLN </td></tr>
+    </table>
+</div>
+@if(Model.Message != null)
+{
+    <div class="alert alert-info">@Model.Message</div>
+}
+
+<a asp-page="./UpdateMeal" asp-route-mealId="@Model.Meal.Id" class="btn btn-warning">Edit</a>
+<a asp-page="./MealList" class="btn btn-primary">All meals</a>
