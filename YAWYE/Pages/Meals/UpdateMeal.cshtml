@@ -11,82 +11,62 @@
         <input asp-for="Meal.Name" class="form-control" />
         <span class="text-danger" asp-validation-for="Meal.Name"></span>
     </div>
-    <table id="dtVerticalScrollExample" class="table table-striped table-bordered table-sm" cellspacing="0"
-           width="100%">
-        <thead>
-            <tr>
-                <th class="th-sm">
-                    Name
-                </th>
-                <th class="th-sm">
-                    Position
-                </th>
-                <th class="th-sm">
-                    Office
-                </th>
-                <th class="th-sm">
-                    Age
-                </th>
-                <th class="th-sm">
-                    Start date
-                </th>
-                <th class="th-sm">
-                    Salary
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Michael Bruce</td>
-                <td>Javascript Developer</td>
-                <td>Singapore</td>
-                <td>29</td>
-                <td>2011/06/27</td>
-                <td>$183,000</td>
-            </tr>
-            <tr>
-                <td>Donna Snider</td>
-                <td>Customer Support</td>
-                <td>New York</td>
-                <td>27</td>
-                <td>2011/01/25</td>
-                <td>$112,000</td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Position
-                </th>
-                <th>
-                    Office
-                </th>
-                <th>
-                    Age
-                </th>
-                <th>
-                    Start date
-                </th>
-                <th>
-                    Salary
-                </th>
-            </tr>
-        </tfoot>
-    </table>
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+        <table class="table table-bordered table-striped mb-0">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Product Make</th>
+                    <th scope="col">Select</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.Products)
+                {
+                <tr>
+                    <th scope="row">1</th>
+                    <td>@product.Name</td>
+                    <td>@product.Make</td>
+                    <td>
+                        <a class="btn btn-success" data-toggle="modal" data-target="#myModal">Add</a>
+                    </td>
+                </tr>
+                @Model.Product.Id = product.Id;
+                }
+            </tbody>
+        </table>
+
+    </div>
     <button type="submit" class="btn btn-success">Save</button>
 </form>
 
-@section Scripts {
-    <script language="javascript">
-        $(document).ready(function () {
-            $('#dtVerticalScrollExample').DataTable({
-                "scrollY": "200px",
-                "scrollCollapse": true,
-            });
-            $('.dataTables_length').addClass('bs-select');
-        });
-    </script>
-}
+<style>
+    .my-custom-scrollbar {
+        position: relative;
+        height: 200px;
+        overflow: auto;
+    }
+
+    .table-wrapper-scroll-y {
+        display: block;
+    }
+</style>
+<div id="myModal" class="modal fade" role="dialog" itemscope="@Model.Product.Id">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@Model.Product.Name</h4>
+            </div>
+            <div class="modal-body">
+                <p>@Model.Product.Make</p>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" data-dismiss="modal">Save</button>
+            </div>
+        </div>
+
+    </div>
+</div>

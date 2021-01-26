@@ -12,15 +12,23 @@ namespace YAWYE.Pages.Meals
     public class UpdateMealModel : PageModel
     {
         private readonly IMealData mealData;
+        private readonly IProductData productData;
+
         [BindProperty]
         public Meal Meal { get; set; }
+        [BindProperty]
+        public Product Product { get; set; }
 
-        public UpdateMealModel(IMealData mealData)
+        public IEnumerable<Product> Products { get; set; }
+
+        public UpdateMealModel(IMealData mealData, IProductData productData)
         {
             this.mealData = mealData;
+            this.productData = productData;
         }
         public IActionResult OnGet(int? mealId)
         {
+            Products = productData.GetAll();
             if (mealId.HasValue)
             {
                 Meal = mealData.GetById(mealId.Value);
