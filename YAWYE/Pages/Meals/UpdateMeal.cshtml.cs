@@ -59,7 +59,7 @@ namespace YAWYE.Pages.Meals
             }
             else
             {
-                mealData.Add(Meal);
+                mealData.AddMeal(Meal);
                 Meal.ImgPath = "grocerydefault.jpg";
 
             }

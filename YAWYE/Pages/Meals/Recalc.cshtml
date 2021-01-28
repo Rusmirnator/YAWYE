@@ -1,27 +1,33 @@
-﻿@page
+﻿@page "{productId:int}/{mealId:int}"
 @model YAWYE.Pages.Meals.RecalcModel
 @{
 }
-
-
-
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-                <p>Some text in the modal.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+<h2>@Model.Product.Name</h2>
+<img src="~/Images/@Model.Product.ImgPath" class="img img-thumbnail" width="200" height="200" alt="@Model.Product.Name" />
+<div class="panel-body">
+    <h6> Nutritionts per @Model.Product.Weight</h6>
+    <table class="table table-sm">
+        <tr><td>Kcal: @Model.Product.Kcal </td></tr>
+        <tr><td>Protein: @Model.Product.Protein g </td></tr>
+        <tr><td>Carbohydrates: @Model.Product.Carbohydrates g </td></tr>
+        <tr><td>Fat: @Model.Product.Fat g </td></tr>
+        <tr><td>Fiber: @Model.Product.Fiber g </td></tr>
+        <tr><td>Price: @Model.Product.Price PLN </td></tr>
+        <tr><td>Barcode: @Model.Product.BarCode</td></tr>
+    </table>
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="@Model.Product.Id" />
+        <input type="hidden" asp-for="@Model.Product.Kcal" />
+        <input type="hidden" asp-for="@Model.Product.Protein" />
+        <input type="hidden" asp-for="@Model.Product.Carbohydrates" />
+        <input type="hidden" asp-for="@Model.Product.Fat" />
+        <input type="hidden" asp-for="@Model.Product.Fiber" />
+        <input type="hidden" asp-for="@Model.Product.Price" />
+        <div class="form-group">
+            <label asp-for="@Model.Product.Weight"></label>
+            <input asp-for="@Model.Product.Weight" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.Product.Weight"></span>
         </div>
-
-    </div>
+        <button type="submit" class="btn btn-primary" asp-page="./UpdateMeal/@Model.Meal.Id" asp-route-mealId="@Model.Meal.Id">Save</button>
+    </form>
 </div>

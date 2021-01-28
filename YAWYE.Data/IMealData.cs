@@ -8,7 +8,7 @@ namespace YAWYE.Data
     public interface IMealData
     {
         Meal GetById(int id);
-        Meal Add(Meal newMeal);
+        Meal AddMeal(Meal newMeal);
         Meal Delete(int id);
         Meal Update(Meal updatedMeal);
         Meal RecalculateNutriotions(int id);

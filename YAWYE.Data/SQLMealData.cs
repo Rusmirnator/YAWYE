@@ -15,11 +15,12 @@ namespace YAWYE.Data
         {
             this.db = db;
         }
-        public Meal Add(Meal newMeal)
+        public Meal AddMeal(Meal newMeal)
         {
             db.Add(newMeal);
             return newMeal;
         }
+
 
         public int Commit()
         {

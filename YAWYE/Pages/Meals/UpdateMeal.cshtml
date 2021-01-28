@@ -11,37 +11,37 @@
         <input asp-for="Meal.Name" class="form-control" />
         <span class="text-danger" asp-validation-for="Meal.Name"></span>
     </div>
-    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
 
-        <table class="table table-bordered table-striped mb-0">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Product Name</th>
-                    <th scope="col">Product Make</th>
-                    <th scope="col">Select</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var product in Model.Products)
-                {
-                <tr>
-                    <th scope="row">1</th>
-                    <td>@product.Name</td>
-                    <td>@product.Make</td>
-                    <td>
-                        <a class="btn btn-success" data-toggle="modal" data-target="#myModal">Add</a>
-                    </td>
-                </tr>
-                @Model.Product.Id = product.Id;
-                }
-            </tbody>
-        </table>
-
-    </div>
-    <button type="submit" class="btn btn-success">Save</button>
-</form>
-
+            <table class="table table-bordered table-striped mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Product Make</th>
+                        <th scope="col">Select</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.Products)
+                    {
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>@product.Name</td>
+                            <td>@product.Make</td>
+                            <td>
+                            <a class="btn btn-success"
+                               asp-page="./Recalc"
+                               asp-route-productId="@product.Id"
+                               asp-route-mealId="@Model.Meal.Id">Add</a>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+            </table>
+        </div>
+        <button type="submit" class="btn btn-success">Save</button>
+    </form>
 <style>
     .my-custom-scrollbar {
         position: relative;
@@ -53,20 +53,3 @@
         display: block;
     }
 </style>
-<div id="myModal" class="modal fade" role="dialog" itemscope="@Model.Product.Id">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">@Model.Product.Name</h4>
-            </div>
-            <div class="modal-body">
-                <p>@Model.Product.Make</p>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-success" data-dismiss="modal">Save</button>
-            </div>
-        </div>
-
-    </div>
-</div>
