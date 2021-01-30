@@ -83,9 +83,12 @@ namespace YAWYE.Pages.Products
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using var fileStream = new FileStream(filePath, FileMode.Create);
                 Image.CopyTo(fileStream);
-
+                Product.HasImage = true;
             }
-            Product.HasImage = true;
+            else
+            {
+                uniqueFileName = "grocerydefault.jpg";
+            }
             return uniqueFileName;
         }
 

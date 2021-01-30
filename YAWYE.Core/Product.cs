@@ -10,7 +10,7 @@ namespace YAWYE.Core
     {
 
         public int Id { get; set; }
-        public int Weight { get; set; }
+        public int Weight { get; set; } = 100;
         [Required, StringLength(50)]
         public string Name { get; set; }
         [Required, StringLength(30)]
@@ -23,7 +23,7 @@ namespace YAWYE.Core
         public double Fiber { get; set; }
         public double Price { get; set; }
         public int BarCode { get; set; }
-        public string ImgPath { get; set; } //= "grocerydefault.jpg";
+        public string ImgPath { get; set; } 
         public bool HasImage { get; set; }
 
 

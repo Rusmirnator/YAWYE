@@ -27,12 +27,13 @@ namespace YAWYE.Pages.Meals
             Product = productData.GetById(productId);
             Meal = mealData.GetById(mealId);
         }
-        public IActionResult OnPost(int productId, int mealId)
+        public IActionResult OnPost(Product productRecalc)
         {
-            Product = productData.RecalculateNutritions(productId);
-            Meal.Ingredients.Append(Product);
+            Product = productData.RecalculateNutritions(productRecalc);
+            mealData.AddIngriendient(Product);
+            mealData.Update(Meal);
             mealData.Commit();
-            return RedirectToPage($"./UpdateMeal/{mealId}");
+            return RedirectToPage("./Details", new { mealId = Meal.Id });
         }
     }
 }
