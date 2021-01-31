@@ -16,7 +16,7 @@ namespace YAWYE.Pages.Meals
         public string Message { get; set; }
         [BindProperty]
         public Meal Meal { get; set; }
-        public List<Product> Ingredients { get; set; }
+        //public IEnumerable<Product> Ingredients { get; set; }
         public DetailsModel(IMealData mealData)
         {
             this.mealData = mealData;
@@ -25,6 +25,7 @@ namespace YAWYE.Pages.Meals
         public void OnGet(int mealId)
         {
             Meal = mealData.GetById(mealId);
+            
         }
     }
 }
