@@ -16,7 +16,6 @@ namespace YAWYE.Pages.Meals
 
         [BindProperty]
         public Meal Meal { get; set; }
-        [BindProperty]
         public Product Product { get; set; }
         [BindProperty]
         public IEnumerable<Product> Products { get; set; }
@@ -68,8 +67,7 @@ namespace YAWYE.Pages.Meals
 
             mealData.Commit();
             TempData["Message"] = "Meal saved!";
-            return Page();
-            //return RedirectToPage("/Details", new { mealId = Meal.Id });
+            return RedirectToPage("/Details", new { mealId = Meal.Id });
 
         }
     }
