@@ -62,9 +62,7 @@ namespace YAWYE.Pages.Meals
             {
                 mealData.AddMeal(Meal);
                 Meal.ImgPath = "grocerydefault.jpg";
-
             }
-
             mealData.Commit();
             TempData["Message"] = "Meal saved!";
             return RedirectToPage("./Details", new { mealId = Meal.Id });
