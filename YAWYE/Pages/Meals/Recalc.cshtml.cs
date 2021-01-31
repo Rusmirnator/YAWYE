@@ -14,26 +14,31 @@ namespace YAWYE.Pages.Meals
         private readonly IProductData productData;
         private readonly IMealData mealData;
 
+        [BindProperty]
         public Product Product { get; set; }
+        [BindProperty]
         public Meal Meal { get; set; }
+        [FromForm]
+        public double Weight { get; set; }
 
         public RecalcModel(IProductData productData, IMealData mealData)
         {
             this.productData = productData;
             this.mealData = mealData;
         }
-        public void OnGet(int productId, int mealId)
+        public IActionResult OnGet(int productId, int mealId)
         {
             Product = productData.GetById(productId);
             Meal = mealData.GetById(mealId);
+            return Page();
         }
-        public IActionResult OnPost(Product productRecalc)
+        public IActionResult OnPost()
         {
-            Product = productData.RecalculateNutritions(productRecalc);
-            mealData.AddIngriendient(Product);
+            Product = productData.RecalculateNutritions(Weight, Product.Id);
+            mealData.AddIngredient(Product);
             mealData.Update(Meal);
             mealData.Commit();
-            return RedirectToPage("./Details", new { mealId = Meal.Id });
+            return RedirectToPage("./UpdateMeal", new { mealId = Meal.Id });
         }
     }
 }

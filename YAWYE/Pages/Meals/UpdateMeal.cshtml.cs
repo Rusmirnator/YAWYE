@@ -18,8 +18,9 @@ namespace YAWYE.Pages.Meals
         public Meal Meal { get; set; }
         [BindProperty]
         public Product Product { get; set; }
-
+        [BindProperty]
         public IEnumerable<Product> Products { get; set; }
+
 
         public UpdateMealModel(IMealData mealData, IProductData productData)
         {
@@ -28,7 +29,7 @@ namespace YAWYE.Pages.Meals
         }
         public IActionResult OnGet(int? mealId)
         {
-            Products = productData.GetAll();
+            
             if (mealId.HasValue)
             {
                 Meal = mealData.GetById(mealId.Value);
@@ -41,6 +42,7 @@ namespace YAWYE.Pages.Meals
             {
                 return RedirectToPage("./NotFound");
             }
+            Products = productData.GetAll();
             return Page();
         }
         public IActionResult OnPost()
@@ -66,7 +68,8 @@ namespace YAWYE.Pages.Meals
 
             mealData.Commit();
             TempData["Message"] = "Meal saved!";
-            return RedirectToPage("./Details", new { mealId = Meal.Id });
+            return Page();
+            //return RedirectToPage("/Details", new { mealId = Meal.Id });
 
         }
     }

@@ -62,16 +62,17 @@ namespace YAWYE.Data
             return query;
         }
 
-        public Product RecalculateNutritions(Product thisProduct)
+        public Product RecalculateNutritions(double weight, int id)
         {
-            var recalculatedProduct = new Product();
-            var multiplier = thisProduct.Weight / 100;
-            recalculatedProduct.Kcal = thisProduct.Kcal * multiplier;
-            recalculatedProduct.Protein = thisProduct.Protein * multiplier;
-            recalculatedProduct.Carbohydrates = thisProduct.Carbohydrates * multiplier;
-            recalculatedProduct.Fat = thisProduct.Fat * multiplier;
-            recalculatedProduct.Fat = thisProduct.Fiber * multiplier;
-            recalculatedProduct.Fat = thisProduct.Price * multiplier;
+            var recalculatedProduct = db.Products.Find(id);
+            var multiplier = weight / 100;
+            recalculatedProduct.Kcal *= multiplier;
+            recalculatedProduct.Protein *= multiplier;
+            recalculatedProduct.Carbohydrates *= multiplier;
+            recalculatedProduct.Fat *= multiplier;
+            recalculatedProduct.Fiber *= multiplier;
+            recalculatedProduct.Price *= multiplier;
+            recalculatedProduct.Weight *= multiplier;
             return recalculatedProduct;
 
         }

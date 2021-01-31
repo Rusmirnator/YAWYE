@@ -16,7 +16,7 @@ namespace YAWYE.Data
             this.db = db;
         }
 
-        public List<Product> AddIngriendient(Product product)
+        public List<Product> AddIngredient(Product product)
         {
             List<Product> Ingredients = new List<Product>();
             Ingredients.Add(product);

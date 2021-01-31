@@ -14,7 +14,9 @@ namespace YAWYE.Pages.Meals
         private readonly IMealData mealData;
         [TempData]
         public string Message { get; set; }
+        [BindProperty]
         public Meal Meal { get; set; }
+        public List<Product> Ingredients { get; set; }
         public DetailsModel(IMealData mealData)
         {
             this.mealData = mealData;

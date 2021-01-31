@@ -15,7 +15,7 @@ namespace YAWYE.Data
         int Commit();
         IEnumerable<Meal> GetMealByName(string name);
         IEnumerable<Meal> GetAll();
-        List<Product> AddIngriendient(Product product);
+        List<Product> AddIngredient(Product product);
 
     }
 }

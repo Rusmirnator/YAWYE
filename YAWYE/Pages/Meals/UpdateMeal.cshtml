@@ -6,6 +6,15 @@
 <form method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Meal.Id" />
     <input type="hidden" asp-for="Meal.ImgPath" />
+    <input type="hidden" asp-for="Meal.Weight" />
+    <input type="hidden" asp-for="Meal.Kcal" />
+    <input type="hidden" asp-for="Meal.Protein" />
+    <input type="hidden" asp-for="Meal.Carbohydrates" />
+    <input type="hidden" asp-for="Meal.Fat" />
+    <input type="hidden" asp-for="Meal.Fiber" />
+    <input type="hidden" asp-for="Meal.Price" />
+    <input type="hidden" asp-for="Meal.Ingredients" />
+    <label asp-for="Meal.Id">@Model.Meal.Id</label>
     <div class="form-group">
         <label asp-for="Meal.Name"></label>
         <input asp-for="Meal.Name" class="form-control" />

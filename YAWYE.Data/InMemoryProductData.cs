@@ -79,7 +79,7 @@ namespace YAWYE.Data
                    select p;
         }
 
-        public Product RecalculateNutritions(Product product)
+        public Product RecalculateNutritions(double weight, int id)
         {
             throw new NotImplementedException();
         }

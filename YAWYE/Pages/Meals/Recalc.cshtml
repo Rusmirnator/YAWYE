@@ -27,7 +27,7 @@
         <input type="hidden" asp-for="@Model.Meal.Ingredients" />
         <div class="form-group">
             <label asp-for="@Model.Product.Weight"></label>
-            <input asp-for="@Model.Product.Weight" class="form-control" />
+            <input asp-for="@Model.Weight" class="form-control" />
             <span class="text-danger" asp-validation-for="@Model.Product.Weight"></span>
         </div>
         <button type="submit" class="btn btn-primary">Save</button>

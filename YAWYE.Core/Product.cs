@@ -10,13 +10,13 @@ namespace YAWYE.Core
     {
 
         public int Id { get; set; }
-        public int Weight { get; set; } = 100;
+        public double Weight { get; set; } = 100;
         [Required, StringLength(50)]
         public string Name { get; set; }
         [Required, StringLength(30)]
         public string Make { get; set; }
         [Required]
-        public int Kcal { get; set; }
+        public double Kcal { get; set; }
         public double Protein { get; set; }
         public double Carbohydrates { get; set; }
         public double Fat { get; set; }
