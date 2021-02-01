@@ -13,7 +13,6 @@
     <input type="hidden" asp-for="Meal.Fat" />
     <input type="hidden" asp-for="Meal.Fiber" />
     <input type="hidden" asp-for="Meal.Price" />
-    <input type="hidden" asp-for="Meal.Ingredients" />
 
     <div class="form-group">
         <label asp-for="Meal.Name"></label>
@@ -49,7 +48,7 @@
                     </tbody>
             </table>
         </div>
-        <button type="submit" class="btn btn-success">Save</button>
+        <button type="submit" class="btn btn-success" asp-route-mealId="@Model.Meal.Id">Save</button>
     </form>
 <style>
     .my-custom-scrollbar {

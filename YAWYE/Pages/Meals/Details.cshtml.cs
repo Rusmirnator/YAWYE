@@ -14,9 +14,11 @@ namespace YAWYE.Pages.Meals
         private readonly IMealData mealData;
         [TempData]
         public string Message { get; set; }
-        [BindProperty]
         public Meal Meal { get; set; }
-        //public IEnumerable<Product> Ingredients { get; set; }
+        [ViewData]
+        public Product Product { get; set; }
+        [ViewData]
+        public IEnumerable<Product> Ingredients { get; set; }
         public DetailsModel(IMealData mealData)
         {
             this.mealData = mealData;
@@ -25,7 +27,14 @@ namespace YAWYE.Pages.Meals
         public void OnGet(int mealId)
         {
             Meal = mealData.GetById(mealId);
-            
+           
+        }
+        public IEnumerable<Product> GetIngredientsl(Meal meal)
+        {
+            var productList = from i in Meal.Ingredients
+                              orderby i.Name
+                              select i;
+            return productList;
         }
     }
 }

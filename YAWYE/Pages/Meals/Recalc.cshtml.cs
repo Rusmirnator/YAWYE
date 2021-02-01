@@ -18,7 +18,7 @@ namespace YAWYE.Pages.Meals
         public Product Product { get; set; }
         [BindProperty]
         public Meal Meal { get; set; }
-        [FromForm]
+        public List<Product> Products { get; set; }
         public double Weight { get; set; }
 
         public RecalcModel(IProductData productData, IMealData mealData)
@@ -34,11 +34,23 @@ namespace YAWYE.Pages.Meals
         }
         public IActionResult OnPost()
         {
-            Product = productData.RecalculateNutritions(Weight, Product.Id);
-            mealData.AddIngredient(Product);
+            
             mealData.Update(Meal);
-            mealData.Commit();
             return RedirectToPage("./UpdateMeal", new { mealId = Meal.Id });
+        }
+        private Product Recomposite(Product product, double weight)
+        {
+            var multiplier = weight / 100;
+            var modProd = product;
+            modProd.Name = "_" + product.Name;
+            modProd.Kcal *= multiplier;
+            modProd.Protein *= multiplier;
+            modProd.Carbohydrates *= multiplier;
+            modProd.Fat *= multiplier;
+            modProd.Fiber *= multiplier;
+            modProd.Price *= multiplier;
+            modProd.Weight *= multiplier;
+            return modProd;
         }
     }
 }

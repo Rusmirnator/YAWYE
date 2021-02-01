@@ -16,14 +16,6 @@
         <tr><td>Barcode: @Model.Product.BarCode</td></tr>
     </table>
     <form method="post" enctype="multipart/form-data">
-        <input type="hidden" asp-for="Product.Id" />
-        <input type="hidden" asp-for="Product.Kcal" />
-        <input type="hidden" asp-for="Product.Protein" />
-        <input type="hidden" asp-for="Product.Carbohydrates" />
-        <input type="hidden" asp-for="Product.Fat" />
-        <input type="hidden" asp-for="Product.Fiber" />
-        <input type="hidden" asp-for="Product.Price" />
-   
         <input type="hidden" asp-for="Meal.Id" />
         <input type="hidden" asp-for="Meal.Name" />
         <input type="hidden" asp-for="Meal.ImgPath" />

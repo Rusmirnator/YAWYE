@@ -21,6 +21,7 @@ namespace YAWYE.Pages.Meals
         public string SearchTerm { get; set; }
         [TempData]
         public string Message { get; set; }
+        [ViewData]
         public IEnumerable<Meal> Meals { get; set; }
         public void OnGet()
         {
