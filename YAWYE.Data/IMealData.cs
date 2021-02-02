@@ -16,6 +16,7 @@ namespace YAWYE.Data
         IEnumerable<Meal> GetMealByName(string name);
         IEnumerable<Meal> GetAll();
         List<Product> AddIngredient(Product product);
+        IEnumerable<Product> FindIngredients(int id);
 
     }
 }

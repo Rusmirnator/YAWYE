@@ -34,7 +34,7 @@ namespace YAWYE.Pages.Meals
         }
         public IActionResult OnPost()
         {
-            
+            Products = mealData.AddIngredient(Product);
             mealData.Update(Meal);
             return RedirectToPage("./UpdateMeal", new { mealId = Meal.Id });
         }

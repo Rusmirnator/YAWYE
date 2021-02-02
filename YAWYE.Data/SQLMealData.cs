@@ -45,6 +45,15 @@ namespace YAWYE.Data
             return meal;
         }
 
+        public IEnumerable<Product> FindIngredients(int id)
+        {
+            var meal = db.Meals.Find(id);
+            var query = from i in meal.Ingredients
+                        orderby i.Name
+                        select i;
+            return query;
+        }
+
         public IEnumerable<Meal> GetAll()
         {
             return from m in db.Meals

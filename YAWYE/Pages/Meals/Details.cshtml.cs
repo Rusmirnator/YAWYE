@@ -27,14 +27,12 @@ namespace YAWYE.Pages.Meals
         public void OnGet(int mealId)
         {
             Meal = mealData.GetById(mealId);
-           
+            if (Meal.Ingredients != null)
+            {
+                Ingredients = mealData.FindIngredients(mealId);
+            }
+
         }
-        public IEnumerable<Product> GetIngredientsl(Meal meal)
-        {
-            var productList = from i in Meal.Ingredients
-                              orderby i.Name
-                              select i;
-            return productList;
-        }
+        
     }
 }
