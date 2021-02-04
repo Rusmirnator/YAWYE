@@ -18,7 +18,7 @@ namespace YAWYE.Data
 
         public List<Product> AddIngredient(Product product)
         {
-            List<Product> Ingredients = new List<Product>();
+            var Ingredients = new List<Product>();
             Ingredients.Add(product);
             return Ingredients;
         }

@@ -13,6 +13,7 @@
     <input type="hidden" asp-for="Meal.Fat" />
     <input type="hidden" asp-for="Meal.Fiber" />
     <input type="hidden" asp-for="Meal.Price" />
+    <input type="hidden" asp-for="Meal.Ingredients" />
 
     <div class="form-group">
         <label asp-for="Meal.Name"></label>
@@ -50,6 +51,10 @@
         </div>
         <button type="submit" class="btn btn-success" asp-route-mealId="@Model.Meal.Id">Save</button>
     </form>
+@if(Model.Message != null)
+{
+    <div class="alert alert-info">@Model.Message</div>
+}
 <style>
     .my-custom-scrollbar {
         position: relative;

@@ -13,10 +13,7 @@ namespace YAWYE.Pages.Meals
     {
         private readonly IProductData productData;
         private readonly IMealData mealData;
-
-        [BindProperty]
         public Product Product { get; set; }
-        [BindProperty]
         public Meal Meal { get; set; }
         public List<Product> Products { get; set; }
         public double Weight { get; set; }
@@ -26,16 +23,48 @@ namespace YAWYE.Pages.Meals
             this.productData = productData;
             this.mealData = mealData;
         }
-        public IActionResult OnGet(int productId, int mealId)
+        public IActionResult OnGet(int productId, int? mealId)
         {
+            if (mealId.HasValue)
+            {
+                Meal = mealData.GetById(mealId.Value);
+            }
+            else
+            {
+                Meal = new Meal();
+            }
             Product = productData.GetById(productId);
-            Meal = mealData.GetById(mealId);
+            
             return Page();
         }
         public IActionResult OnPost()
         {
-            Products = mealData.AddIngredient(Product);
-            mealData.Update(Meal);
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+           
+            if (Meal.Id > 0)
+            {
+                if (Meal.ImgPath == null)
+                {
+                    Meal.ImgPath = "grocerydefault.jpg";
+                }
+                var modprod = Recomposite(Product, Weight);
+                productData.Update(modprod);
+                Products = mealData.AddIngredient(modprod);
+                mealData.Update(Meal);
+            }
+            else
+            {
+                mealData.AddMeal(Meal);
+                Meal.ImgPath = "grocerydefault.jpg";
+                var modprod = Recomposite(Product, Weight);
+                productData.Update(modprod);
+                Products = mealData.AddIngredient(modprod);
+            }
+            mealData.Commit();
+            TempData["Message"] = "Meal saved!";
             return RedirectToPage("./UpdateMeal", new { mealId = Meal.Id });
         }
         private Product Recomposite(Product product, double weight)

@@ -1,0 +1,25 @@
+﻿        <input type="hidden" asp-for="Meal.Id" />
+        <input type="hidden" asp-for="Meal.Name" />
+        <input type="hidden" asp-for="Meal.ImgPath" />
+        <input type="hidden" asp-for="Meal.Weight" />
+        <input type="hidden" asp-for="Meal.Kcal" />
+        <input type="hidden" asp-for="Meal.Protein" />
+        <input type="hidden" asp-for="Meal.Carbohydrates" />
+        <input type="hidden" asp-for="Meal.Fat" />
+        <input type="hidden" asp-for="Meal.Fiber" />
+        <input type="hidden" asp-for="Meal.Price" />
+        <input type="hidden" asp-for="Meal.Ingredients" />
+
+        <input type="hidden" asp-for="Product.Id"/>
+        <input type="hidden" asp-for="Product.Name"/>
+        <input type="hidden" asp-for="Product.Make"/>
+        <input type="hidden" asp-for="Product.Kcal"/>
+        <input type="hidden" asp-for="Product.Protein"/>
+        <input type="hidden" asp-for="Product.Carbohydrates"/>
+        <input type="hidden" asp-for="Product.Fat"/>
+        <input type="hidden" asp-for="Product.Fiber"/>
+        <input type="hidden" asp-for="Product.Price"/>
+        <input type="hidden" asp-for="Product.Weight"/>
+        <input type="hidden" asp-for="Product.BarCode"/>
+        <input type="hidden" asp-for="Product.ImgPath"/>
+        <input type="hidden" asp-for="Product.HasImage"/>

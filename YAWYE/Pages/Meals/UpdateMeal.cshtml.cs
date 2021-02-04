@@ -19,6 +19,8 @@ namespace YAWYE.Pages.Meals
         public Product Product { get; set; }
         [ViewData]
         public IEnumerable<Product> Products { get; set; }
+        [TempData]
+        public string Message { get; set; }
 
 
         public UpdateMealModel(IMealData mealData, IProductData productData)

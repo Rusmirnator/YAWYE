@@ -1,4 +1,4 @@
-﻿@page "{productId:int}/{mealId:int}"
+﻿@page "{productId:int}/{mealId:int?}"
 @model YAWYE.Pages.Meals.RecalcModel
 @{
 }
@@ -16,22 +16,10 @@
         <tr><td>Barcode: @Model.Product.BarCode</td></tr>
     </table>
     <form method="post" enctype="multipart/form-data">
-        <input type="hidden" asp-for="Meal.Id" />
-        <input type="hidden" asp-for="Meal.Name" />
-        <input type="hidden" asp-for="Meal.ImgPath" />
-        <input type="hidden" asp-for="Meal.Weight" />
-        <input type="hidden" asp-for="Meal.Kcal" />
-        <input type="hidden" asp-for="Meal.Protein" />
-        <input type="hidden" asp-for="Meal.Carbohydrates" />
-        <input type="hidden" asp-for="Meal.Fat" />
-        <input type="hidden" asp-for="Meal.Fiber" />
-        <input type="hidden" asp-for="Meal.Price" />
-        <input type="hidden" asp-for="Meal.Ingredients" />
-
         <div class="form-group">
-            <label asp-for="Product.Weight"></label>
+            <label asp-for="Weight"></label>
             <input asp-for="Weight" class="form-control" />
-            <span class="text-danger" asp-validation-for="Product.Weight"></span>
+            <span class="text-danger" asp-validation-for="Weight"></span>
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
