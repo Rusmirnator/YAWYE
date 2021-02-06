@@ -24,14 +24,15 @@ namespace YAWYE.Pages.Meals
             this.mealData = mealData;
         }
 
-        public void OnGet(int mealId)
+        public IActionResult OnGet(int mealId)
         {
             Meal = mealData.GetById(mealId);
+            
             if (Meal.Ingredients != null)
             {
                 Ingredients = mealData.FindIngredients(mealId);
             }
-
+            return Page();
         }
         
     }

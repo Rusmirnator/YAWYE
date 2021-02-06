@@ -37,7 +37,7 @@ namespace YAWYE.Pages.Meals
             
             return Page();
         }
-        public IActionResult OnPost([FromRoute] int productId, [FromRoute] int mealId)
+        public IActionResult OnPost([FromRoute] int productId, [FromRoute] int mealId, [FromForm] double Weight)
         {
             if (!ModelState.IsValid)
             {
@@ -52,10 +52,10 @@ namespace YAWYE.Pages.Meals
                 {
                     Meal.ImgPath = "grocerydefault.jpg";
                 }
-                var modProd = productData.GetById(productId);
+                Product = productData.GetById(productId);
                 var modMeal = Meal;
 
-                Meal = Recomposite(modMeal, modProd, Weight);
+                Meal = Recomposite(modMeal, Product, Weight);
                 Products = mealData.AddIngredient(Product);
                 mealData.Update(Meal);
             }
@@ -63,8 +63,10 @@ namespace YAWYE.Pages.Meals
             {
                 mealData.AddMeal(Meal);
                 Meal.ImgPath = "grocerydefault.jpg";
+
                 var modProd = productData.GetById(productId);
                 var modMeal = Meal;
+
                 Meal = Recomposite(modMeal, modProd, Weight);
                 Products = mealData.AddIngredient(modProd);
             }
