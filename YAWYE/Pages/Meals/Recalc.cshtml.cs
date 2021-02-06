@@ -37,49 +37,54 @@ namespace YAWYE.Pages.Meals
             
             return Page();
         }
-        public IActionResult OnPost()
+        public IActionResult OnPost([FromRoute] int productId, [FromRoute] int mealId)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-           
+
+            Meal = mealData.GetById(mealId);
+
             if (Meal.Id > 0)
             {
                 if (Meal.ImgPath == null)
                 {
                     Meal.ImgPath = "grocerydefault.jpg";
                 }
-                var modprod = Recomposite(Product, Weight);
-                productData.Update(modprod);
-                Products = mealData.AddIngredient(modprod);
+                var modProd = productData.GetById(productId);
+                var modMeal = Meal;
+
+                Meal = Recomposite(modMeal, modProd, Weight);
+                Products = mealData.AddIngredient(Product);
                 mealData.Update(Meal);
             }
             else
             {
                 mealData.AddMeal(Meal);
                 Meal.ImgPath = "grocerydefault.jpg";
-                var modprod = Recomposite(Product, Weight);
-                productData.Update(modprod);
-                Products = mealData.AddIngredient(modprod);
+                var modProd = productData.GetById(productId);
+                var modMeal = Meal;
+                Meal = Recomposite(modMeal, modProd, Weight);
+                Products = mealData.AddIngredient(modProd);
             }
             mealData.Commit();
             TempData["Message"] = "Meal saved!";
             return RedirectToPage("./UpdateMeal", new { mealId = Meal.Id });
         }
-        private Product Recomposite(Product product, double weight)
+        private Meal Recomposite(Meal meal, Product product, double weight)
         {
             var multiplier = weight / 100;
+            var modMeal = meal;
             var modProd = product;
-            modProd.Name = "_" + product.Name;
-            modProd.Kcal *= multiplier;
-            modProd.Protein *= multiplier;
-            modProd.Carbohydrates *= multiplier;
-            modProd.Fat *= multiplier;
-            modProd.Fiber *= multiplier;
-            modProd.Price *= multiplier;
-            modProd.Weight *= multiplier;
-            return modProd;
+            modMeal.Kcal += modProd.Kcal * multiplier;
+            modMeal.Protein += modProd.Protein * multiplier;
+            modMeal.Carbohydrates += modProd.Carbohydrates * multiplier;
+            modMeal.Fat += modProd.Fat * multiplier;
+            modMeal.Fiber += modProd.Fiber * multiplier;
+            modMeal.Price += modProd.Price * multiplier;
+            modMeal.Weight += modProd.Weight * multiplier;
+            return modMeal;
         }
     }
 }
