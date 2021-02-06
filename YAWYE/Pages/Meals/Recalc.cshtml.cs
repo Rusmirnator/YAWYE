@@ -56,7 +56,7 @@ namespace YAWYE.Pages.Meals
                 var modMeal = Meal;
 
                 Meal = Recomposite(modMeal, Product, Weight);
-                Products = mealData.AddIngredient(Product);
+                //Products = mealData.AddIngredient(Product);
                 mealData.Update(Meal);
             }
             else
@@ -68,7 +68,7 @@ namespace YAWYE.Pages.Meals
                 var modMeal = Meal;
 
                 Meal = Recomposite(modMeal, modProd, Weight);
-                Products = mealData.AddIngredient(modProd);
+                //Products = mealData.AddIngredient(modProd);
             }
             mealData.Commit();
             TempData["Message"] = "Meal saved!";

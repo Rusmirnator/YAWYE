@@ -20,38 +20,38 @@
         <input asp-for="Meal.Name" class="form-control" />
         <span class="text-danger" asp-validation-for="Meal.Name"></span>
     </div>
-        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
 
-            <table class="table table-bordered table-striped mb-0">
-                <thead>
+        <table class="table table-bordered table-striped mb-0">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Product Make</th>
+                    <th scope="col">Select</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.Products)
+                {
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Product Make</th>
-                        <th scope="col">Select</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var product in Model.Products)
-                    {
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>@product.Name</td>
-                            <td>@product.Make</td>
-                            <td>
+                        <th scope="row">1</th>
+                        <td>@product.Name</td>
+                        <td>@product.Make</td>
+                        <td>
                             <a class="btn btn-success"
                                asp-page="./Recalc"
                                asp-route-productId="@product.Id"
                                asp-route-mealId="@Model.Meal.Id">Add</a>
-                            </td>
-                        </tr>
-                    }
-                    </tbody>
-            </table>
-        </div>
-        <button type="submit" class="btn btn-success" asp-route-mealId="@Model.Meal.Id">Save</button>
-    </form>
-@if(Model.Message != null)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <button type="submit" class="btn btn-success" asp-route-mealId="@Model.Meal.Id">Save</button>
+</form>
+@if (Model.Message != null)
 {
     <div class="alert alert-info">@Model.Message</div>
 }

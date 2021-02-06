@@ -16,11 +16,13 @@ namespace YAWYE.Data
             this.db = db;
         }
 
-        public List<Product> AddIngredient(Product product)
+        public Dictionary<string, double> AddIngredient(int id, double weight)
         {
-            var Ingredients = new List<Product>();
-            Ingredients.Add(product);
-            return Ingredients;
+            var ingredients = new Dictionary<string, double>();
+            var product = db.Products.Find(id);
+            ingredients.Add(product.Name, weight);
+            return ingredients;
+
         }
 
         public Meal AddMeal(Meal newMeal)
@@ -45,13 +47,15 @@ namespace YAWYE.Data
             return meal;
         }
 
-        public IEnumerable<Product> FindIngredients(int id)
+        public Dictionary<string, double> FindIngredients(int id)
         {
             var meal = db.Meals.Find(id);
-            var query = from i in meal.Ingredients
-                        orderby i.Name
-                        select i;
-            return query;
+            var ingredients = new Dictionary<string, double>();
+            foreach(KeyValuePair<string,double> entry in meal.Ingredients)
+            {
+                ingredients.Add(entry.Key,entry.Value);
+            }
+            return ingredients;
         }
 
         public IEnumerable<Meal> GetAll()
@@ -76,9 +80,19 @@ namespace YAWYE.Data
             return query;
         }
 
-        public Meal RecalculateNutriotions(int id)
+        public Meal Recomposite(Meal meal, Product product, double weight)
         {
-            throw new NotImplementedException();
+            var multiplier = weight / 100;
+            var modMeal = meal;
+            var modProd = product;
+            modMeal.Kcal += modProd.Kcal * multiplier;
+            modMeal.Protein += modProd.Protein * multiplier;
+            modMeal.Carbohydrates += modProd.Carbohydrates * multiplier;
+            modMeal.Fat += modProd.Fat * multiplier;
+            modMeal.Fiber += modProd.Fiber * multiplier;
+            modMeal.Price += modProd.Price * multiplier;
+            modMeal.Weight += modProd.Weight * multiplier;
+            return modMeal;
         }
 
         public Meal Update(Meal updatedMeal)

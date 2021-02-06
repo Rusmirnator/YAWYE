@@ -11,12 +11,12 @@ namespace YAWYE.Data
         Meal AddMeal(Meal newMeal);
         Meal Delete(int id);
         Meal Update(Meal updatedMeal);
-        Meal RecalculateNutriotions(int id);
         int Commit();
         IEnumerable<Meal> GetMealByName(string name);
         IEnumerable<Meal> GetAll();
-        List<Product> AddIngredient(Product product);
-        IEnumerable<Product> FindIngredients(int id);
+        Dictionary<string, double> AddIngredient(int id, double weight);
+        Meal Recomposite(Meal meal, Product product, double weight);
+        Dictionary<string, double> FindIngredients(int id);
 
     }
 }
