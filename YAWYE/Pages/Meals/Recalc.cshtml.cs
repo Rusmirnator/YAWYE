@@ -15,7 +15,6 @@ namespace YAWYE.Pages.Meals
         private readonly IMealData mealData;
         public Product Product { get; set; }
         public Meal Meal { get; set; }
-        public List<Product> Products { get; set; }
         public double Weight { get; set; }
 
         public RecalcModel(IProductData productData, IMealData mealData)
@@ -54,9 +53,11 @@ namespace YAWYE.Pages.Meals
                 }
                 Product = productData.GetById(productId);
                 var modMeal = Meal;
-
-                Meal = Recomposite(modMeal, Product, Weight);
-                //Products = mealData.AddIngredient(Product);
+                if (Weight > 0)
+                {
+                    Meal = mealData.Recomposite(modMeal, Product, Weight);
+                    Meal.Ingredients = mealData.AddIngredient(productId, Weight);
+                }
                 mealData.Update(Meal);
             }
             else
@@ -66,27 +67,15 @@ namespace YAWYE.Pages.Meals
 
                 var modProd = productData.GetById(productId);
                 var modMeal = Meal;
-
-                Meal = Recomposite(modMeal, modProd, Weight);
-                //Products = mealData.AddIngredient(modProd);
+                if (Weight > 0)
+                {
+                    Meal = mealData.Recomposite(modMeal, modProd, Weight);
+                    Meal.Ingredients = mealData.AddIngredient(productId, Weight);
+                }
             }
             mealData.Commit();
             TempData["Message"] = "Meal saved!";
             return RedirectToPage("./UpdateMeal", new { mealId = Meal.Id });
-        }
-        private Meal Recomposite(Meal meal, Product product, double weight)
-        {
-            var multiplier = weight / 100;
-            var modMeal = meal;
-            var modProd = product;
-            modMeal.Kcal += modProd.Kcal * multiplier;
-            modMeal.Protein += modProd.Protein * multiplier;
-            modMeal.Carbohydrates += modProd.Carbohydrates * multiplier;
-            modMeal.Fat += modProd.Fat * multiplier;
-            modMeal.Fiber += modProd.Fiber * multiplier;
-            modMeal.Price += modProd.Price * multiplier;
-            modMeal.Weight += modProd.Weight * multiplier;
-            return modMeal;
         }
     }
 }
