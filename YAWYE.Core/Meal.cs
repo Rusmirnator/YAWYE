@@ -22,5 +22,6 @@ namespace YAWYE.Core
         public double Price { get; set; }
         public double Weight { get; set; }
         public string ImgPath { get; set; }
+        public Product Product { get; set; }
     }
 }

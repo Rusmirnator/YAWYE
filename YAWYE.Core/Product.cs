@@ -25,8 +25,6 @@ namespace YAWYE.Core
         public int BarCode { get; set; }
         public string ImgPath { get; set; } 
         public bool HasImage { get; set; }
-        public int  MealId { get; set; }
-        public Meal Meal { get; set; }
 
     }
 }

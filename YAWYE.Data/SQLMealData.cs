@@ -15,9 +15,15 @@ namespace YAWYE.Data
             this.db = db;
         }
 
-        public List<Product> AddIngredient(int id, double weight)
+        public List<Product> AddIngredient(int ProductId)
         {
-            throw new System.NotImplementedException();
+            var product = db.Products.Find(ProductId);
+            var Ingredients = new List<Product>();
+            Ingredients.Add(product);
+            return Ingredients;
+
+
+
         }
 
         public Meal AddMeal(Meal newMeal)
@@ -41,9 +47,13 @@ namespace YAWYE.Data
             return meal;
         }
 
-        public IEnumerable<Product> FindIngredients(int id)
+        public IEnumerable<Product> FindIngredients(int MealId)
         {
-            throw new System.NotImplementedException();
+            var meal = db.Meals.Find(MealId);
+            var query = from m in meal.Products
+                        orderby m.Name
+                        select m;
+            return query;
         }
 
         public IEnumerable<Meal> GetAll()
