@@ -9,9 +9,9 @@ namespace YAWYE.Core
     public class Meal
     {
         
-        public int Id { get; set; }
+        public int MealId { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
-        public List<Product> Ingredients { get; set; }
+        public List<Product> Products { get; set; }
         [Required]
         public string Name { get; set; }
         public double Kcal { get; set; }

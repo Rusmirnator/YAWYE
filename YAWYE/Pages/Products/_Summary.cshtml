@@ -14,17 +14,17 @@
     <div class="panel-footer">
         <a class="btn btn-primary"
            asp-page="./Details"
-           asp-route-productId="@Model.Id">
+           asp-route-productId="@Model.ProductId">
             <i class="glyphicon glyphicon-zoom-in">Show details</i>
         </a>
         <a class="btn btn-warning"
            asp-page="./UpdateProduct"
-           asp-route-productId="@Model.Id">
+           asp-route-productId="@Model.ProductId">
             <i class="glyphicon glyphicon-edit">Edit</i>
         </a>
         <a class="btn btn-danger"
            asp-page="./Delete"
-           asp-route-productId="@Model.Id">
+           asp-route-productId="@Model.ProductId">
             <i class="glyphicon glyphicon-trash">Delete</i>
         </a>
     </div>

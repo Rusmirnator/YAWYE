@@ -9,7 +9,7 @@ namespace YAWYE.Core
     public class Product
     {
 
-        public int Id { get; set; }
+        public int ProductId { get; set; }
         public double Weight { get; set; } = 100;
         [Required, StringLength(50)]
         public string Name { get; set; }
@@ -25,10 +25,8 @@ namespace YAWYE.Core
         public int BarCode { get; set; }
         public string ImgPath { get; set; } 
         public bool HasImage { get; set; }
-        public int MealId { get; set; }
+        public int  MealId { get; set; }
         public Meal Meal { get; set; }
-
-
 
     }
 }

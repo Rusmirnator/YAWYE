@@ -27,7 +27,7 @@ namespace YAWYE.Pages.Meals
             Meal = mealData.GetById(mealId);
 
             
-            if (Meal.Ingredients != null)
+            if (Meal.Products != null)
             {
                //Ingredients = mealData.FindIngredients(mealId);
             }

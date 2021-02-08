@@ -62,7 +62,7 @@ namespace YAWYE.Pages.Meals
 
             mealData.Commit();
             TempData["Message"] = "Meal saved!";
-            return RedirectToPage("./UpdateMeal", new { mealId = Meal.Id });
+            return RedirectToPage("./UpdateMeal", new { mealId = Meal.MealId });
         }
     }
 }

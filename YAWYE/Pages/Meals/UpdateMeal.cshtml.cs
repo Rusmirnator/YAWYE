@@ -52,7 +52,7 @@ namespace YAWYE.Pages.Meals
             {
                 return Page();
             }
-            if (Meal.Id > 0)
+            if (Meal.MealId > 0)
             {
                 if (Meal.ImgPath == null)
                 {
@@ -67,7 +67,7 @@ namespace YAWYE.Pages.Meals
             }
             mealData.Commit();
             TempData["Message"] = "Meal saved!";
-            return RedirectToPage("./Details", new { mealId = Meal.Id });
+            return RedirectToPage("./Details", new { mealId = Meal.MealId });
 
         }
     }

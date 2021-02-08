@@ -53,7 +53,7 @@ namespace YAWYE.Pages.Products
             {
                 return Page();
             }
-            if (Product.Id > 0)
+            if (Product.ProductId > 0)
             {
                 if (Product.ImgPath == null)
                 {
@@ -70,7 +70,7 @@ namespace YAWYE.Pages.Products
 
             productData.Commit();
             TempData["Message"] = "Product saved!";
-            return RedirectToPage("./Details", new { productId = Product.Id });
+            return RedirectToPage("./Details", new { productId = Product.ProductId });
 
         }
         public string AddImageFromFile()

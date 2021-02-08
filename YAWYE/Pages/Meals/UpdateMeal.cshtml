@@ -4,7 +4,7 @@
 }
 
 <form method="post" enctype="multipart/form-data">
-    <input type="hidden" asp-for="Meal.Id" />
+    <input type="hidden" asp-for="Meal.MealId" />
     <input type="hidden" asp-for="Meal.ImgPath" />
     <input type="hidden" asp-for="Meal.Weight" />
     <input type="hidden" asp-for="Meal.Kcal" />
@@ -13,14 +13,14 @@
     <input type="hidden" asp-for="Meal.Fat" />
     <input type="hidden" asp-for="Meal.Fiber" />
     <input type="hidden" asp-for="Meal.Price" />
-    <input type="hidden" asp-for="Meal.Ingredients" />
+    <input type="hidden" asp-for="Meal.Products" />
 
     <div class="form-group">
         <label asp-for="Meal.Name"></label>
         <input asp-for="Meal.Name" class="form-control" />
         <span class="text-danger" asp-validation-for="Meal.Name"></span>
     </div>
-    @if (Model.Meal.Id > 0)
+    @if (Model.Meal.MealId > 0)
     {
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
 
@@ -44,8 +44,8 @@
                         <td>
                             <a class="btn btn-success"
                                asp-page="./Recalc"
-                               asp-route-productId="@product.Id"
-                               asp-route-mealId="@Model.Meal.Id">Add</a>
+                               asp-route-productId="@product.ProductId"
+                               asp-route-mealId="@Model.Meal.MealId">Add</a>
                         </td>
                     </tr>
                 }
@@ -53,7 +53,7 @@
         </table>
     </div>
     }
-    <button type="submit" class="btn btn-success" asp-route-mealId="@Model.Meal.Id">Save</button>
+    <button type="submit" class="btn btn-success" asp-route-mealId="@Model.Meal.MealId">Save</button>
 </form>
 @if (Model.Message != null)
 {
