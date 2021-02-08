@@ -49,7 +49,7 @@ namespace YAWYE.Data
         public IEnumerable<Meal> GetAll()
         {
             return from m in db.Meals
-                   orderby m.Id
+                   orderby m.MealId
                    select m;
         }
 

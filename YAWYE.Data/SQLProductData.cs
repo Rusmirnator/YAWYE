@@ -43,7 +43,7 @@ namespace YAWYE.Data
         public IEnumerable<Product> GetAll()
         {
             return from p in db.Products
-                   orderby p.Id
+                   orderby p.ProductId
                    select p;
         }
 
