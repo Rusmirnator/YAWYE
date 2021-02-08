@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace YAWYE.Core
@@ -25,7 +26,7 @@ namespace YAWYE.Core
         public int BarCode { get; set; }
         public string ImgPath { get; set; } 
         public bool HasImage { get; set; }
-        public int MealId { get; set; }
+        [ForeignKey("MealId")]
         public Meal Meal { get; set; }
 
     }

@@ -57,6 +57,7 @@ namespace YAWYE.Pages.Meals
                 //Meal = mealData.Recomposite(modMeal, Product, Weight);
                 Products = mealData.AddIngredient(productId);
                 Meal.Products = Products;
+                Meal.IsModified++;
             }
             mealData.Update(Meal);
 
