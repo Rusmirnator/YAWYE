@@ -16,6 +16,7 @@ namespace YAWYE.Pages.Meals
         public Product Product { get; set; }
         public Meal Meal { get; set; }
         public double Weight { get; set; }
+        public string Products { get; set; }
 
         public RecalcModel(IProductData productData, IMealData mealData)
         {
@@ -30,10 +31,10 @@ namespace YAWYE.Pages.Meals
             }
             else
             {
-                Meal = new Meal();
+                return RedirectToPage("./NotFound");
             }
             Product = productData.GetById(productId);
-            
+
             return Page();
         }
         public IActionResult OnPost([FromRoute] int productId, [FromRoute] int mealId, [FromForm] double Weight)
@@ -45,34 +46,20 @@ namespace YAWYE.Pages.Meals
 
             Meal = mealData.GetById(mealId);
 
-            if (Meal.Id > 0)
+            if (Meal.ImgPath == null)
             {
-                if (Meal.ImgPath == null)
-                {
-                    Meal.ImgPath = "grocerydefault.jpg";
-                }
-                Product = productData.GetById(productId);
-                var modMeal = Meal;
-                if (Weight > 0)
-                {
-                    Meal = mealData.Recomposite(modMeal, Product, Weight);
-                    Meal.Ingredients = mealData.AddIngredient(productId, Weight);
-                }
-                mealData.Update(Meal);
-            }
-            else
-            {
-                mealData.AddMeal(Meal);
                 Meal.ImgPath = "grocerydefault.jpg";
-
-                var modProd = productData.GetById(productId);
-                var modMeal = Meal;
-                if (Weight > 0)
-                {
-                    Meal = mealData.Recomposite(modMeal, modProd, Weight);
-                    Meal.Ingredients = mealData.AddIngredient(productId, Weight);
-                }
             }
+            Product = productData.GetById(productId);
+            var modMeal = Meal;
+            if (Weight > 0)
+            {
+                Meal = mealData.Recomposite(modMeal, Product, Weight);
+                //Products = mealData.AddIngredient(productId, Weight);
+                //Meal.Ingredients += Products;
+            }
+            mealData.Update(Meal);
+
             mealData.Commit();
             TempData["Message"] = "Meal saved!";
             return RedirectToPage("./UpdateMeal", new { mealId = Meal.Id });

@@ -16,7 +16,7 @@ namespace YAWYE.Pages.Meals
         public string Message { get; set; }
         public Meal Meal { get; set; }
         [ViewData]
-        public Dictionary<string, double> Ingredients { get; set; }
+        public Dictionary<int, double> Ingredients { get; set; }
         public DetailsModel(IMealData mealData)
         {
             this.mealData = mealData;
@@ -25,10 +25,11 @@ namespace YAWYE.Pages.Meals
         public IActionResult OnGet(int mealId)
         {
             Meal = mealData.GetById(mealId);
+
             
             if (Meal.Ingredients != null)
             {
-               Ingredients = mealData.FindIngredients(mealId);
+               //Ingredients = mealData.FindIngredients(mealId);
             }
             return Page();
         }

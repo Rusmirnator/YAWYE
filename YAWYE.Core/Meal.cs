@@ -8,11 +8,10 @@ namespace YAWYE.Core
 {
     public class Meal
     {
+        
         public int Id { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
-        [NotMapped]
-        public Dictionary<string, double> Ingredients { get; set; }
-
+        public List<Product> Ingredients { get; set; }
         [Required]
         public string Name { get; set; }
         public double Kcal { get; set; }

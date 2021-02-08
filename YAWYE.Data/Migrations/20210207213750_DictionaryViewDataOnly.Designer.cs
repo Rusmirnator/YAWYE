@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YAWYE.Data;
 
 namespace YAWYE.Data.Migrations
 {
     [DbContext(typeof(YAWYEDbContext))]
-    partial class YAWYEDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210207213750_DictionaryViewDataOnly")]
+    partial class DictionaryViewDataOnly
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,6 +38,9 @@ namespace YAWYE.Data.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("ImgPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ingredients")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Kcal")
@@ -97,9 +102,6 @@ namespace YAWYE.Data.Migrations
                         .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
-                    b.Property<int>("MealId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
@@ -116,8 +118,6 @@ namespace YAWYE.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MealId");
-
                     b.ToTable("Products");
                 });
 
@@ -126,15 +126,6 @@ namespace YAWYE.Data.Migrations
                     b.HasOne("YAWYE.Core.Meal", null)
                         .WithMany("Meals")
                         .HasForeignKey("MealId");
-                });
-
-            modelBuilder.Entity("YAWYE.Core.Product", b =>
-                {
-                    b.HasOne("YAWYE.Core.Meal", "Meal")
-                        .WithMany("Ingredients")
-                        .HasForeignKey("MealId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

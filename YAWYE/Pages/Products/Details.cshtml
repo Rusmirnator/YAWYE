@@ -6,7 +6,7 @@
 <h2>@Model.Product.Name</h2>
 <img src="~/Images/@Model.Product.ImgPath" class="img img-thumbnail" width="200" height="200" alt="@Model.Product.Name" />
 <div class="panel-body">
-    <h6> Nutritionts per 100g</h6>
+    <h6> Nutritionts per @Model.Product.Weight</h6>
     <table class="table table-sm">
         <tr><td>Kcal: @Model.Product.Kcal </td></tr>
         <tr><td>Protein: @Model.Product.Protein g </td></tr>

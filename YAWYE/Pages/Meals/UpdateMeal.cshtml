@@ -20,6 +20,8 @@
         <input asp-for="Meal.Name" class="form-control" />
         <span class="text-danger" asp-validation-for="Meal.Name"></span>
     </div>
+    @if (Model.Meal.Id > 0)
+    {
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
 
         <table class="table table-bordered table-striped mb-0">
@@ -32,6 +34,7 @@
                 </tr>
             </thead>
             <tbody>
+                
                 @foreach (var product in Model.Products)
                 {
                     <tr>
@@ -49,6 +52,7 @@
             </tbody>
         </table>
     </div>
+    }
     <button type="submit" class="btn btn-success" asp-route-mealId="@Model.Meal.Id">Save</button>
 </form>
 @if (Model.Message != null)

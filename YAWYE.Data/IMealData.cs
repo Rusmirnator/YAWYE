@@ -14,9 +14,9 @@ namespace YAWYE.Data
         int Commit();
         IEnumerable<Meal> GetMealByName(string name);
         IEnumerable<Meal> GetAll();
-        Dictionary<string, double> AddIngredient(int id, double weight);
+        List<Product> AddIngredient(int id, double weight);
         Meal Recomposite(Meal meal, Product product, double weight);
-        Dictionary<string, double> FindIngredients(int id);
+        IEnumerable<Product> FindIngredients(int id);
 
     }
 }

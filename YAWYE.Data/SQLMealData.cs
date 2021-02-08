@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using YAWYE.Core;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace YAWYE.Data
 {
@@ -16,13 +15,9 @@ namespace YAWYE.Data
             this.db = db;
         }
 
-        public Dictionary<string, double> AddIngredient(int id, double weight)
+        public List<Product> AddIngredient(int id, double weight)
         {
-            var ingredients = new Dictionary<string, double>();
-            var product = db.Products.Find(id);
-            ingredients.Add(product.Name, weight);
-            return ingredients;
-
+            throw new System.NotImplementedException();
         }
 
         public Meal AddMeal(Meal newMeal)
@@ -30,7 +25,6 @@ namespace YAWYE.Data
             db.Add(newMeal);
             return newMeal;
         }
-
 
         public int Commit()
         {
@@ -47,15 +41,9 @@ namespace YAWYE.Data
             return meal;
         }
 
-        public Dictionary<string, double> FindIngredients(int id)
+        public IEnumerable<Product> FindIngredients(int id)
         {
-            var meal = db.Meals.Find(id);
-            var ingredients = new Dictionary<string, double>();
-            foreach(KeyValuePair<string,double> entry in meal.Ingredients)
-            {
-                ingredients.Add(entry.Key,entry.Value);
-            }
-            return ingredients;
+            throw new System.NotImplementedException();
         }
 
         public IEnumerable<Meal> GetAll()
