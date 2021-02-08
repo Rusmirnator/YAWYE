@@ -11,7 +11,6 @@ namespace YAWYE.Core
         
         public int MealId { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
-        public List<Product> Products { get; set; }
         [Required]
         public string Name { get; set; }
         public double Kcal { get; set; }
@@ -22,6 +21,6 @@ namespace YAWYE.Core
         public double Price { get; set; }
         public double Weight { get; set; }
         public string ImgPath { get; set; }
-        public Product Product { get; set; }
+        public List<Product> Products { get; set; }
     }
 }

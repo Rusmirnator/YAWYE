@@ -16,7 +16,7 @@ namespace YAWYE.Pages.Meals
         public Product Product { get; set; }
         public Meal Meal { get; set; }
         public double Weight { get; set; }
-        public string Products { get; set; }
+        public List<Product> Products { get; set; }
 
         public RecalcModel(IProductData productData, IMealData mealData)
         {
@@ -54,9 +54,9 @@ namespace YAWYE.Pages.Meals
             var modMeal = Meal;
             if (Weight > 0)
             {
-                Meal = mealData.Recomposite(modMeal, Product, Weight);
-                //Products = mealData.AddIngredient(productId, Weight);
-                //Meal.Ingredients += Products;
+                //Meal = mealData.Recomposite(modMeal, Product, Weight);
+                Products = mealData.AddIngredient(productId);
+                Meal.Products = Products;
             }
             mealData.Update(Meal);
 
