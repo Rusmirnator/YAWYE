@@ -16,7 +16,7 @@ namespace YAWYE.Data
         IEnumerable<Meal> GetAll();
         List<Product> AddIngredient(int id);
         Meal Recomposite(Meal meal, Product product, double weight);
-        IEnumerable<Product> FindIngredients(int id);
+        ICollection<Product> FindIngredients(Meal meal);
 
     }
 }

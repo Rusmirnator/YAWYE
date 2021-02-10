@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using YAWYE.Core;
 using YAWYE.Data;
 
@@ -15,8 +16,7 @@ namespace YAWYE.Pages.Meals
         [TempData]
         public string Message { get; set; }
         public Meal Meal { get; set; }
-        [ViewData]
-        public IEnumerable<Product> Ingredients { get; set; }
+        public ICollection<Product> Ingredients { get; set; }
         public DetailsModel(IMealData mealData)
         {
             this.mealData = mealData;
@@ -28,10 +28,11 @@ namespace YAWYE.Pages.Meals
 
             if (Meal.Products != null)
             {
-               Ingredients = mealData.FindIngredients(mealId);
+                Ingredients = mealData.FindIngredients(Meal).ToList();
             }
             return Page();
         }
+        
         
     }
 }

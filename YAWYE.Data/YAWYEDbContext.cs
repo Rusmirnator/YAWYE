@@ -8,6 +8,7 @@ namespace YAWYE.Data
 {
     public class YAWYEDbContext : DbContext
     {
+
         public YAWYEDbContext(DbContextOptions<YAWYEDbContext> options) : base(options)
         {
 
