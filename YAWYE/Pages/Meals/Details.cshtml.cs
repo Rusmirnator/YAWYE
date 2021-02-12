@@ -13,6 +13,7 @@ namespace YAWYE.Pages.Meals
     public class DetailsModel : PageModel
     {
         private readonly IMealData mealData;
+
         [TempData]
         public string Message { get; set; }
         public Meal Meal { get; set; }
@@ -26,13 +27,14 @@ namespace YAWYE.Pages.Meals
         {
             Meal = mealData.GetById(mealId);
 
+            Ingredients = Meal.Products.ToList();
             if (Meal.Products != null)
             {
-                Ingredients = mealData.FindIngredients(Meal).ToList();
+                //Ingredients = mealData.FindIngredients(Meal).ToList();
             }
             return Page();
         }
-        
-        
+
+
     }
 }
