@@ -17,11 +17,14 @@
     </table>
     @if (Model.Meal.Products != null)
     {
-        <table>
-            @foreach (var ingredient in Model.Meal.Products)
-            {
-                <tr><td>@ingredient.Name</td></tr>
-            }
+        <table class="table table-info">
+            <thead>Ingredients:</thead>
+            <tbody class="alert-success">
+                @foreach (var ingredient in Model.Meal.Products)
+                {
+                    <tr><td>@ingredient.Name</td></tr>
+                }
+            </tbody>
         </table>
     }
 </div>

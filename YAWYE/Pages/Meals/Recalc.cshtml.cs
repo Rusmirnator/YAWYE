@@ -17,6 +17,7 @@ namespace YAWYE.Pages.Meals
         public Meal Meal { get; set; }
         public double Weight { get; set; }
         public List<Product> Products { get; set; }
+        public IEnumerable<Meal> Meals { get; set; }
 
         public RecalcModel(IProductData productData, IMealData mealData)
         {
@@ -45,20 +46,28 @@ namespace YAWYE.Pages.Meals
             }
 
             Meal = mealData.GetById(mealId);
+            Meals = mealData.FindIngredients(Meal);
+            Product = productData.GetById(productId);
+            var modMeal = Meal;
 
             if (Meal.ImgPath == null)
             {
                 Meal.ImgPath = "grocerydefault.jpg";
             }
-            Product = productData.GetById(productId);
-            var modMeal = Meal;
+
             if (Weight > 0)
             {
-                //Meal = mealData.Recomposite(modMeal, Product, Weight);
+                Meal = mealData.Recomposite(modMeal, Product, Weight);
                 Products = mealData.AddIngredient(productId);
                 Meal.Products = Products;
                 Meal.IsModified++;
             }
+            else if (Weight < 0)
+            {
+                Meal = mealData.Recomposite(modMeal, Product, Weight);
+                Meal.Products.Remove(Product);
+            }
+
             mealData.Update(Meal);
 
             mealData.Commit();

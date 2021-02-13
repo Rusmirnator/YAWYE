@@ -21,9 +21,31 @@ namespace YAWYE.Data
             var Ingredients = new List<Product>();
             Ingredients.Add(product);
             return Ingredients;
+        }
 
+        public string AddIngredientWeight(int id, double weight, string sequence)
+        {
+            var datasequence = sequence;
+            var a = 0;
+            var b = 0;
 
-
+            if (weight > 0)
+            {
+                datasequence += id.ToString() + "_" + weight.ToString() + " ";
+            }
+            else
+            {
+                for (var i = 0; i < datasequence.Length; i++)
+                {
+                    if (datasequence[i].Equals(id.ToString()[i]) && datasequence[i + 1].Equals(id.ToString()[i + 1]))
+                    {
+                        a = i;
+                        b = i + 6;
+                    }
+                }
+                datasequence.Remove(a, b);
+            }
+            return datasequence;
         }
 
         public Meal AddMeal(Meal newMeal)

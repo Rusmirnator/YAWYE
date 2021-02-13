@@ -17,6 +17,7 @@ namespace YAWYE.Data
         List<Product> AddIngredient(int id);
         Meal Recomposite(Meal meal, Product product, double weight);
         IEnumerable<Meal> FindIngredients(Meal meal);
+        string AddIngredientWeight(int id, double weight, string sequence);
 
     }
 }

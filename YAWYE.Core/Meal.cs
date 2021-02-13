@@ -22,6 +22,7 @@ namespace YAWYE.Core
         public double Weight { get; set; }
         public string ImgPath { get; set; }
         public int IsModified { get; set; }
+        public string Weights { get; set; }
         public ICollection<Product> Products { get; set; }
     }
 }
