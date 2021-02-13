@@ -15,10 +15,10 @@
         <tr><td>Fiber: @Model.Meal.Fiber g </td></tr>
         <tr><td>Price: @Model.Meal.Price PLN </td></tr>
     </table>
-    @if (Model.Ingredients != null)
+    @if (Model.Meal.Products != null)
     {
         <table>
-            @foreach (var ingredient in Model.Ingredients)
+            @foreach (var ingredient in Model.Meal.Products)
             {
                 <tr><td>@ingredient.Name</td></tr>
             }

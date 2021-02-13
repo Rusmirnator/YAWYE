@@ -51,8 +51,7 @@ namespace YAWYE.Data
         {
             var Meal = meal;
             var query = db.Meals
-                .Include(Meal => Meal.Products)
-                .ToList();
+                .Include(Meal => Meal.Products).ToList();
             return query;
         }
 
