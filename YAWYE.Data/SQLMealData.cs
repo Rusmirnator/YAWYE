@@ -26,24 +26,20 @@ namespace YAWYE.Data
         public string AddIngredientWeight(int id, double weight, string sequence)
         {
             var datasequence = sequence;
-            var a = 0;
-            var b = 0;
-
-            if (weight > 0)
+            
+            var wanted = "#" + id.ToString() +"_";
+            if (!datasequence.Contains(wanted))
             {
-                datasequence += id.ToString() + "_" + weight.ToString() + " ";
+                if (weight > 0)
+                {
+                    datasequence += "#" + id.ToString() + "_" + weight.ToString() + " ";
+                }
             }
             else
             {
-                for (var i = 0; i < datasequence.Length; i++)
-                {
-                    if (datasequence[i].Equals(id.ToString()[i]) && datasequence[i + 1].Equals(id.ToString()[i + 1]))
-                    {
-                        a = i;
-                        b = i + 6;
-                    }
-                }
-                datasequence.Remove(a, b);
+                var start = datasequence.IndexOf(wanted.First());
+                var chars = wanted.Length == 3 ? 6 : 7;
+                datasequence = sequence.Remove(start,chars);
             }
             return datasequence;
         }
@@ -75,6 +71,26 @@ namespace YAWYE.Data
             var query = db.Meals
                 .Include(Meal => Meal.Products).ToList();
             return query;
+        }
+
+        public double FindProductWeight(int id, string sequence)
+        {
+            double result = 0;
+            var ids = id.ToString();
+            var weight = "";
+            var wanted = "#" + id.ToString() + "_";
+            var datasequence = sequence;
+            if(sequence.Contains(wanted))
+            {
+                var initialStart = sequence.IndexOf(wanted.First());
+                var actualStart = initialStart + (ids.Length == 3 ? 2 : 3);
+                var end = datasequence.Length - actualStart;
+
+                weight = datasequence.Substring(actualStart,end);
+                result = double.Parse(weight);
+                }
+
+            return result;
         }
 
         public IEnumerable<Meal> GetAll()

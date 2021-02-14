@@ -18,6 +18,7 @@
     <form method="post" enctype="multipart/form-data">
         <input type="hidden" asp-for="Meal.MealId"/>
         <input type="hidden" asp-for="Product.ProductId" />
+        <input type="hidden" asp-for="Meal.Weights" />
         <div class="form-group">
             <label asp-for="Weight"></label>
             <input asp-for="Weight" class="form-control" />

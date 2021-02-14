@@ -18,6 +18,7 @@ namespace YAWYE.Pages.Meals
         public double Weight { get; set; }
         public List<Product> Products { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
+        public string ProductWeights { get; set; }
 
         public RecalcModel(IProductData productData, IMealData mealData)
         {
@@ -57,14 +58,20 @@ namespace YAWYE.Pages.Meals
 
             if (Weight > 0)
             {
+
                 Meal = mealData.Recomposite(modMeal, Product, Weight);
                 Products = mealData.AddIngredient(productId);
+                ProductWeights = mealData.AddIngredientWeight(productId, Weight, Meal.Weights);
                 Meal.Products = Products;
-                Meal.IsModified++;
+                Meal.Weights = ProductWeights;
+                Meal.IsModified++; //developement variable, to make sure EntityState changes
             }
-            else if (Weight < 0)
+            else if (Weight == 0)
             {
+                Weight = mealData.FindProductWeight(productId, Meal.Weights)*-1;
                 Meal = mealData.Recomposite(modMeal, Product, Weight);
+                ProductWeights = mealData.AddIngredientWeight(productId, Weight, Meal.Weights);
+                Meal.Weights = ProductWeights;
                 Meal.Products.Remove(Product);
             }
 
