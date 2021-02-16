@@ -14,11 +14,11 @@ namespace YAWYE.Data
         int Commit();
         IEnumerable<Meal> GetMealByName(string name);
         IEnumerable<Meal> GetAll();
-        List<Product> AddIngredient(int id);
-        Meal Recomposite(Meal meal, Product product, double weight);
+        List<Product> AddIngredient(int pId, int mId);
+        Meal Recomposite(Meal meal, Product product, decimal weight);
         IEnumerable<Meal> FindIngredients(Meal meal);
-        string AddIngredientWeight(int id, double weight, string sequence);
-        double FindProductWeight(int id,string sequence);
+        string AddIngredientWeight(int id, decimal weight, string sequence);
+        decimal FindProductWeight(int id,string sequence);
 
     }
 }

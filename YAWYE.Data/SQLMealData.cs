@@ -15,29 +15,30 @@ namespace YAWYE.Data
             this.db = db;
         }
 
-        public List<Product> AddIngredient(int ProductId)
+        public List<Product> AddIngredient(int ProductId, int MealId)
         {
             var product = db.Products.Find(ProductId);
-            var Ingredients = new List<Product>();
+            var meal = db.Meals.Find(MealId);
+            var Ingredients = meal.Products.ToList();
             Ingredients.Add(product);
             return Ingredients;
         }
 
-        public string AddIngredientWeight(int id, double weight, string sequence)
+        public string AddIngredientWeight(int id, decimal weight, string sequence)
         {
-            var datasequence = sequence;
+            var datasequence = sequence == null ? "" : sequence;
             
             var wanted = "#" + id.ToString() +"_";
             if (!datasequence.Contains(wanted))
             {
                 if (weight > 0)
                 {
-                    datasequence += "#" + id.ToString() + "_" + weight.ToString() + " ";
+                    datasequence += "#" + id.ToString() + "_" + weight.ToString() + "   ";
                 }
             }
             else
             {
-                var start = datasequence.IndexOf(wanted.First());
+                var start = datasequence.IndexOf(wanted);
                 var chars = wanted.Length == 3 ? 6 : 7;
                 datasequence = sequence.Remove(start,chars);
             }
@@ -57,12 +58,17 @@ namespace YAWYE.Data
 
         public Meal Delete(int id)
         {
-            var meal = GetById(id);
-            if (meal != null)
+            var Meal = db.Meals
+                .Where(mid => mid.MealId == id)
+                .OrderBy(e => e.Name)
+                .Include(e => e.Products)
+                .First();
+
+            if (Meal != null)
             {
-                db.Meals.Remove(meal);
+                db.Meals.Remove(Meal);
             }
-            return meal;
+            return Meal;
         }
 
         public IEnumerable<Meal> FindIngredients(Meal meal)
@@ -73,22 +79,22 @@ namespace YAWYE.Data
             return query;
         }
 
-        public double FindProductWeight(int id, string sequence)
+        public decimal FindProductWeight(int id, string sequence)
         {
-            double result = 0;
+            decimal result = 0;
             var ids = id.ToString();
-            var weight = "";
+            var weight = string.Empty;
             var wanted = "#" + id.ToString() + "_";
             var datasequence = sequence;
             if(sequence.Contains(wanted))
             {
-                var initialStart = sequence.IndexOf(wanted.First());
-                var actualStart = initialStart + (ids.Length == 3 ? 2 : 3);
-                var end = datasequence.Length - actualStart;
+                var initialStart = sequence.IndexOf(wanted);
+                var actualStart = initialStart + wanted.Length; //#1_22 #22_33 #123_23
+                var end = 3;
 
                 weight = datasequence.Substring(actualStart,end);
-                result = double.Parse(weight);
-                }
+                result = decimal.Parse(weight);
+            }
 
             return result;
         }
@@ -115,7 +121,7 @@ namespace YAWYE.Data
             return query;
         }
 
-        public Meal Recomposite(Meal meal, Product product, double weight)
+        public Meal Recomposite(Meal meal, Product product, decimal weight)
         {
             var multiplier = weight / 100;
             var modMeal = meal;

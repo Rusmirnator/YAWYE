@@ -2,10 +2,10 @@
 @model YAWYE.Pages.Products.UpdateProductModel
 @{
 }
-
 <form method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Product.ProductId" />
     <input type="hidden" asp-for="Product.ImgPath" />
+    <input type="hidden" asp-for="Product.Weight" />
     <div class="form-group">
         <label asp-for="Product.Name"></label>
         <input asp-for="Product.Name" class="form-control" />
@@ -52,9 +52,9 @@
         <span class="text-danger" asp-validation-for="Product.BarCode"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Product.Weight"></label>
-        <input asp-for="Product.Weight" class="form-control" />
-        <span class="text-danger" asp-validation-for="Product.Weight"></span>
+        <label asp-for="Product.TotalWeight"></label>
+        <input asp-for="Product.TotalWeight" class="form-control" />
+        <span class="text-danger" asp-validation-for="Product.TotalWeight"></span>
     </div>
 
     @if (Model.Product.ImgPath == null)

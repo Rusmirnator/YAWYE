@@ -13,13 +13,13 @@ namespace YAWYE.Core
         public IEnumerable<Meal> Meals { get; set; }
         [Required]
         public string Name { get; set; }
-        public double Kcal { get; set; }
-        public double Protein { get; set; }
-        public double Carbohydrates { get; set; }
-        public double Fat { get; set; }
-        public double Fiber { get; set; }
-        public double Price { get; set; }
-        public double Weight { get; set; }
+        public decimal Kcal { get; set; }
+        public decimal Protein { get; set; }
+        public decimal Carbohydrates { get; set; }
+        public decimal Fat { get; set; }
+        public decimal Fiber { get; set; }
+        public decimal Price { get; set; }
+        public decimal Weight { get; set; }
         public string ImgPath { get; set; }
         public int IsModified { get; set; }
         public string Weights { get; set; }

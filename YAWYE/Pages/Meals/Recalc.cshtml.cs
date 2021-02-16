@@ -15,7 +15,7 @@ namespace YAWYE.Pages.Meals
         private readonly IMealData mealData;
         public Product Product { get; set; }
         public Meal Meal { get; set; }
-        public double Weight { get; set; }
+        public decimal Weight { get; set; }
         public List<Product> Products { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
         public string ProductWeights { get; set; }
@@ -39,7 +39,7 @@ namespace YAWYE.Pages.Meals
 
             return Page();
         }
-        public IActionResult OnPost([FromRoute] int productId, [FromRoute] int mealId, [FromForm] double Weight)
+        public IActionResult OnPost([FromRoute] int productId, [FromRoute] int mealId, [FromForm] decimal Weight)
         {
             if (!ModelState.IsValid)
             {
@@ -60,7 +60,7 @@ namespace YAWYE.Pages.Meals
             {
 
                 Meal = mealData.Recomposite(modMeal, Product, Weight);
-                Products = mealData.AddIngredient(productId);
+                Products = mealData.AddIngredient(productId, mealId);
                 ProductWeights = mealData.AddIngredientWeight(productId, Weight, Meal.Weights);
                 Meal.Products = Products;
                 Meal.Weights = ProductWeights;
@@ -68,7 +68,11 @@ namespace YAWYE.Pages.Meals
             }
             else if (Weight == 0)
             {
-                Weight = mealData.FindProductWeight(productId, Meal.Weights)*-1;
+                if (Meal.Weights != null)
+                {
+                    Weight = mealData.FindProductWeight(productId, Meal.Weights);
+                    Weight *= -1;
+                }
                 Meal = mealData.Recomposite(modMeal, Product, Weight);
                 ProductWeights = mealData.AddIngredientWeight(productId, Weight, Meal.Weights);
                 Meal.Weights = ProductWeights;

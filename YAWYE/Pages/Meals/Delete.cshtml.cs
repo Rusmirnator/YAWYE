@@ -13,7 +13,7 @@ namespace YAWYE.Pages.Meals
     {
         private readonly IMealData mealData;
         public Meal Meal { get; set; }
-        public DeleteModel(IMealData mealData  )
+        public DeleteModel(IMealData mealData)
         {
             this.mealData = mealData;
         }

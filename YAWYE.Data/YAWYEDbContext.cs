@@ -20,6 +20,7 @@ namespace YAWYE.Data
             modelBuilder.Entity<Meal>()
             .HasMany(b => b.Products)
             .WithOne();
+
         }
 
     }

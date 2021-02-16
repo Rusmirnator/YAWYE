@@ -62,7 +62,7 @@ namespace YAWYE.Data
             return query;
         }
 
-        public Product RecalculateNutritions(double weight, int id)
+        public Product RecalculateNutritions(decimal weight, int id)
         {
             var recalculatedProduct = db.Products.Find(id);
             var multiplier = weight / 100;

@@ -11,19 +11,20 @@ namespace YAWYE.Core
     {
 
         public int ProductId { get; set; }
-        public double Weight { get; set; } = 100;
+        public decimal Weight { get; set; } = 100;
+        public decimal TotalWeight { get; set; }
         [Required, StringLength(50)]
         public string Name { get; set; }
         [Required, StringLength(30)]
         public string Make { get; set; }
         [Required]
-        public double Kcal { get; set; }
-        public double Protein { get; set; }
-        public double Carbohydrates { get; set; }
-        public double Fat { get; set; }
-        public double Fiber { get; set; }
-        public double Price { get; set; }
-        public int BarCode { get; set; }
+        public decimal Kcal { get; set; }
+        public decimal Protein { get; set; }
+        public decimal Carbohydrates { get; set; }
+        public decimal Fat { get; set; }
+        public decimal Fiber { get; set; }
+        public decimal Price { get; set; }
+        public string BarCode { get; set; }
         public string ImgPath { get; set; } 
         public bool HasImage { get; set; }
         [ForeignKey("MealId")]
