@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,9 @@ namespace YAWYE.Pages.Meals
         public IEnumerable<Product> Products { get; set; }
         [TempData]
         public string Message { get; set; }
+        [Range(0,5)]
         public int Category { get; set; }
+        public string ImgPath { get; set; }
 
 
         public UpdateMealModel(IMealData mealData, IProductData productData)
@@ -31,7 +34,7 @@ namespace YAWYE.Pages.Meals
         }
         public IActionResult OnGet(int? mealId)
         {
-            
+
             if (mealId.HasValue)
             {
                 Meal = mealData.GetById(mealId.Value);
@@ -55,29 +58,31 @@ namespace YAWYE.Pages.Meals
             }
             if (Meal.MealId > 0)
             {
+
                 if (Meal.ImgPath == null)
                 {
-                    switch (Category)
+                    switch(Category)
                     {
-                        case 0:
-                            Meal.ImgPath = "groceries.png";
+                        case (int)Meal.Category.None:
+                            ImgPath = "groceries.png";
                             break;
-                        case 1:
-                            Meal.ImgPath = "breakfast.png";
+                        case (int)Meal.Category.Breakfast:
+                            ImgPath = "breakfast.png";
                             break;
-                        case 2:
-                            Meal.ImgPath = "lunch.png";
+                        case (int)Meal.Category.Lunch:
+                            ImgPath = "lunch.png";
                             break;
-                        case 3:
-                            Meal.ImgPath = "dinner.png";
+                        case (int)Meal.Category.Dinner:
+                            ImgPath = "dinner.png";
                             break;
-                        case 4:
-                            Meal.ImgPath = "supper.png";
+                        case (int)Meal.Category.Supper:
+                            ImgPath = "supper.png";
                             break;
-                        case 5:
-                            Meal.ImgPath = "snacks.png";
+                        case (int)Meal.Category.Snacks:
+                            ImgPath = "snacks.png";
                             break;
                     }
+                    Meal.ImgPath = ImgPath;
                 }
                 mealData.Update(Meal);
             }

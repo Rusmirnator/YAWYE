@@ -22,7 +22,7 @@
             <tbody class="alert-success">
                 @foreach (var ingredient in Model.Meal.Products)
                 {
-                    <tr><td>@ingredient.Name</td></tr>
+                    <tr><td>@ingredient.Name</td><td>@ingredient.Weight g</td></tr>
                 }
             </tbody>
         </table>
