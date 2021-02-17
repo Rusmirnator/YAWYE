@@ -22,7 +22,7 @@ namespace YAWYE.Pages.Products
         public Product Product { get; set; }
         [BindProperty]
         public IFormFile Image { get; set; }
-        
+
 
 
         public UpdateProductModel(IProductData productData, IWebHostEnvironment webHostEnvironment)
@@ -65,6 +65,7 @@ namespace YAWYE.Pages.Products
             {
                 productData.Add(Product);
                 Product.ImgPath = AddImageFromFile();
+                Product.Price *= (100 / Product.TotalWeight);
 
             }
 

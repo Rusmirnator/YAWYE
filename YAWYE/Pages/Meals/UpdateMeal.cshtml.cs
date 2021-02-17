@@ -21,6 +21,7 @@ namespace YAWYE.Pages.Meals
         public IEnumerable<Product> Products { get; set; }
         [TempData]
         public string Message { get; set; }
+        public int Category { get; set; }
 
 
         public UpdateMealModel(IMealData mealData, IProductData productData)
@@ -56,14 +57,34 @@ namespace YAWYE.Pages.Meals
             {
                 if (Meal.ImgPath == null)
                 {
-                    Meal.ImgPath = "grocerydefault.jpg";
+                    switch (Category)
+                    {
+                        case 0:
+                            Meal.ImgPath = "groceries.png";
+                            break;
+                        case 1:
+                            Meal.ImgPath = "breakfast.png";
+                            break;
+                        case 2:
+                            Meal.ImgPath = "lunch.png";
+                            break;
+                        case 3:
+                            Meal.ImgPath = "dinner.png";
+                            break;
+                        case 4:
+                            Meal.ImgPath = "supper.png";
+                            break;
+                        case 5:
+                            Meal.ImgPath = "snacks.png";
+                            break;
+                    }
                 }
                 mealData.Update(Meal);
             }
             else
             {
                 mealData.AddMeal(Meal);
-                Meal.ImgPath = "grocerydefault.jpg";
+                Meal.ImgPath = "groceries.png";
             }
             mealData.Commit();
             TempData["Message"] = "Meal saved!";

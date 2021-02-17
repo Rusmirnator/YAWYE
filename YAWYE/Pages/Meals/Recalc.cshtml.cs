@@ -16,6 +16,7 @@ namespace YAWYE.Pages.Meals
         public Product Product { get; set; }
         public Meal Meal { get; set; }
         public decimal Weight { get; set; }
+        public int Trigger { get; set; }
         public List<Product> Products { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
         public string ProductWeights { get; set; }
@@ -25,8 +26,12 @@ namespace YAWYE.Pages.Meals
             this.productData = productData;
             this.mealData = mealData;
         }
-        public IActionResult OnGet(int productId, int? mealId)
+        public IActionResult OnGet(int productId, int? mealId, int? trigger)
         {
+            if(trigger.HasValue)
+            {
+                Trigger = trigger.Value;
+            }
             if (mealId.HasValue)
             {
                 Meal = mealData.GetById(mealId.Value);

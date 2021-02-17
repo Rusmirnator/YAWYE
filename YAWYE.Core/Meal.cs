@@ -8,7 +8,7 @@ namespace YAWYE.Core
 {
     public class Meal
     {
-        
+
         public int MealId { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
         [Required]
@@ -23,6 +23,16 @@ namespace YAWYE.Core
         public string ImgPath { get; set; }
         public int IsModified { get; set; }
         public string Weights { get; set; }
+        public enum Category
+        {
+                None,
+                Breakfast,
+                Lunch,
+                Dinner,
+                Supper,
+                Snacks
+
+        }
         public ICollection<Product> Products { get; set; }
     }
 }

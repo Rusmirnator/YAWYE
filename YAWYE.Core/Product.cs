@@ -12,6 +12,7 @@ namespace YAWYE.Core
 
         public int ProductId { get; set; }
         public decimal Weight { get; set; } = 100;
+        [Required]
         public decimal TotalWeight { get; set; }
         [Required, StringLength(50)]
         public string Name { get; set; }
@@ -23,6 +24,7 @@ namespace YAWYE.Core
         public decimal Carbohydrates { get; set; }
         public decimal Fat { get; set; }
         public decimal Fiber { get; set; }
+        [Required]
         public decimal Price { get; set; }
         public string BarCode { get; set; }
         public string ImgPath { get; set; } 

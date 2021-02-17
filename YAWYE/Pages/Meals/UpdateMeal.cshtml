@@ -47,9 +47,11 @@
                                asp-page="./Recalc"
                                asp-route-productId="@product.ProductId"
                                asp-route-mealId="@Model.Meal.MealId">Add</a>
-                            <a class="btn btn-danger" asp-page="./Recalc" 
+                            <a class="btn btn-danger" 
+                               asp-page="./Recalc" 
                                asp-route-productId="@product.ProductId"
-                               asp-route-mealId="@Model.Meal.MealId">Remove</a>
+                               asp-route-mealId="@Model.Meal.MealId"
+                               asp-route-trigger="1">Remove</a>
                         </td>
                     </tr>
                 }
