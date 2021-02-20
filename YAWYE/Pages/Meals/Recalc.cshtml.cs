@@ -15,11 +15,12 @@ namespace YAWYE.Pages.Meals
         private readonly IMealData mealData;
         public Product Product { get; set; }
         public Meal Meal { get; set; }
+        public CalcData CalcData { get; set; }
         public decimal Weight { get; set; }
         public int Trigger { get; set; }
         public List<Product> Products { get; set; }
+        public List<CalcData> Stats { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
-        public string ProductWeights { get; set; }
 
         public RecalcModel(IProductData productData, IMealData mealData)
         {
@@ -66,21 +67,21 @@ namespace YAWYE.Pages.Meals
 
                 Meal = mealData.Recomposite(modMeal, Product, Weight);
                 Products = mealData.AddIngredient(productId, mealId);
-                ProductWeights = mealData.AddIngredientWeight(productId, Weight, Meal.Weights);
+                CalcData.MealIndex = Meal.MealId;
+                CalcData.ProductIndex = Product.ProductId;
+                //calcdata add(calcdata) and then
+                //meal.stats.Add(calcData);
+
                 Meal.Products = Products;
-                Meal.Weights = ProductWeights;
                 Meal.IsModified++; //developement variable, to make sure EntityState changes
             }
             else if (Weight == 0)
             {
                 if (Meal.Weights != null)
                 {
-                    Weight = mealData.FindProductWeight(productId, Meal.Weights);
                     Weight *= -1;
                 }
                 Meal = mealData.Recomposite(modMeal, Product, Weight);
-                ProductWeights = mealData.AddIngredientWeight(productId, Weight, Meal.Weights);
-                Meal.Weights = ProductWeights;
                 Meal.Products.Remove(Product);
             }
 
@@ -89,6 +90,13 @@ namespace YAWYE.Pages.Meals
             mealData.Commit();
             TempData["Message"] = "Meal saved!";
             return RedirectToPage("./UpdateMeal", new { mealId = Meal.MealId });
+        }
+        private Dictionary<string, decimal> GetStats(Meal meal)
+        {
+            Dictionary<string, decimal> Table = new Dictionary<string, decimal>();
+
+
+            return Table;
         }
     }
 }

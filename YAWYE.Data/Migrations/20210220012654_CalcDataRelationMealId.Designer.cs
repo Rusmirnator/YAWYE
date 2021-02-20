@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YAWYE.Data;
 
 namespace YAWYE.Data.Migrations
 {
     [DbContext(typeof(YAWYEDbContext))]
-    partial class YAWYEDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210220012654_CalcDataRelationMealId")]
+    partial class CalcDataRelationMealId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,9 +34,6 @@ namespace YAWYE.Data.Migrations
                     b.Property<int?>("MealId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MealId1")
-                        .HasColumnType("int");
-
                     b.Property<int>("MealIndex")
                         .HasColumnType("int");
 
@@ -44,8 +43,6 @@ namespace YAWYE.Data.Migrations
                     b.HasKey("CalcDataId");
 
                     b.HasIndex("MealId");
-
-                    b.HasIndex("MealId1");
 
                     b.ToTable("CalcDatas");
                 });
@@ -231,10 +228,6 @@ namespace YAWYE.Data.Migrations
                     b.HasOne("YAWYE.Core.Product", "Product")
                         .WithMany()
                         .HasForeignKey("MealId");
-
-                    b.HasOne("YAWYE.Core.Meal", null)
-                        .WithMany("Stats")
-                        .HasForeignKey("MealId1");
                 });
 
             modelBuilder.Entity("YAWYE.Core.Day", b =>

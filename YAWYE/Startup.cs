@@ -34,6 +34,8 @@ namespace YAWYE
             });
             services.AddScoped<IProductData, SQLProductData>();
             services.AddScoped<IMealData, SQLMealData>();
+            services.AddScoped<ICalcData, SQLCalcData>();
+            
             services.AddRazorPages();
         }
 

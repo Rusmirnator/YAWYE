@@ -34,6 +34,7 @@ namespace YAWYE.Core
 
         }
         public ICollection<Product> Products { get; set; }
+        public ICollection<CalcData> Stats { get; set; }
         [ForeignKey("DayId")]
         public Day Day { get; set; }
     }

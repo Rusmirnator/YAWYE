@@ -24,26 +24,6 @@ namespace YAWYE.Data
             return Ingredients;
         }
 
-        public string AddIngredientWeight(int id, decimal weight, string sequence)
-        {
-            var datasequence = sequence == null ? "" : sequence;
-            
-            var wanted = "#" + id.ToString() +"_";
-            if (!datasequence.Contains(wanted))
-            {
-                if (weight > 0)
-                {
-                    datasequence += "#" + id.ToString() + "_" + weight.ToString() + "   ";
-                }
-            }
-            else
-            {
-                var start = datasequence.IndexOf(wanted);
-                var chars = wanted.Length == 3 ? 6 : 7;
-                datasequence = sequence.Remove(start,chars);
-            }
-            return datasequence;
-        }
 
         public Meal AddMeal(Meal newMeal)
         {
@@ -62,6 +42,7 @@ namespace YAWYE.Data
                 .Where(mid => mid.MealId == id)
                 .OrderBy(e => e.Name)
                 .Include(e => e.Products)
+                .Include(e => e.Stats)
                 .First();
 
             if (Meal != null)
@@ -77,26 +58,6 @@ namespace YAWYE.Data
             var query = db.Meals
                 .Include(Meal => Meal.Products).ToList();
             return query;
-        }
-
-        public decimal FindProductWeight(int id, string sequence)
-        {
-            decimal result = 0;
-            var ids = id.ToString();
-            var weight = string.Empty;
-            var wanted = "#" + id.ToString() + "_";
-            var datasequence = sequence;
-            if(sequence.Contains(wanted))
-            {
-                var initialStart = sequence.IndexOf(wanted);
-                var actualStart = initialStart + wanted.Length; //#1_22 #22_33 #123_23
-                var end = 3;
-
-                weight = datasequence.Substring(actualStart,end);
-                result = decimal.Parse(weight);
-            }
-
-            return result;
         }
 
         public IEnumerable<Meal> GetAll()

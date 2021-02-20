@@ -76,7 +76,7 @@ namespace YAWYE.Pages.Products
         }
         public string AddImageFromFile()
         {
-            string uniqueFileName = null;
+            string uniqueFileName;
             if (Image != null)
             {
                 string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Images");

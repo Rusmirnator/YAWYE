@@ -3,52 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YAWYE.Data;
 
 namespace YAWYE.Data.Migrations
 {
     [DbContext(typeof(YAWYEDbContext))]
-    partial class YAWYEDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210218215127_CalcDataEntity")]
+    partial class CalcDataEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("YAWYE.Core.CalcData", b =>
-                {
-                    b.Property<int>("CalcDataId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("IngredientWeight")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("MealId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MealId1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MealIndex")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductIndex")
-                        .HasColumnType("int");
-
-                    b.HasKey("CalcDataId");
-
-                    b.HasIndex("MealId");
-
-                    b.HasIndex("MealId1");
-
-                    b.ToTable("CalcDatas");
-                });
 
             modelBuilder.Entity("YAWYE.Core.Day", b =>
                 {
@@ -224,17 +195,6 @@ namespace YAWYE.Data.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("YAWYE.Core.CalcData", b =>
-                {
-                    b.HasOne("YAWYE.Core.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("MealId");
-
-                    b.HasOne("YAWYE.Core.Meal", null)
-                        .WithMany("Stats")
-                        .HasForeignKey("MealId1");
                 });
 
             modelBuilder.Entity("YAWYE.Core.Day", b =>
