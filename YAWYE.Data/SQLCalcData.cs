@@ -43,9 +43,27 @@ namespace YAWYE.Data
             return CalcData;
         }
 
-        public CalcData FindWeight(int CalcDataId)
+        public decimal FindWeight(int mid, int pid)
         {
-            throw new NotImplementedException();
+            var query = from cd in db.CalcDatas
+                        where cd.MealIndex == mid && cd.ProductIndex == pid
+                        select cd.IngredientWeight;
+            var weight = query.FirstOrDefault();
+            return weight;
+        }
+
+        public CalcData GetById(int id)
+        {
+            var cd = db.CalcDatas.Find(id);
+            return cd;
+        }
+
+        public CalcData LoadLast()
+        {
+            var cd = from c in db.CalcDatas
+                     orderby c.CalcDataId descending
+                     select c;
+            return cd.Last();
         }
 
         public CalcData Update(CalcData updatedData)

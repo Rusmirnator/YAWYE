@@ -28,7 +28,7 @@ namespace YAWYE.Pages.Meals
         {
             Meal = mealData.GetById(mealId);
 
-            Meals = mealData.FindIngredients(Meal);
+            Meals = mealData.LoadIngredients(Meal);
             
             return Page();
         }

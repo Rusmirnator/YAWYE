@@ -31,6 +31,13 @@ namespace YAWYE.Data
             return newMeal;
         }
 
+        public List<CalcData> AddStat(Meal meal, CalcData stat)
+        {
+            var list = new List<CalcData>();
+            list.Add(stat);
+            return list.ToList();
+        }
+
         public int Commit()
         {
             return db.SaveChanges();
@@ -52,11 +59,21 @@ namespace YAWYE.Data
             return Meal;
         }
 
-        public IEnumerable<Meal> FindIngredients(Meal meal)
+        public IEnumerable<Meal> LoadIngredients(Meal meal)
         {
             var Meal = meal;
             var query = db.Meals
-                .Include(Meal => Meal.Products).ToList();
+                .Include(Meal => Meal.Products)
+                .ToList();
+            return query;
+        }
+
+        public IEnumerable<Meal> LoadStats(Meal meal)
+        {
+            var Meal = meal;
+            var query = db.Meals
+                .Include(Meal => Meal.Stats)
+                .ToList();
             return query;
         }
 

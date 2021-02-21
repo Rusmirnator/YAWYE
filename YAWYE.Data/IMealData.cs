@@ -14,9 +14,11 @@ namespace YAWYE.Data
         int Commit();
         IEnumerable<Meal> GetMealByName(string name);
         IEnumerable<Meal> GetAll();
-        List<Product> AddIngredient(int pId, int mId);
+        List<Product> AddIngredient(int pId, int mid);
+        List<CalcData> AddStat(Meal meal, CalcData cd);
         Meal Recomposite(Meal meal, Product product, decimal weight);
-        IEnumerable<Meal> FindIngredients(Meal meal);
+        IEnumerable<Meal> LoadIngredients(Meal meal);
+        IEnumerable<Meal> LoadStats(Meal meal);
         
 
     }

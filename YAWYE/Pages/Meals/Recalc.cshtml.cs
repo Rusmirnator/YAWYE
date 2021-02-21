@@ -13,19 +13,22 @@ namespace YAWYE.Pages.Meals
     {
         private readonly IProductData productData;
         private readonly IMealData mealData;
+        private readonly ICalcData calcData;
+
         public Product Product { get; set; }
         public Meal Meal { get; set; }
-        public CalcData CalcData { get; set; }
         public decimal Weight { get; set; }
+        public CalcData CalcData { get; set; }
         public int Trigger { get; set; }
         public List<Product> Products { get; set; }
         public List<CalcData> Stats { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
 
-        public RecalcModel(IProductData productData, IMealData mealData)
+        public RecalcModel(IProductData productData, IMealData mealData, ICalcData calcData)
         {
             this.productData = productData;
             this.mealData = mealData;
+            this.calcData = calcData;
         }
         public IActionResult OnGet(int productId, int? mealId, int? trigger)
         {
@@ -36,12 +39,18 @@ namespace YAWYE.Pages.Meals
             if (mealId.HasValue)
             {
                 Meal = mealData.GetById(mealId.Value);
+                if(Meal.Stats != null)
+                {
+                    Stats = Meal.Stats.ToList();
+                }
+                
             }
             else
             {
                 return RedirectToPage("./NotFound");
             }
             Product = productData.GetById(productId);
+            
 
             return Page();
         }
@@ -53,9 +62,10 @@ namespace YAWYE.Pages.Meals
             }
 
             Meal = mealData.GetById(mealId);
-            Meals = mealData.FindIngredients(Meal);
+            Meals = mealData.LoadIngredients(Meal);
             Product = productData.GetById(productId);
             var modMeal = Meal;
+            CalcData = new CalcData();
 
             if (Meal.ImgPath == null)
             {
@@ -67,12 +77,21 @@ namespace YAWYE.Pages.Meals
 
                 Meal = mealData.Recomposite(modMeal, Product, Weight);
                 Products = mealData.AddIngredient(productId, mealId);
+                
+
                 CalcData.MealIndex = Meal.MealId;
                 CalcData.ProductIndex = Product.ProductId;
+                CalcData.IngredientWeight = Weight;
+                calcData.AddWeight(CalcData);
+                calcData.Commit();
+                CalcData = calcData.LoadLast();
+                Stats = mealData.AddStat(Meal, CalcData);
+                
                 //calcdata add(calcdata) and then
                 //meal.stats.Add(calcData);
 
                 Meal.Products = Products;
+                Meal.Stats = Stats;
                 Meal.IsModified++; //developement variable, to make sure EntityState changes
             }
             else if (Weight == 0)
@@ -90,13 +109,6 @@ namespace YAWYE.Pages.Meals
             mealData.Commit();
             TempData["Message"] = "Meal saved!";
             return RedirectToPage("./UpdateMeal", new { mealId = Meal.MealId });
-        }
-        private Dictionary<string, decimal> GetStats(Meal meal)
-        {
-            Dictionary<string, decimal> Table = new Dictionary<string, decimal>();
-
-
-            return Table;
         }
     }
 }
