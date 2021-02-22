@@ -26,13 +26,19 @@ namespace YAWYE.Pages.Meals
             Meal = mealData.GetById(mealId);
             Ingredients = mealData.LoadIngredients(Meal);
             mealData.LoadStats(Meal);
+
             var query2 = from i in Meal.Stats
                         select i.IngredientWeight;
+
             var query = from id in Meal.Stats
                          select id.ProductIndex;
+
             var result = new Dictionary<int, decimal>();
+
             result.Add(query.First(), query2.First());
+
             Result = result;
+
             return Page();
         }
     }

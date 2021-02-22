@@ -18,7 +18,9 @@ namespace YAWYE.Pages.Meals
         public string Message { get; set; }
         public Meal Meal { get; set; }
         public ICollection<Product> Ingredients { get; set; }
+        public ICollection<CalcData> Stats { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
+        public CalcData CalcData { get; set; }
         public DetailsModel(IMealData mealData)
         {
             this.mealData = mealData;
@@ -29,6 +31,8 @@ namespace YAWYE.Pages.Meals
             Meal = mealData.GetById(mealId);
 
             Meals = mealData.LoadIngredients(Meal);
+            Meals = mealData.LoadStats(Meal);
+
             
             return Page();
         }

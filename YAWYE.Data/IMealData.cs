@@ -19,7 +19,8 @@ namespace YAWYE.Data
         Meal Recomposite(Meal meal, Product product, decimal weight);
         IEnumerable<Meal> LoadIngredients(Meal meal);
         IEnumerable<Meal> LoadStats(Meal meal);
-        
+        Dictionary<string, decimal> PresentIngredients(List<Product> products, List<CalcData> statistics);
+
 
     }
 }

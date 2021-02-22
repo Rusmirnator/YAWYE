@@ -120,5 +120,15 @@ namespace YAWYE.Data
             entity.State = EntityState.Modified;
             return updatedMeal;
         }
+
+        public Dictionary<string, decimal> PresentIngredients(List<Product> products, List<CalcData> statistics)
+        {
+            var data = new Dictionary<string, decimal>();
+            for(var i = 0; i <= products.Count(); i++)
+            {
+                data.Add(products[i].Name, statistics[i].IngredientWeight);
+            }
+            return data;
+        }
     }
 }

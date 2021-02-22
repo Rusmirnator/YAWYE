@@ -32,8 +32,6 @@ namespace YAWYE.Data
             var CalcData = db.CalcDatas
                 .Where(e => e.CalcDataId == id)
                 .OrderBy(e => e.CalcDataId)
-                .Include(e => e.MealIndex)
-                .Include(e => e.ProductIndex)
                 .First();
 
             if (CalcData != null)
@@ -56,6 +54,15 @@ namespace YAWYE.Data
         {
             var cd = db.CalcDatas.Find(id);
             return cd;
+        }
+
+        public CalcData GetValues(CalcData cd,int mid, int pid, decimal weight)
+        {
+            var ucd = cd;
+            ucd.MealIndex = mid;
+            ucd.ProductIndex = pid;
+            ucd.IngredientWeight = weight;
+            return ucd;
         }
 
         public CalcData LoadLast()

@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using YAWYE.Core;
@@ -63,14 +61,10 @@ namespace YAWYE.Pages.Meals
 
             Meal = mealData.GetById(mealId);
             Meals = mealData.LoadIngredients(Meal);
+            Meals = mealData.LoadStats(Meal);
             Product = productData.GetById(productId);
             var modMeal = Meal;
             CalcData = new CalcData();
-
-            if (Meal.ImgPath == null)
-            {
-                Meal.ImgPath = "grocerydefault.jpg";
-            }
 
             if (Weight > 0)
             {
@@ -86,9 +80,6 @@ namespace YAWYE.Pages.Meals
                 calcData.Commit();
                 CalcData = calcData.LoadLast();
                 Stats = mealData.AddStat(Meal, CalcData);
-                
-                //calcdata add(calcdata) and then
-                //meal.stats.Add(calcData);
 
                 Meal.Products = Products;
                 Meal.Stats = Stats;
@@ -96,12 +87,18 @@ namespace YAWYE.Pages.Meals
             }
             else if (Weight == 0)
             {
-                if (Meal.Weights != null)
+                Weight = calcData.FindWeight(mealId, productId);
+                CalcData = Meal.Stats.Where(s => s.MealIndex == mealId && s.ProductIndex == productId).FirstOrDefault();
+                
+
+                if(!Weight.Equals(null))
                 {
                     Weight *= -1;
                 }
                 Meal = mealData.Recomposite(modMeal, Product, Weight);
                 Meal.Products.Remove(Product);
+                Meal.Stats.Remove(CalcData);
+                calcData.Delete(CalcData.CalcDataId);
             }
 
             mealData.Update(Meal);
