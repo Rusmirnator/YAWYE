@@ -14,6 +14,7 @@ namespace YAWYE.Data
         CalcData Delete(int id);
         CalcData LoadLast();
         int Commit();
-        CalcData GetValues(CalcData cd,int mid, int pid, decimal weight);
+        CalcData SetValues(CalcData cd,int mid, int pid, decimal weight);
+        IEnumerable<CalcData> GetAll();
     }
 }

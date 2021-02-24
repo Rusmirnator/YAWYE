@@ -1,4 +1,4 @@
-﻿@page "{productId:int}/{mealId:int?}/{trigger:int?}"
+﻿@page "{productId:int}/{mealId:int?}/{trigger:bool?}"
 @model YAWYE.Pages.Meals.RecalcModel
 @{
 }
@@ -18,8 +18,7 @@
     <form method="post" enctype="multipart/form-data">
         <input type="hidden" asp-for="Meal.MealId" />
         <input type="hidden" asp-for="Product.ProductId" />
-        <input type="hidden" asp-for="Meal.Weights" />
-        @if (Model.Trigger != 1)
+        @if (Model.Trigger == false)
         {
             <div class="form-group">
                 <label asp-for="Weight"></label>

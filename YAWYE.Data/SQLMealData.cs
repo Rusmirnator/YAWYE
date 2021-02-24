@@ -33,7 +33,7 @@ namespace YAWYE.Data
 
         public List<CalcData> AddStat(Meal meal, CalcData stat)
         {
-            var list = new List<CalcData>();
+            var list = db.Meals.Find(meal.MealId).Stats;
             list.Add(stat);
             return list.ToList();
         }

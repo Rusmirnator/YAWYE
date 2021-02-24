@@ -21,6 +21,8 @@ namespace YAWYE.Pages.Meals
         public IActionResult OnGet(int mealId)
         {
             Meal = mealData.GetById(mealId);
+            mealData.LoadIngredients(Meal);
+            mealData.LoadStats(Meal);
             if (Meal == null)
             {
                 return RedirectToPage("/NotFound");

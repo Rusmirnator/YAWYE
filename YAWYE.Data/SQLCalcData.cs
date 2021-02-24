@@ -56,7 +56,7 @@ namespace YAWYE.Data
             return cd;
         }
 
-        public CalcData GetValues(CalcData cd,int mid, int pid, decimal weight)
+        public CalcData SetValues(CalcData cd,int mid, int pid, decimal weight)
         {
             var ucd = cd;
             ucd.MealIndex = mid;
@@ -68,7 +68,7 @@ namespace YAWYE.Data
         public CalcData LoadLast()
         {
             var cd = from c in db.CalcDatas
-                     orderby c.CalcDataId descending
+                     orderby c.CalcDataId
                      select c;
             return cd.Last();
         }
@@ -78,6 +78,13 @@ namespace YAWYE.Data
             var entity = db.CalcDatas.Attach(updatedData);
             entity.State = EntityState.Modified;
             return updatedData;
+        }
+
+        public IEnumerable<CalcData> GetAll()
+        {
+            return from cd in db.CalcDatas
+                   orderby cd.CalcDataId
+                   select cd;
         }
     }
 }
