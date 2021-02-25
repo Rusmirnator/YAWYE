@@ -121,14 +121,19 @@ namespace YAWYE.Data
             return updatedMeal;
         }
 
-        public Dictionary<string, decimal> PresentIngredients(List<Product> products, List<CalcData> statistics)
+        public Dictionary<string, decimal> GetStatistics(IEnumerable<Product> products, IEnumerable<CalcData> statistics)
         {
-            var data = new Dictionary<string, decimal>();
-            for(var i = 0; i <= products.Count(); i++)
-            {
-                data.Add(products[i].Name, statistics[i].IngredientWeight);
-            }
-            return data;
+            var names = from n in products
+                        join w in statistics on n.ProductId equals w.ProductIndex
+                        where w.ProductIndex == n.ProductId
+                        select new { Name = n.Name, Weight = w.IngredientWeight };
+
+
+            var result = new Dictionary<string, decimal>();
+
+            result = names.ToDictionary(n => n.Name, w => w.Weight);
+
+            return result;
         }
     }
 }

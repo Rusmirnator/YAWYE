@@ -18,7 +18,7 @@ namespace YAWYE.Pages.Meals
         [TempData]
         public string Message { get; set; }
         public Meal Meal { get; set; }
-        public ICollection<Product> Ingredients { get; set; }
+        public IEnumerable<Product> Ingredients { get; set; }
         public IEnumerable<CalcData> Stats { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
         public CalcData CalcData { get; set; }
@@ -32,27 +32,16 @@ namespace YAWYE.Pages.Meals
         public IActionResult OnGet(int mealId)
         {
             Meal = mealData.GetById(mealId);
-
             Meals = mealData.LoadIngredients(Meal);
+
+            Ingredients = Meal.Products.ToList();
+
             Meals = mealData.LoadStats(Meal);
+
             Stats = calcData.GetAll();
-            Statistics = GetStatistics(Meals, Stats);
+
+            Statistics = mealData.GetStatistics(Ingredients, Stats);
             return Page();
         }
-        private Dictionary<string, decimal> GetStatistics(IEnumerable<Meal> meals, IEnumerable<CalcData> cds)
-        {
-            var names = from n in meals
-                        join w in cds on n.MealId equals w.MealIndex
-                        where w.MealIndex == n.MealId
-                        select new { Name = n.Name, Weight = w.IngredientWeight };
-
-            var result = new Dictionary<string, decimal>();
-
-            result = names.ToDictionary(n => n.Name, w => w.Weight);
-
-            return result;
-        
-        }
-
     }
 }
