@@ -11,7 +11,6 @@ namespace YAWYE.Core
         public int MealIndex { get; set; }
         public int ProductIndex { get; set; }
         public decimal IngredientWeight { get; set; }
-        [ForeignKey("MealId")]
-        public Product Product { get; set; }
+        public virtual ICollection<Meal> Meals { get; set; }
     }
 }

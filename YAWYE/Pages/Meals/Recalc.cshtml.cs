@@ -88,7 +88,6 @@ namespace YAWYE.Pages.Meals
 
             Meal.Products = Products;
             Meal.Stats = Stats;
-            Meal.IsModified++; //developement variable, to make sure EntityState changes
         }
         private void MetaRemoveIngredientsAndStatistics(int mealId, int productId, Meal modMeal, CalcData CalcData)
         {

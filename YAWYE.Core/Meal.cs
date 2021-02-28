@@ -22,8 +22,6 @@ namespace YAWYE.Core
         public decimal Price { get; set; }
         public decimal Weight { get; set; }
         public string ImgPath { get; set; }
-        public int IsModified { get; set; }
-        public string Weights { get; set; }
         public enum Category
         {
                 None,
@@ -34,9 +32,8 @@ namespace YAWYE.Core
                 Snacks
 
         }
-        public ICollection<Product> Products { get; set; }
-        public ICollection<CalcData> Stats { get; set; }
-        [ForeignKey("DayId")]
-        public Day Day { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<CalcData> Stats { get; set; }
+        public virtual ICollection<Day> Days { get; set; }
     }
 }

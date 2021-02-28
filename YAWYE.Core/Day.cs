@@ -8,10 +8,9 @@ namespace YAWYE.Core
     public class Day
     {
         public int DayId { get; set; }
-        public ICollection<Meal> MyMeals { get; set; }
         public DateTime Date { get; set; }
         public DayOfWeek TodayIs { get; set; }
-        [ForeignKey("UserId")]
-        public User User { get; set; }
+        public virtual ICollection<Meal> Meals { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

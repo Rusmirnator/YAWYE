@@ -29,8 +29,8 @@ namespace YAWYE.Core
         public string BarCode { get; set; }
         public string ImgPath { get; set; } 
         public bool HasImage { get; set; }
-        [ForeignKey("MealId")]
-        public Meal Meal { get; set; }
+        public  virtual ICollection<Meal> Meals { get; set; }
+
 
     }
 }
