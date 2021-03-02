@@ -87,12 +87,12 @@ namespace YAWYE.Pages.Meals
             Stats = mealData.AddStat(Meal, CalcData);
 
             Meal.Products = Products;
-            Meal.Stats = Stats;
+            Meal.CalcDatas = Stats;
         }
         private void MetaRemoveIngredientsAndStatistics(int mealId, int productId, Meal modMeal, CalcData CalcData)
         {
 
-            CalcData = Meal.Stats.Where(s => s.MealIndex == mealId && s.ProductIndex == productId).FirstOrDefault();
+            CalcData = Meal.CalcDatas.Where(s => s.MealIndex == mealId && s.ProductIndex == productId).FirstOrDefault();
             Weight = calcData.FindWeight(mealId, productId);
 
             if (!Weight.Equals(null))
@@ -101,7 +101,7 @@ namespace YAWYE.Pages.Meals
             }
             Meal = mealData.Recomposite(modMeal, Product, Weight);
             Meal.Products.Remove(Product);
-            Meal.Stats.Remove(CalcData);
+            Meal.CalcDatas.Remove(CalcData);
             calcData.Delete(CalcData.CalcDataId);
 
         }

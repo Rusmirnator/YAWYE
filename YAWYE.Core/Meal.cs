@@ -9,6 +9,11 @@ namespace YAWYE.Core
 {
     public class Meal
     {
+        public Meal()
+        {
+            this.Products = new HashSet<Product>();
+            this.CalcDatas = new HashSet<CalcData>();
+        }
 
         public int MealId { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
@@ -33,7 +38,7 @@ namespace YAWYE.Core
 
         }
         public virtual ICollection<Product> Products { get; set; }
-        public virtual ICollection<CalcData> Stats { get; set; }
+        public virtual ICollection<CalcData> CalcDatas { get; set; }
         public virtual ICollection<Day> Days { get; set; }
     }
 }

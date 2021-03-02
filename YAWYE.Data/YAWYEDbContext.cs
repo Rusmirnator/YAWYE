@@ -20,7 +20,9 @@ namespace YAWYE.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Product>().HasMany(p => p.Meals).WithOne();
+
+            modelBuilder.Entity<CalcData>().HasOne(cd => cd.Meals).WithMany();
         }
 
     }

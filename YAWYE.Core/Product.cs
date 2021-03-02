@@ -9,6 +9,10 @@ namespace YAWYE.Core
 {
     public class Product
     {
+        public Product()
+        {
+            this.Meals = new HashSet<Meal>();
+        }
 
         public int ProductId { get; set; }
         public decimal Weight { get; set; } = 100;
@@ -29,7 +33,7 @@ namespace YAWYE.Core
         public string BarCode { get; set; }
         public string ImgPath { get; set; } 
         public bool HasImage { get; set; }
-        public  virtual ICollection<Meal> Meals { get; set; }
+        public virtual ICollection<Meal> Meals { get; set; }
 
 
     }

@@ -7,6 +7,10 @@ namespace YAWYE.Core
 {
     public class CalcData
     {
+        public CalcData()
+        {
+            this.Meals = new HashSet<Meal>();
+        }
         public int CalcDataId { get; set; }
         public int MealIndex { get; set; }
         public int ProductIndex { get; set; }

@@ -27,10 +27,10 @@ namespace YAWYE.Pages.Meals
             Ingredients = mealData.LoadIngredients(Meal);
             mealData.LoadStats(Meal);
 
-            var query2 = from i in Meal.Stats
+            var query2 = from i in Meal.CalcDatas
                         select i.IngredientWeight;
 
-            var query = from id in Meal.Stats
+            var query = from id in Meal.CalcDatas
                          select id.ProductIndex;
 
             var result = new Dictionary<int, decimal>();

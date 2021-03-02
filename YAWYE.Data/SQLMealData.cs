@@ -33,7 +33,7 @@ namespace YAWYE.Data
 
         public List<CalcData> AddStat(Meal meal, CalcData stat)
         {
-            var list = db.Meals.Find(meal.MealId).Stats;
+            var list = db.Meals.Find(meal.MealId).CalcDatas;
             list.Add(stat);
             return list.ToList();
         }
@@ -49,7 +49,7 @@ namespace YAWYE.Data
                 .Where(mid => mid.MealId == id)
                 .OrderBy(e => e.Name)
                 .Include(e => e.Products)
-                .Include(e => e.Stats)
+                .Include(e => e.CalcDatas)
                 .First();
 
             if (Meal != null)
@@ -72,7 +72,7 @@ namespace YAWYE.Data
         {
             var Meal = meal;
             var query = db.Meals
-                .Include(Meal => Meal.Stats)
+                .Include(Meal => Meal.CalcDatas)
                 .ToList();
             return query;
         }
