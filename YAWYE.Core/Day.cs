@@ -11,6 +11,5 @@ namespace YAWYE.Core
         public DateTime Date { get; set; }
         public DayOfWeek TodayIs { get; set; }
         public virtual ICollection<Meal> Meals { get; set; }
-        public virtual ICollection<User> Users { get; set; }
     }
 }

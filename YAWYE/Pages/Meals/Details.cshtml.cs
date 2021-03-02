@@ -13,20 +13,16 @@ namespace YAWYE.Pages.Meals
     public class DetailsModel : PageModel
     {
         private readonly IMealData mealData;
-        private readonly ICalcData calcData;
 
         [TempData]
         public string Message { get; set; }
         public Meal Meal { get; set; }
         public IEnumerable<Product> Ingredients { get; set; }
-        public IEnumerable<CalcData> Stats { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
-        public CalcData CalcData { get; set; }
         public Dictionary<string, decimal> Statistics { get; set; }
-        public DetailsModel(IMealData mealData, ICalcData calcData)
+        public DetailsModel(IMealData mealData)
         {
             this.mealData = mealData;
-            this.calcData = calcData;
         }
 
         public IActionResult OnGet(int mealId)
@@ -38,9 +34,6 @@ namespace YAWYE.Pages.Meals
 
             Meals = mealData.LoadStats(Meal);
 
-            Stats = calcData.GetAll();
-
-            Statistics = mealData.GetStatistics(Ingredients, Stats);
             return Page();
         }
     }

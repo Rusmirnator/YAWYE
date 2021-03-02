@@ -14,8 +14,6 @@ namespace YAWYE.Core
         public string Password { get; set; }
         [Required, StringLength(30)]
         public string Nickname { get; set; }
-        public virtual ICollection<Day> Days { get; set; }
-        public virtual ICollection<Meal> Meals { get; set; }
 
     }
 }
