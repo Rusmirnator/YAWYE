@@ -10,7 +10,7 @@ using YAWYE.Data;
 namespace YAWYE.Data.Migrations
 {
     [DbContext(typeof(YAWYEDbContext))]
-    [Migration("20210302152211_InitialM2M")]
+    [Migration("20210302153014_InitialM2M")]
     partial class InitialM2M
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
