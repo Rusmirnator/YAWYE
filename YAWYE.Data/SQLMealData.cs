@@ -31,9 +31,9 @@ namespace YAWYE.Data
             return newMeal;
         }
 
-        public List<CalcData> AddStat(Meal meal, CalcData stat)
+        public List<MealProduct> AddStat(Meal meal, MealProduct stat)
         {
-            var list = db.Meals.Find(meal.MealId).CalcDatas;
+            var list = db.Meals.Find(meal.MealId).MealProducts;
             list.Add(stat);
             return list.ToList();
         }
@@ -49,7 +49,7 @@ namespace YAWYE.Data
                 .Where(mid => mid.MealId == id)
                 .OrderBy(e => e.Name)
                 .Include(e => e.Products)
-                .Include(e => e.CalcDatas)
+                .Include(e => e.MealProducts)
                 .First();
 
             if (Meal != null)
@@ -72,7 +72,7 @@ namespace YAWYE.Data
         {
             var Meal = meal;
             var query = db.Meals
-                .Include(Meal => Meal.CalcDatas)
+                .Include(Meal => Meal.MealProducts)
                 .ToList();
             return query;
         }
@@ -121,12 +121,12 @@ namespace YAWYE.Data
             return updatedMeal;
         }
 
-        public Dictionary<string, decimal> GetStatistics(IEnumerable<Product> products, IEnumerable<CalcData> statistics)
+        public Dictionary<string, decimal> GetStatistics(IEnumerable<Product> products, IEnumerable<MealProduct> statistics)
         {
             var names = from n in products
-                        join w in statistics on n.ProductId equals w.ProductIndex
-                        where w.ProductIndex == n.ProductId
-                        select new { Name = n.Name, Weight = w.IngredientWeight };
+                        join w in statistics on n.ProductId equals w.ProductId
+                        where w.ProductId == n.ProductId
+                        select new { Name = n.Name, Weight = w.ProductWeight };
 
 
             var result = new Dictionary<string, decimal>();

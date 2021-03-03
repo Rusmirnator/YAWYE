@@ -15,11 +15,11 @@ namespace YAWYE.Data
         IEnumerable<Meal> GetMealByName(string name);
         IEnumerable<Meal> GetAll();
         List<Product> AddIngredient(int pId, int mid);
-        List<CalcData> AddStat(Meal meal, CalcData cd);
+        List<MealProduct> AddStat(Meal meal, MealProduct cd);
         Meal Recomposite(Meal meal, Product product, decimal weight);
         IEnumerable<Meal> LoadIngredients(Meal meal);
         IEnumerable<Meal> LoadStats(Meal meal);
-        Dictionary<string, decimal> GetStatistics(IEnumerable<Product> products, IEnumerable<CalcData> statistics);
+        Dictionary<string, decimal> GetStatistics(IEnumerable<Product> products, IEnumerable<MealProduct> statistics);
 
 
     }
