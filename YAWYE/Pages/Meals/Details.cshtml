@@ -20,9 +20,9 @@
         <table class="table table-info">
             <thead>Ingredients:</thead>
             <tbody class="alert-success">
-                @foreach (var ingredient in Model.Statistics)
+                @foreach (var ingredient in Model.Ingredients)
                 {
-                    <tr><td>@ingredient.Key</td><td>@ingredient.Value g</td></tr>
+                    <tr><td>@ingredient.Name</td><td>@ingredient.Weight g</td></tr>
                 }
             </tbody>
         </table>

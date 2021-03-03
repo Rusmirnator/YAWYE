@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace YAWYE.Data
 {
-    public class SQLMealProductData
+    public class SQLMealProductData : IMealProductData
     {
         private readonly YAWYEDbContext db;
 
@@ -16,7 +16,7 @@ namespace YAWYE.Data
             this.db = db;
         }
 
-        public MealProduct AddWeight(MealProduct newMP)
+        public MealProduct Add(MealProduct newMP)
         {
             db.Add(newMP);
             return newMP;
@@ -25,15 +25,6 @@ namespace YAWYE.Data
         public int Commit()
         {
             return db.SaveChanges();
-        }
-
-        public decimal FindWeight(int mid, int pid)
-        {
-            var query = from mp in db.MealProducts
-                        where mp.MealId == mid && mp.ProductId == pid
-                        select mp.ProductId;
-
-            return query.First();
         }
 
         public MealProduct SetValues(MealProduct mp, int mid, int pid, decimal weight)
@@ -65,6 +56,23 @@ namespace YAWYE.Data
             return from mp in db.MealProducts
                    orderby mp.MealId
                    select mp;
+        }
+
+        public decimal FindWeight(int mid, int pid)
+        {
+            var wht = from mp in db.MealProducts
+                      where mp.MealId == mid && mp.ProductId == pid
+                      select mp.ProductWeight;
+
+            return wht.FirstOrDefault();
+        }
+
+        public MealProduct GetByIds(int mid, int pid)
+        {
+            var mps = from mp in db.MealProducts
+            where mp.MealId == mid && mp.ProductId == pid
+            select mp;
+            return mps.SingleOrDefault();
         }
     }
 }

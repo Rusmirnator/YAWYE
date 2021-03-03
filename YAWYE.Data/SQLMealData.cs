@@ -20,6 +20,7 @@ namespace YAWYE.Data
             var product = db.Products.Find(ProductId);
             var meal = db.Meals.Find(MealId);
             var Ingredients = meal.Products.ToList();
+
             Ingredients.Add(product);
             return Ingredients;
         }
@@ -31,13 +32,6 @@ namespace YAWYE.Data
             return newMeal;
         }
 
-        public List<MealProduct> AddStat(Meal meal, MealProduct stat)
-        {
-            var list = db.Meals.Find(meal.MealId).MealProducts;
-            list.Add(stat);
-            return list.ToList();
-        }
-
         public int Commit()
         {
             return db.SaveChanges();
@@ -45,12 +39,7 @@ namespace YAWYE.Data
 
         public Meal Delete(int id)
         {
-            var Meal = db.Meals
-                .Where(mid => mid.MealId == id)
-                .OrderBy(e => e.Name)
-                .Include(e => e.Products)
-                .Include(e => e.MealProducts)
-                .First();
+            var Meal = db.Meals.Find(id);
 
             if (Meal != null)
             {
@@ -64,15 +53,6 @@ namespace YAWYE.Data
             var Meal = meal;
             var query = db.Meals
                 .Include(Meal => Meal.Products)
-                .ToList();
-            return query;
-        }
-
-        public IEnumerable<Meal> LoadStats(Meal meal)
-        {
-            var Meal = meal;
-            var query = db.Meals
-                .Include(Meal => Meal.MealProducts)
                 .ToList();
             return query;
         }

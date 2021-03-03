@@ -19,6 +19,7 @@ namespace YAWYE.Pages.Meals
         public Meal Meal { get; set; }
         public IEnumerable<Product> Ingredients { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
+        public IEnumerable<MealProduct> Stats { get; set; }
         public Dictionary<string, decimal> Statistics { get; set; }
         public DetailsModel(IMealData mealData)
         {
@@ -31,8 +32,7 @@ namespace YAWYE.Pages.Meals
             Meals = mealData.LoadIngredients(Meal);
 
             Ingredients = Meal.Products.ToList();
-
-            Meals = mealData.LoadStats(Meal);
+            Stats = Meal.MealProducts.ToList();
 
             return Page();
         }

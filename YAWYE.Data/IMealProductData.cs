@@ -7,12 +7,14 @@ namespace YAWYE.Data
 {
     public interface IMealProductData
     {
-        decimal FindWeight(int mid, int pid);
-        MealProduct AddWeight(MealProduct newMealProduct);
+        MealProduct Add(MealProduct newMealProduct);
         MealProduct Update(MealProduct updatedMealProduct);
         MealProduct LoadLast();
         int Commit();
         MealProduct SetValues(MealProduct mp, int mid, int pid, decimal weight);
         IEnumerable<MealProduct> GetAll();
+        decimal FindWeight(int mid, int pid);
+        MealProduct GetByIds(int mid, int pid);
+
     }
 }

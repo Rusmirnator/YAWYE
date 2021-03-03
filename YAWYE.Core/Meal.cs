@@ -31,8 +31,7 @@ namespace YAWYE.Core
                 Snacks
 
         }
-        public virtual ICollection<Product> Products { get; set; }
-        public virtual ICollection<CalcData> CalcDatas { get; set; }
+        public ICollection<Product> Products { get; set; }
         public ICollection<MealProduct> MealProducts { get; set; }
 
     }

@@ -16,7 +16,6 @@ namespace YAWYE.Data
         public DbSet<Meal> Meals { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Day> Days { get; set; }
-        public DbSet<CalcData> CalcDatas { get; set; }
         public DbSet<MealProduct> MealProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -11,18 +11,22 @@ namespace YAWYE.Pages.Meals
     {
         private readonly IProductData productData;
         private readonly IMealData mealData;
+        private readonly IMealProductData mealProductData;
 
         public Product Product { get; set; }
         public Meal Meal { get; set; }
+        public MealProduct MealProduct { get; set; }
         public decimal Weight { get; set; }
         public bool Trigger { get; set; }
         public List<Product> Products { get; set; }
+        public List<MealProduct> MealProducts { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
 
-        public RecalcModel(IProductData productData, IMealData mealData)
+        public RecalcModel(IProductData productData, IMealData mealData, IMealProductData mealProductData)
         {
             this.productData = productData;
             this.mealData = mealData;
+            this.mealProductData = mealProductData;
         }
         public IActionResult OnGet(int productId, int? mealId, bool trigger = false)
         {
@@ -47,17 +51,17 @@ namespace YAWYE.Pages.Meals
 
             Meal = mealData.GetById(mealId);
             Meals = mealData.LoadIngredients(Meal);
-            Meals = mealData.LoadStats(Meal);
+            MealProducts = new List<MealProduct>();
             Product = productData.GetById(productId);
             var modMeal = Meal;
 
             if (Weight > 0)
             {
-                //MetaAddIngredientsAndStatistics(productId, mealId, Weight, modMeal);
+                MetaAddIngredientsAndStatistics(productId, mealId, Weight, modMeal);
             }
             else if (Weight == 0)
             {
-                //MetaRemoveIngredientsAndStatistics(mealId, productId, modMeal, CalcData);
+                MetaRemoveIngredientsAndStatistics(mealId, productId, modMeal);
             }
 
             mealData.Update(Meal);
@@ -67,28 +71,25 @@ namespace YAWYE.Pages.Meals
             return RedirectToPage("./UpdateMeal", new { mealId = Meal.MealId });
         }
 
-        /*private void MetaAddIngredientsAndStatistics(int productId, int mealId, decimal Weight, Meal modMeal)
+        private void MetaAddIngredientsAndStatistics(int productId, int mealId, decimal Weight, Meal modMeal)
         {
             Meal = mealData.Recomposite(modMeal, Product, Weight);
             Products = mealData.AddIngredient(productId, mealId);
+            MealProduct = mealProductData.SetValues(MealProduct, mealId, productId, Weight);
 
+            mealProductData.Add(MealProduct);
+            MealProducts.Add(MealProduct);
 
-            CalcData.MealIndex = Meal.MealId;
-            CalcData.ProductIndex = Product.ProductId;
-            CalcData.IngredientWeight = Weight;
-            calcData.AddWeight(CalcData);
-            calcData.Commit();
-            CalcData = calcData.LoadLast();
-            Stats = mealData.AddStat(Meal, CalcData);
 
             Meal.Products = Products;
-            Meal.CalcDatas = Stats;
+            Meal.MealProducts = MealProducts;
         }
-        private void MetaRemoveIngredientsAndStatistics(int mealId, int productId, Meal modMeal, CalcData CalcData)
+        private void MetaRemoveIngredientsAndStatistics(int mealId, int productId, Meal modMeal)
         {
 
-            CalcData = Meal.CalcDatas.Where(s => s.MealIndex == mealId && s.ProductIndex == productId).FirstOrDefault();
-            Weight = calcData.FindWeight(mealId, productId);
+            Weight = mealProductData.FindWeight(mealId, productId);
+
+            MealProduct = mealProductData.GetByIds(mealId, productId);
 
             if (!Weight.Equals(null))
             {
@@ -96,9 +97,8 @@ namespace YAWYE.Pages.Meals
             }
             Meal = mealData.Recomposite(modMeal, Product, Weight);
             Meal.Products.Remove(Product);
-            Meal.CalcDatas.Remove(CalcData);
-            calcData.Delete(CalcData.CalcDataId);
+            Meal.MealProducts.Remove(MealProduct);
 
-        }*/
+        }
     }
 }
