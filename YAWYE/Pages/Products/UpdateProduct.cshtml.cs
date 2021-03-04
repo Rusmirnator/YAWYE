@@ -65,7 +65,7 @@ namespace YAWYE.Pages.Products
             {
                 productData.Add(Product);
                 Product.ImgPath = AddImageFromFile();
-                Product.Price *= (100 / Product.TotalWeight);
+                Product.Price *= Product.Price > 0 ? (100 / Product.TotalWeight) : 0;
 
             }
 

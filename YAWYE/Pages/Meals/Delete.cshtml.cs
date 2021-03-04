@@ -21,6 +21,7 @@ namespace YAWYE.Pages.Meals
         public IActionResult OnGet(int mealId)
         {
             Meal = mealData.GetById(mealId);
+            Meal = mealData.LoadIngredients(Meal);
 
             if (Meal == null)
             {

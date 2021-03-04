@@ -20,7 +20,7 @@ namespace YAWYE.Pages.Meals
         public IEnumerable<Product> Ingredients { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
         public IEnumerable<MealProduct> Stats { get; set; }
-        public Dictionary<string, decimal> Statistics { get; set; }
+        public Dictionary<string, decimal> Statistics { get; set; } = new Dictionary<string, decimal>();
         public DetailsModel(IMealData mealData)
         {
             this.mealData = mealData;
@@ -29,13 +29,14 @@ namespace YAWYE.Pages.Meals
         public IActionResult OnGet(int mealId)
         {
             Meal = mealData.GetById(mealId);
-            Meals = mealData.LoadIngredients(Meal);
+            Meal = mealData.LoadIngredients(Meal);
 
             Ingredients = Meal.Products.ToList();
             if (Meal.MealProducts != null)
             {
                 Stats = Meal.MealProducts.ToList();
             }
+            Statistics = mealData.GetStatistics(mealId);
 
             return Page();
         }

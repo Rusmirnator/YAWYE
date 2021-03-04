@@ -18,8 +18,8 @@ namespace YAWYE.Pages.Meals
         public MealProduct MealProduct { get; set; }
         public decimal Weight { get; set; }
         public bool Trigger { get; set; }
-        public List<Product> Products { get; set; }
-        public List<MealProduct> MealProducts { get; set; }
+        public List<Product> Products { get; set; } = new List<Product>();
+        public List<MealProduct> MealProducts { get; set; } = new List<MealProduct>();
         public IEnumerable<Meal> Meals { get; set; }
 
         public RecalcModel(IProductData productData, IMealData mealData, IMealProductData mealProductData)
@@ -50,8 +50,8 @@ namespace YAWYE.Pages.Meals
             }
 
             Meal = mealData.GetById(mealId);
-            Meals = mealData.LoadIngredients(Meal);
-            MealProducts = new List<MealProduct>();
+            Meal = mealData.LoadIngredients(Meal);
+
             Product = productData.GetById(productId);
             MealProduct = new MealProduct();
             var modMeal = Meal;
@@ -77,6 +77,11 @@ namespace YAWYE.Pages.Meals
             Meal = mealData.Recomposite(modMeal, Product, Weight);
             Products = mealData.AddIngredient(productId, mealId);
 
+            if (Meal.MealProducts != null)
+            {
+                MealProducts = Meal.MealProducts.ToList();
+            }
+
             MealProduct = mealProductData.SetValues(MealProduct, mealId, productId, Weight);
 
             mealProductData.Add(MealProduct);
@@ -85,6 +90,7 @@ namespace YAWYE.Pages.Meals
 
             Meal.Products = Products;
             Meal.MealProducts = MealProducts;
+            mealData.Commit();
         }
         private void MetaRemoveIngredientsAndStatistics(int mealId, int productId, Meal modMeal)
         {
