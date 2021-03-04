@@ -53,6 +53,7 @@ namespace YAWYE.Pages.Meals
             Meals = mealData.LoadIngredients(Meal);
             MealProducts = new List<MealProduct>();
             Product = productData.GetById(productId);
+            MealProduct = new MealProduct();
             var modMeal = Meal;
 
             if (Weight > 0)
@@ -75,6 +76,7 @@ namespace YAWYE.Pages.Meals
         {
             Meal = mealData.Recomposite(modMeal, Product, Weight);
             Products = mealData.AddIngredient(productId, mealId);
+
             MealProduct = mealProductData.SetValues(MealProduct, mealId, productId, Weight);
 
             mealProductData.Add(MealProduct);

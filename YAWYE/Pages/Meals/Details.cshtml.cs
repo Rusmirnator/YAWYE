@@ -32,7 +32,10 @@ namespace YAWYE.Pages.Meals
             Meals = mealData.LoadIngredients(Meal);
 
             Ingredients = Meal.Products.ToList();
-            Stats = Meal.MealProducts.ToList();
+            if (Meal.MealProducts != null)
+            {
+                Stats = Meal.MealProducts.ToList();
+            }
 
             return Page();
         }
