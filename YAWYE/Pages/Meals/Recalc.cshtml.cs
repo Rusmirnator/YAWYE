@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -39,7 +40,7 @@ namespace YAWYE.Pages.Meals
 
             Meal = mealData.GetById(mealId.Value);
             Product = productData.GetById(productId);
-            
+
             return Page();
         }
         public IActionResult OnPost([FromRoute] int productId, [FromRoute] int mealId, [FromForm] decimal Weight)

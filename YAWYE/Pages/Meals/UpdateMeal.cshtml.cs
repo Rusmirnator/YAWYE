@@ -17,10 +17,8 @@ namespace YAWYE.Pages.Meals
 
         [BindProperty]
         public Meal Meal { get; set; }
-        public Product Product { get; set; }
         [ViewData]
         public IEnumerable<Product> Products { get; set; }
-        public IEnumerable<int> Related { get; set; }
         [TempData]
         public string Message { get; set; }
         [Range(0,5)]
@@ -39,7 +37,6 @@ namespace YAWYE.Pages.Meals
             if (mealId.HasValue)
             {
                 Meal = mealData.GetById(mealId.Value);
-                Related = mealData.GetRelatedById(mealId.Value);
             }
             else
             {
@@ -94,8 +91,10 @@ namespace YAWYE.Pages.Meals
                 mealData.AddMeal(Meal);
                 Meal.ImgPath = "groceries.png";
             }
+
             mealData.Commit();
             TempData["Message"] = "Meal saved!";
+
             return RedirectToPage("./Details", new { mealId = Meal.MealId });
 
         }

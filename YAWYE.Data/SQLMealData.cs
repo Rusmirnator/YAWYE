@@ -108,9 +108,8 @@ namespace YAWYE.Data
                         where w.MealId == mid && w.ProductId == n.ProductId
                         select new { Name = n.Name, Weight = w.ProductWeight };
 
-            var result = new Dictionary<string, decimal>();
 
-            result = query.ToDictionary(n => n.Name, w => w.Weight);
+            var result = query.ToDictionary(n => n.Name, w => w.Weight);
 
             return result;
         }
@@ -119,6 +118,7 @@ namespace YAWYE.Data
             var query = from i in db.MealProducts
                         where i.MealId == mid
                         select i.ProductId;
+
             return query;
         }
     }

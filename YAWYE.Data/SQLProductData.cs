@@ -42,7 +42,7 @@ namespace YAWYE.Data
 
         public IEnumerable<Product> GetAll()
         {
-            return from p in db.Products
+            return from p in db.Products.Include(mp => mp.MealProducts)
                    orderby p.ProductId
                    select p;
         }
