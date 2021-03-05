@@ -31,15 +31,15 @@
                     <th scope="col">#</th>
                     <th scope="col">Product Name</th>
                     <th scope="col">Product Make</th>
-                    <th scope="col">Select</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                
+
                 @foreach (var product in Model.Products)
                 {
                     <tr>
-                        <th scope="row">1</th>
+                        <th scope="row">@product.ProductId</th>
                         <td>@product.Name</td>
                         <td>@product.Make</td>
                         <td>
@@ -47,8 +47,8 @@
                                asp-page="./Recalc"
                                asp-route-productId="@product.ProductId"
                                asp-route-mealId="@Model.Meal.MealId">Add</a>
-                            <a class="btn btn-danger" 
-                               asp-page="./Recalc" 
+                            <a class="btn btn-danger"
+                               asp-page="./Recalc"
                                asp-route-productId="@product.ProductId"
                                asp-route-mealId="@Model.Meal.MealId"
                                asp-route-trigger="true">Remove</a>

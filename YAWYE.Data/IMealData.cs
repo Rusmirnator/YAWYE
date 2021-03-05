@@ -18,6 +18,7 @@ namespace YAWYE.Data
         Meal Recomposite(Meal meal, Product product, decimal weight);
         Meal LoadIngredients(Meal meal);
         Dictionary<string, decimal> GetStatistics(int mid);
+        public IEnumerable<int> GetRelatedById(int mid);
 
     }
 }
