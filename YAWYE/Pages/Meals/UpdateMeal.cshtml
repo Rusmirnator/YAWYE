@@ -45,7 +45,7 @@
                             <td>
                                 @if (!product.MealProducts.Where(m => m.MealId == Model.Meal.MealId).Any())
                                 {
-                                    <a class="btn btn-success" label="conditional"
+                                    <a class="btn btn-success"
                                        asp-page="./Recalc"
                                        asp-route-productId="@product.ProductId"
                                        asp-route-mealId="@Model.Meal.MealId">Add</a>
@@ -58,9 +58,13 @@
                                        asp-route-mealId="@Model.Meal.MealId"
                                        asp-route-trigger="true">Remove</a>
                                 }
-                        </td>
-                    </tr>
-                }
+                                <a href="#" data-toggle="popover"
+                                   title="@product.Name"
+                                   data-content="@product.Make">Toggle popover</a>
+
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
@@ -82,3 +86,11 @@
         display: block;
     }
 </style>
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
+}

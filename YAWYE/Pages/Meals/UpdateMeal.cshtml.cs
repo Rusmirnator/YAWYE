@@ -17,6 +17,7 @@ namespace YAWYE.Pages.Meals
 
         [BindProperty]
         public Meal Meal { get; set; }
+        public Product Product { get; set; } = new Product();
         [ViewData]
         public IEnumerable<Product> Products { get; set; }
         [TempData]
