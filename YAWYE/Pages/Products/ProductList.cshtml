@@ -4,16 +4,14 @@
 @{
 }
 
-
 <form method="get">
     <div class="form-group">
         <div class="input-group">
             <input type="search" class="form-control" asp-for="SearchTerm" />
-            <span class="btn btn-default">
-                <button class="btn">
-                    <i class="btn btn-primary">Search</i>
+            <span>
+                <button class="btn fas fa-search">
                 </button>
-                <a asp-page="./UpdateProduct" class="btn btn-success">Add new</a>
+                <a asp-page="./UpdateProduct" class="btn fas fa-plus"></a>
             </span>
         </div>
     </div>

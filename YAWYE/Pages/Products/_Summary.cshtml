@@ -1,31 +1,27 @@
 ﻿@using YAWYE.Core
 @model Product
 
-<div class="panel panel-heading">
-    <div class="panel-heading">
+<div class="card">
+    <div class="card-header">
         <h3>@Model.Name</h3>
         <h4>@Model.Make</h4>
-
     </div>
-    <div class="panel-body">
-            <img src="~/Images/@Model.ImgPath" class="img" width="100" height="100" alt="@Model.Name"/>
+    <div class="card-body">
+        <img src="~/Images/@Model.ImgPath" class="img" width="100" height="100" alt="@Model.Name" />
     </div>
-
-    <div class="panel-footer">
-        <a class="btn btn-primary"
+    <div class="card-footer">
+        <a class="btn fas fa-file" title="See details"
            asp-page="./Details"
-           asp-route-productId="@Model.ProductId">
-            <i class="glyphicon glyphicon-zoom-in">Show details</i>
+           asp-route-mealId="@Model.ProductId">
         </a>
-        <a class="btn btn-warning"
-           asp-page="./UpdateProduct"
-           asp-route-productId="@Model.ProductId">
-            <i class="glyphicon glyphicon-edit">Edit</i>
+        <a class="btn fas fa-edit" title="Edit"
+           asp-page="./UpdateMeal"
+           asp-route-mealId="@Model.ProductId">
         </a>
-        <a class="btn btn-danger"
+        <a class="btn fas fa-trash" title="Delete"
            asp-page="./Delete"
-           asp-route-productId="@Model.ProductId">
-            <i class="glyphicon glyphicon-trash">Delete</i>
+           asp-route-mealId="@Model.ProductId">
         </a>
     </div>
 </div>
+<br />
