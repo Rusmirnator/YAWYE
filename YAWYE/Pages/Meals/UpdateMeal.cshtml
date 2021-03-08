@@ -48,7 +48,7 @@ else
     {
         <div class="table-wrapper-scroll-y my-custom-scrollbar">
 
-            <table class="table table-striped mb-0">
+            <table class="table table-striped mb-0" id="datatable">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
@@ -68,14 +68,14 @@ else
                             <td>
                                 @if (!product.MealProducts.Where(m => m.MealId == Model.Meal.MealId).Any())
                                 {
-                                    <a class="btn fas fa-plus-circle"
+                                    <a class="btn fas fa-plus-circle" title="Add"
                                        asp-page="./Recalc"
                                        asp-route-productId="@product.ProductId"
                                        asp-route-mealId="@Model.Meal.MealId"></a>
                                 }
                                 else
                                 {
-                                    <a class="btn fas fa-trash"
+                                    <a class="btn fas fa-trash" title="Remove"
                                        asp-page="./Recalc"
                                        asp-route-productId="@product.ProductId"
                                        asp-route-mealId="@Model.Meal.MealId"
@@ -123,6 +123,11 @@ else
     <script>
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover();
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('[id="datatable"]').DataTable();
         });
     </script>
 }

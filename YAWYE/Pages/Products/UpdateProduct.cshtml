@@ -2,6 +2,14 @@
 @model YAWYE.Pages.Products.UpdateProductModel
 @{
 }
+@if (Model.Product.ProductId > 0)
+{
+    <img src="~/Images/@Model.Product.ImgPath" class="img img-thumbnail" width="200" height="200" alt="@Model.Product.Name" />
+}
+else
+{
+    <img src="~/Images/productDefault.png" class="img img-thumbnail" width="200" height="200" alt="New product" />
+}
 <form method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Product.ProductId" />
     <input type="hidden" asp-for="Product.ImgPath" />
