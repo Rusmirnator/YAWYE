@@ -34,10 +34,3 @@ namespace YAWYE.Areas.Identity
         }
     }
 }
-/*services.AddDbContextPool<YAWYEDbContext>(options =>
-           {
-               options.UseSqlServer(Configuration.GetConnectionString("YAWYEDb"));
-           });
-           services.AddScoped<IProductData, SQLProductData>();
-           services.AddScoped<IMealData, SQLMealData>();
-           services.AddScoped<IMealProductData, SQLMealProductData>();*/
