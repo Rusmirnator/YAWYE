@@ -28,13 +28,13 @@ namespace YAWYE
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContextPool<YAWYEDbContext>(options =>
+            /*services.AddDbContextPool<YAWYEDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("YAWYEDb"));
             });
             services.AddScoped<IProductData, SQLProductData>();
             services.AddScoped<IMealData, SQLMealData>();
-            services.AddScoped<IMealProductData, SQLMealProductData>();
+            services.AddScoped<IMealProductData, SQLMealProductData>();*/
             
             
             services.AddRazorPages();
@@ -59,11 +59,12 @@ namespace YAWYE
 
             app.UseRouting();
 
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
         }
