@@ -1,6 +1,9 @@
 ﻿@page
 @model YAWYE.Pages.CalendarModel
 @{
+    var month = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+    var today = DateTime.Today.DayOfWeek;
+    string[] monthName = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 }
 <div class="calendar calendar-first" id="calendar_first">
     <div class="calendar_header">
@@ -11,6 +14,7 @@
     <div class="calendar_weekdays"></div>
     <div class="calendar_content"></div>
 </div>
+
 <style>
     .body {
         margin-top: 3%;
@@ -46,18 +50,18 @@
         }
 
         .calendar_content div {
-            border: 1px solid transparent;
+            border: 2px solid transparent;
             float: left;
         }
 
             .calendar_content div:hover {
-                border: 1px solid #dcdcdc;
+                border: 2px solid #dcdcdc;
                 cursor: default;
             }
 
             .calendar_content div.blank:hover {
                 cursor: default;
-                border: 1px solid transparent;
+                border: 2px solid transparent;
             }
 
             .calendar_content div.past-date {
@@ -68,7 +72,7 @@
                 font-weight: bold;
                 font-size: 27px;
                 color: #87b633;
-                border: 1px solid #dcdcdc;
+                border: 2px solid #dcdcdc;
             }
 
             .calendar_content div.selected {
@@ -146,7 +150,6 @@
                 calendar.calHeader.find("h2").text(i[passed_month] + " " + passed_year);
                 calendar.weekline.find("div").css("color", color);
                 calendar.datesBody.find(".today").css("color", "#87b633");
-
                 // find elements (dates) to be clicked on each time
                 // the calendar is generated
                 var clicked = false;
@@ -155,7 +158,6 @@
                 clickedElement = calendar.datesBody.find('div');
                 clickedElement.on("click", function () {
                     clicked = $(this);
-                    var whichCalendar = calendar.name;
 
                     if (firstClick && secondClick) {
                         thirdClicked = getClickedInfo(clicked, calendar);
@@ -168,26 +170,7 @@
                         var thirdClickDateObj = new Date(thirdClicked.year,
                             thirdClicked.month,
                             thirdClicked.date);
-                        if (secondClickDateObj > thirdClickDateObj && thirdClickDateObj > firstClickDateObj) {
-                            secondClicked = thirdClicked;
-                            // then choose dates again from the start :)
-                            bothCals.find(".calendar_content").find("div").each(function () {
-                                $(this).removeClass("selected");
-                            });
-                            selected = {};
-                            selected[firstClicked.year] = {};
-                            selected[firstClicked.year][firstClicked.month] = [firstClicked.date];
-                            selected = addChosenDates(firstClicked, secondClicked, selected);
-                        } else { // reset clicks
-                            selected = {};
-                            firstClicked = [];
-                            secondClicked = [];
-                            firstClick = false;
-                            secondClick = false;
-                            bothCals.find(".calendar_content").find("div").each(function () {
-                                $(this).removeClass("selected");
-                            });
-                        }
+
                     }
                     if (!firstClick) {
                         firstClick = true;
@@ -198,38 +181,13 @@
                         secondClick = true;
                         secondClicked = getClickedInfo(clicked, calendar);
 
-                        // what if second clicked date is before the first clicked?
-                        var firstClickDateObj = new Date(firstClicked.year,
-                            firstClicked.month,
-                            firstClicked.date);
-                        var secondClickDateObj = new Date(secondClicked.year,
-                            secondClicked.month,
-                            secondClicked.date);
-
-                        if (firstClickDateObj > secondClickDateObj) {
-
-                            var cachedClickedInfo = secondClicked;
-                            secondClicked = firstClicked;
-                            firstClicked = cachedClickedInfo;
-                            selected = {};
-                            selected[firstClicked.year] = {};
-                            selected[firstClicked.year][firstClicked.month] = [firstClicked.date];
-
-                        } else if (firstClickDateObj.getTime() == secondClickDateObj.getTime()) {
-                            selected = {};
-                            firstClicked = [];
-                            secondClicked = [];
-                            firstClick = false;
-                            secondClick = false;
-                            $(this).removeClass("selected");
-                        }
-
-
                         // add between dates to [selected]
                         selected = addChosenDates(firstClicked, secondClicked, selected);
                     }
+                    
                     selectDates(selected);
                 });
+
 
             }
 
@@ -349,11 +307,6 @@
             var weekline1 = cal1.find(".calendar_weekdays");
             var datesBody1 = cal1.find(".calendar_content");
 
-            var cal2 = $("#calendar_second");
-            var calHeader2 = cal2.find(".calendar_header");
-            var weekline2 = cal2.find(".calendar_weekdays");
-            var datesBody2 = cal2.find(".calendar_content");
-
             var bothCals = $(".calendar");
 
             var switchButton = bothCals.find(".calendar_header").find('.switch-month');
@@ -364,12 +317,6 @@
                     "calHeader": calHeader1,
                     "weekline": weekline1,
                     "datesBody": datesBody1
-                },
-                "cal2": {
-                    "name": "second",
-                    "calHeader": calHeader2,
-                    "weekline": weekline2,
-                    "datesBody": datesBody2
                 }
             }
 
