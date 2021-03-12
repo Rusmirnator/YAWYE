@@ -9,7 +9,8 @@ namespace YAWYE.Core
     {
         public int DayId { get; set; }
         public DateTime Date { get; set; }
-        public DayOfWeek TodayIs { get; set; }
-        public virtual ICollection<Meal> Meals { get; set; }
+        public string OwnerName { get; set; }
+        public List<Meal> Meals { get; set; } 
+
     }
 }

@@ -31,6 +31,7 @@ namespace YAWYE.Data
                 .HasOne(mp => mp.Product)
                 .WithMany(p => p.MealProducts)
                 .HasForeignKey(mp => mp.ProductId);
+
         }
 
     }

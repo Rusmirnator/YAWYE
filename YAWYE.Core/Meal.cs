@@ -33,6 +33,7 @@ namespace YAWYE.Core
         }
         public ICollection<Product> Products { get; set; }
         public ICollection<MealProduct> MealProducts { get; set; }
+        public ICollection<DayMeal> DayMeals { get; set; }
 
     }
 }
