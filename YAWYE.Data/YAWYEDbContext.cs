@@ -17,21 +17,29 @@ namespace YAWYE.Data
         public DbSet<Day> Days { get; set; }
         public DbSet<MealProduct> MealProducts { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            modelBuilder.Entity<MealProduct>()
+            builder.Entity<MealProduct>()
                 .HasKey(mp => new { mp.MealId, mp.ProductId });
 
-            modelBuilder.Entity<MealProduct>()
+            builder.Entity<MealProduct>()
                 .HasOne(mp => mp.Meal)
                 .WithMany(m => m.MealProducts)
                 .HasForeignKey(mp => mp.MealId);
 
-            modelBuilder.Entity<MealProduct>()
+            builder.Entity<MealProduct>()
                 .HasOne(mp => mp.Product)
                 .WithMany(p => p.MealProducts)
                 .HasForeignKey(mp => mp.ProductId);
 
+            builder.Entity<Day>()
+                .HasMany(d => d.Meals)
+                .WithOne(m => m.Day);
+
+            builder.Entity<Meal>()
+                .HasOne(m => m.Day)
+                .WithMany(m => m.Meals)
+                .HasForeignKey(m => m.DayId);
         }
 
     }
