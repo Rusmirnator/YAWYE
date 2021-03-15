@@ -55,18 +55,14 @@ namespace YAWYE.Pages.Products
             }
             if (Product.ProductId > 0)
             {
-                if (Product.ImgPath == null)
-                {
-                    Product.ImgPath = AddImageFromFile();
-                }
+                
+                Product.ImgPath = Product.ImgPath ?? AddImageFromFile();
+                
                 productData.Update(Product);
             }
             else
             {
-                productData.Add(Product);
-                Product.ImgPath = AddImageFromFile();
-                Product.Price *= Product.Price > 0 ? (100 / Product.TotalWeight) : 0;
-
+                CreateProduct();
             }
 
             productData.Commit();
@@ -74,22 +70,28 @@ namespace YAWYE.Pages.Products
             return RedirectToPage("./Details", new { productId = Product.ProductId });
 
         }
+
+        private void CreateProduct()
+        {
+            productData.Add(Product);
+            Product.ImgPath = AddImageFromFile();
+            //todo extract logic to method
+            Product.Price *= Product.Price > 0 ? (100 / Product.TotalWeight) : 0;
+        }
+
+        //todo move to utils class
         public string AddImageFromFile()
         {
-            string uniqueFileName;
-            if (Image != null)
-            {
-                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Images");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + Image.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using var fileStream = new FileStream(filePath, FileMode.Create);
-                Image.CopyTo(fileStream);
-                Product.HasImage = true;
-            }
-            else
-            {
-                uniqueFileName = "grocerydefault.jpg";
-            }
+            if (Image == null)
+                return "grocerydefault.jpg";
+            
+            string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Images");
+            string uniqueFileName = Guid.NewGuid().ToString() + "_" + Image.FileName;
+            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+            using var fileStream = new FileStream(filePath, FileMode.Create);
+            Image.CopyTo(fileStream);
+            Product.HasImage = true;
+
             return uniqueFileName;
         }
 

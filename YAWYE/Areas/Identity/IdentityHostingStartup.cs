@@ -27,6 +27,7 @@ namespace YAWYE.Areas.Identity
                 services.AddScoped<IProductData, SQLProductData>();
                 services.AddScoped<IMealData, SQLMealData>();
                 services.AddScoped<IMealProductData, SQLMealProductData>();
+                services.AddScoped<IDayData, SQLDayData>();
 
                 services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddEntityFrameworkStores<ApplicationDbContext>();

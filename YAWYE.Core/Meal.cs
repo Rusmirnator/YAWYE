@@ -33,9 +33,6 @@ namespace YAWYE.Core
         }
         public ICollection<Product> Products { get; set; }
         public ICollection<MealProduct> MealProducts { get; set; }
-        public ICollection<Day> Days { get; set; }
-        public Day Day { get; set; }
-        public int DayId { get; set; }
 
     }
 }

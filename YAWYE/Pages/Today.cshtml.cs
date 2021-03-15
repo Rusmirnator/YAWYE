@@ -11,17 +11,28 @@ namespace YAWYE.Pages
 {
     public class TodayModel : PageModel
     {
-        private readonly IMealData mealData;
+        private readonly IDayData dayData;
+
         public IEnumerable<Meal> Meals { get; set; }
         public Meal Meal { get; set; }
-        public TodayModel(IMealData mealData)
+        public Day Day { get; set; }
+        public TodayModel(IDayData dayData)
         {
-            this.mealData = mealData;
+            this.dayData = dayData;
         }
 
-        public void OnGet()
+        public void OnGet(int? dayId)
         {
-            
+            if(!dayId.HasValue)
+            {
+                Day = new Day();
+                Day.Date = DateTime.Now;
+                Day.OwnerName = User.Identity.Name;
+            }
+            else
+            {
+                Day = dayData.GetById(dayId.Value);
+            }
         }
     }
 }

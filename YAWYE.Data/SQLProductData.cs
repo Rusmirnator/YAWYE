@@ -9,36 +9,19 @@ using System.IO;
 
 namespace YAWYE.Data
 {
-    public class SQLProductData : IProductData
+    public class SQLProductData : BaseRepository<Product>, IProductData
     {
         private readonly YAWYEDbContext db;
 
         public SQLProductData(YAWYEDbContext db)
+            : base(db)
         {
             this.db = db;
         }
 
-        public Product Add(Product newProduct)
-        {
-            db.Add(newProduct);
-            return newProduct;
-        }
 
 
-        public int Commit()
-        {
-            return db.SaveChanges();
-        }
 
-        public Product Delete(int id)
-        {
-            var product = GetById(id);
-            if(product != null)
-            {
-                db.Products.Remove(product);
-            }
-            return product;
-        }
 
         public IEnumerable<Product> GetAll()
         {

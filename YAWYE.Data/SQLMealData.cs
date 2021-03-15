@@ -81,6 +81,7 @@ namespace YAWYE.Data
 
         public Meal Recomposite(Meal meal, Product product, decimal weight)
         {
+            //todo move business logic to controller
             var multiplier = weight / 100;
             var modMeal = meal;
             var modProd = product;

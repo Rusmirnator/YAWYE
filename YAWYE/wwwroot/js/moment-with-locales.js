@@ -29,7 +29,7 @@
         return (
             input != null &&
             Object.prototype.toString.call(input) === '[object Object]'
-        );
+        ); 
     }
 
     function hasOwnProp(a, b) {

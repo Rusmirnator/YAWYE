@@ -10,7 +10,7 @@ using YAWYE.Data;
 namespace YAWYE.Data.Migrations
 {
     [DbContext(typeof(YAWYEDbContext))]
-    [Migration("20210312235642_NewRelationsDay")]
+    [Migration("20210315134936_NewRelationsDay")]
     partial class NewRelationsDay
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,15 +31,10 @@ namespace YAWYE.Data.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("MealId")
-                        .HasColumnType("int");
-
                     b.Property<string>("OwnerName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DayId");
-
-                    b.HasIndex("MealId");
 
                     b.ToTable("Days");
                 });
@@ -54,7 +49,7 @@ namespace YAWYE.Data.Migrations
                     b.Property<decimal>("Carbohydrates")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("DayId")
+                    b.Property<int?>("DayId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Fat")
@@ -180,20 +175,11 @@ namespace YAWYE.Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("YAWYE.Core.Day", b =>
-                {
-                    b.HasOne("YAWYE.Core.Meal", null)
-                        .WithMany("Days")
-                        .HasForeignKey("MealId");
-                });
-
             modelBuilder.Entity("YAWYE.Core.Meal", b =>
                 {
-                    b.HasOne("YAWYE.Core.Day", "Day")
+                    b.HasOne("YAWYE.Core.Day", null)
                         .WithMany("Meals")
-                        .HasForeignKey("DayId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DayId");
 
                     b.HasOne("YAWYE.Core.Meal", null)
                         .WithMany("Meals")

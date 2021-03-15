@@ -7,12 +7,12 @@ namespace YAWYE.Data
 {
     public interface IDayData
     {
-        public Day GetById(int id);
-        public Day GetByDate(DateTime dt);
-        public IEnumerable<Day> GetAllByOwner(string user);
-        public Day Add(Day newDay);
-        public Day Update(Day updatedDay);
-        public Day Delete(int id);
+        Day GetById(int id);
+        Day GetByDate(DateTime dt);
+        IEnumerable<Day> GetAllByOwner(string user);
+        Day Add(Day newDay);
+        Day Update(Day updatedDay);
+        Day Delete(int id);
 
 
 

@@ -10,7 +10,7 @@
     global.moment = factory()
 }(this, (function () { 'use strict';
 
-    var hookCallback;
+    var hookCallback; 
 
     function hooks() {
         return hookCallback.apply(null, arguments);

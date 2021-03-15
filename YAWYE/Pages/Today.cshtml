@@ -1,5 +1,7 @@
-﻿@page
+﻿@page "{dayId:int?}"
 @model YAWYE.Pages.TodayModel
 @{
 }
 
+<h2>@Model.Day.Date</h2><h3>@Model.Day.Date.DayOfWeek</h3>
+<span>@Model.Day.OwnerName</span>

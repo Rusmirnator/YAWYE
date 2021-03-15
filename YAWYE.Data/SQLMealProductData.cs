@@ -41,7 +41,7 @@ namespace YAWYE.Data
             var mp = from mps in db.MealProducts
                      orderby mps.MealId
                      select mps;
-            return mp.Last();
+            return mp.LastOrDefault();
         }
 
         public MealProduct Update(MealProduct updatedMP)
@@ -53,9 +53,7 @@ namespace YAWYE.Data
 
         public IEnumerable<MealProduct> GetAll()
         {
-            return from mp in db.MealProducts
-                   orderby mp.MealId
-                   select mp;
+            return db.MealProducts;
         }
 
         public decimal FindWeight(int mid, int pid)
@@ -69,10 +67,7 @@ namespace YAWYE.Data
 
         public MealProduct GetByIds(int mid, int pid)
         {
-            var mps = from mp in db.MealProducts
-            where mp.MealId == mid && mp.ProductId == pid
-            select mp;
-            return mps.SingleOrDefault();
+            return db.MealProducts.SingleOrDefault(mp => mp.MealId == mid && mp.ProductId == pid);
         }
 
     }

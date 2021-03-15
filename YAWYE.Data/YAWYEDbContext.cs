@@ -32,14 +32,6 @@ namespace YAWYE.Data
                 .WithMany(p => p.MealProducts)
                 .HasForeignKey(mp => mp.ProductId);
 
-            builder.Entity<Day>()
-                .HasMany(d => d.Meals)
-                .WithOne(m => m.Day);
-
-            builder.Entity<Meal>()
-                .HasOne(m => m.Day)
-                .WithMany(m => m.Meals)
-                .HasForeignKey(m => m.DayId);
         }
 
     }
