@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using YAWYE.Core;
 using YAWYE.Data;
+using YAWYE.Utilities;
 
 namespace YAWYE.Pages.Products
 {
@@ -24,12 +25,12 @@ namespace YAWYE.Pages.Products
         public IFormFile Image { get; set; }
 
 
-
         public UpdateProductModel(IProductData productData, IWebHostEnvironment webHostEnvironment)
         {
             this.productData = productData;
             this.webHostEnvironment = webHostEnvironment;
         }
+
 
         public IActionResult OnGet(int? productId)
         {
@@ -55,9 +56,8 @@ namespace YAWYE.Pages.Products
             }
             if (Product.ProductId > 0)
             {
-                
-                Product.ImgPath = Product.ImgPath ?? AddImageFromFile();
-                
+                Product.ImgPath = Product.ImgPath ?? Utilities.Utilities.AddImageFromFile(Product, webHostEnvironment.WebRootPath, Image);
+
                 productData.Update(Product);
             }
             else
@@ -74,25 +74,14 @@ namespace YAWYE.Pages.Products
         private void CreateProduct()
         {
             productData.Add(Product);
-            Product.ImgPath = AddImageFromFile();
-            //todo extract logic to method
-            Product.Price *= Product.Price > 0 ? (100 / Product.TotalWeight) : 0;
+            Product.ImgPath = Utilities.Utilities.AddImageFromFile(Product, webHostEnvironment.WebRootPath, Image);
+            RecalculatePrice();
+            Product.ImgPath = Product.ImgPath ?? "gorecerydefault.jpg";
         }
 
-        //todo move to utils class
-        public string AddImageFromFile()
+        private void RecalculatePrice()
         {
-            if (Image == null)
-                return "grocerydefault.jpg";
-            
-            string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Images");
-            string uniqueFileName = Guid.NewGuid().ToString() + "_" + Image.FileName;
-            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-            using var fileStream = new FileStream(filePath, FileMode.Create);
-            Image.CopyTo(fileStream);
-            Product.HasImage = true;
-
-            return uniqueFileName;
+            Product.Price *= Product.Price > 0 ? (100 / Product.TotalWeight) : 0;
         }
 
 

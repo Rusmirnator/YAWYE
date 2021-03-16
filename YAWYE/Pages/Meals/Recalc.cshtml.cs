@@ -75,7 +75,7 @@ namespace YAWYE.Pages.Meals
 
         private void MetaAddIngredientsAndStatistics(int productId, int mealId, decimal Weight, Meal modMeal)
         {
-            Meal = mealData.Recomposite(modMeal, Product, Weight);
+            Meal = Recomposite(modMeal, Product, Weight);
             Products = mealData.AddIngredient(productId, mealId);
 
             if (Meal.MealProducts != null)
@@ -104,10 +104,25 @@ namespace YAWYE.Pages.Meals
             {
                 Weight *= -1;
             }
-            Meal = mealData.Recomposite(modMeal, Product, Weight);
+            Meal = Recomposite(modMeal, Product, Weight);
             Meal.Products.Remove(Product);
             Meal.MealProducts.Remove(MealProduct);
 
+        }
+        private Meal Recomposite(Meal meal, Product product, decimal weight)
+        {
+            
+            var multiplier = weight / 100;
+            var modMeal = meal;
+            var modProd = product;
+            modMeal.Kcal += modProd.Kcal * multiplier;
+            modMeal.Protein += modProd.Protein * multiplier;
+            modMeal.Carbohydrates += modProd.Carbohydrates * multiplier;
+            modMeal.Fat += modProd.Fat * multiplier;
+            modMeal.Fiber += modProd.Fiber * multiplier;
+            modMeal.Price += modProd.Price * (modProd.Price > 0 ? multiplier : 1);
+            modMeal.Weight += modProd.Weight * multiplier;
+            return modMeal;
         }
     }
 }

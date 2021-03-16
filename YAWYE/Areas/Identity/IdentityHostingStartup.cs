@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyApplication.Data;
 using YAWYE.Data;
+using YAWYE.Utilities;
 
 [assembly: HostingStartup(typeof(YAWYE.Areas.Identity.IdentityHostingStartup))]
 namespace YAWYE.Areas.Identity

@@ -9,7 +9,6 @@ namespace YAWYE.Core
 {
     public class Product
     {
-
         public int ProductId { get; set; }
         public decimal Weight { get; set; } = 100;
         [Required]

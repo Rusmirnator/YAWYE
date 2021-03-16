@@ -9,7 +9,7 @@ using System.IO;
 
 namespace YAWYE.Data
 {
-    public class BaseRepository<T> where T: class
+    public class BaseRepository<T> where T : class
     {
         private readonly YAWYEDbContext db;
 
@@ -20,7 +20,7 @@ namespace YAWYE.Data
 
         public T Add(T newProduct)
         {
-            db. Add<T>(newProduct);
+            db.Add<T>(newProduct);
             return newProduct;
         }
 
@@ -33,41 +33,23 @@ namespace YAWYE.Data
         public T Delete(int id)
         {
             var product = db.Find<T>(id);
-            if(product != null)
+            if (product != null)
             {
                 db.Remove<T>(product);
             }
             return product;
         }
 
-        //todo dokonczyc pozostale
+        public T GetById(int id)
+        {
+            return db.Find<T>(id);
+        }
 
-        //public IEnumerable<Product> GetAll()
-        //{
-        //    return from p in db.Products.Include(mp => mp.MealProducts)
-        //           orderby p.ProductId
-        //           select p;
-        //}
-
-        //public Product GetById(int id)
-        //{
-        //    return db.Products.Find(id);
-        //}
-
-        //public IEnumerable<Product> GetProductByName(string name)
-        //{
-        //    var query =
-        //        from p in db.Products
-        //        where p.Name.StartsWith(name) || string.IsNullOrEmpty(name)
-        //        orderby p.Name
-        //        select p;
-        //    return query;
-        //}
-        //public Product Update(Product updatedProduct)
-        //{
-        //    var entity = db.Products.Attach(updatedProduct);
-        //    entity.State = EntityState.Modified;
-        //    return updatedProduct;
-        //}
+        public T Update(T updatedProduct)
+        {
+            var entity = db.Attach<T>(updatedProduct);
+            entity.State = EntityState.Modified;
+            return updatedProduct;
+        }
     }
 }

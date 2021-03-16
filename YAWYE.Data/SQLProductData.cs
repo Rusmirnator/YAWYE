@@ -19,10 +19,6 @@ namespace YAWYE.Data
             this.db = db;
         }
 
-
-
-
-
         public IEnumerable<Product> GetAll()
         {
             return from p in db.Products.Include(mp => mp.MealProducts)
