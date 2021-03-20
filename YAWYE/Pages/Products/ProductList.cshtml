@@ -4,24 +4,25 @@
 @{
 }
 
-<form method="get">
+<form method="get" label="Search">
     <div class="form-group">
         <div class="input-group">
-            <input type="search" class="form-control" asp-for="SearchTerm" />
+            <input type="search" class="form-control" asp-for="SearchTerm" id="searchInput" placeholder="Search"/>
             <span>
-                <button class="btn fas fa-search">
+                <button class="btn fas fa-search" title="Go!">
                 </button>
-                <a asp-page="./UpdateProduct" class="btn fas fa-plus"></a>
+                <a asp-page="./UpdateProduct" class="btn fas fa-plus" title="Add new!"></a>
             </span>
         </div>
     </div>
 </form>
-
+<div id="list">
     @foreach (var product in Model.Products)
     {
         <partial name="_Summary" model="product" />
-        
+
     }
+</div>
 @if(Model.Message != null)
 {
     <div class="alert alert-info">@Model.Message</div>
@@ -30,9 +31,14 @@
 @section Scripts
 {
 <script type="text/javascript">
-    
-
-    
+    $(document).ready(function () {
+        $("#searchInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#list div").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
 </script>
 }
 
