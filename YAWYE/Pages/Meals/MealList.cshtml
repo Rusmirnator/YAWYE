@@ -7,7 +7,7 @@
 <form method="get">
     <div class="form-group">
         <div class="input-group">
-            <input type="search" class="form-control" asp-for="SearchTerm" placeholder="Search" id="searchInput"/>
+            <input type="search" class="form-control" asp-for="SearchTerm" placeholder="Search" id="searchInput" />
             <span>
                 <button class="btn fas fa-search">
                 </button>
@@ -18,23 +18,37 @@
 
 
 </form>
-<div id="list">
+
+<table id="list" class="table-bordered">
     @foreach (var meal in Model.Meals)
     {
         <partial name="_Summary" model="meal" />
 
     }
-</div>
+</table>
+<style>
+    #list {
+        width:100%;
+    }
+    #list td
+    {
+        text-align:center;
+        align-items:center;
+    }
+    #list tr{
+
+    }
+</style>
 @section Scripts
 {
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#searchInput").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#list div").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#searchInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#list tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
             });
         });
-    });
-</script>
+    </script>
 }
