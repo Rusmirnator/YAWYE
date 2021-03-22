@@ -1,16 +1,16 @@
 ﻿@using YAWYE.Core
 @model Meal
 @{
-    var protein = Model.Protein.ToString() + "%";
-    var carbos = Model.Carbohydrates.ToString() + "%";
-    var fat = Model.Fat.ToString() + "%";
+    var protein = Math.Round(Model.Protein).ToString() + "%";
+    var carbos = Math.Round(Model.Carbohydrates).ToString() + "%";
+    var fat = Math.Round(Model.Fat).ToString() + "%";
     var values = new List<decimal>();
 
     values.Add(Model.Protein);
     values.Add(Model.Carbohydrates);
     values.Add(Model.Fat);
 
-    var maxValue = values.Max().ToString() + "%";
+    var maxValue = Math.Round(values.Max()).ToString() + "%";
 }
 
 <tr>
@@ -20,10 +20,12 @@
     <td class="card-body">
         <h3>@Model.Name</h3>
     </td>
-    <td id="graphs-@Model.MealId">
-        <p class="progress-bar" id="proteinGraph-@Model.MealId" style="width:@protein">P:</p>
-        <p class="progress-bar" id="carboGraph-@Model.MealId">C:</p>
-        <p class="progress-bar" id="fatGraph-@Model.MealId">F:</p>
+    <td id="graphCell-@Model.MealId">
+        <div id="graphs-@Model.MealId">
+            <div class="progress-bar" id="proteinGraph-@Model.MealId" aria-valuemax="100">Protein @Model.Protein g</div>
+            <div class="progress-bar" id="carboGraph-@Model.MealId">Carbohydrates @Model.Carbohydrates g</div>
+            <div class="progress-bar" id="fatGraph-@Model.MealId">Fat @Model.Fat g</div>
+        </div>
     </td>
     <td class="card-footer">
         <a class="btn fas fa-file" title="See details"
@@ -44,18 +46,20 @@
 <style>
     #proteinGraph-@Model.MealId{
         background-color: #ff006e;
+        width: @protein;
     }
-    #carboGraph-@Model.MealId {
+    #carboGraph-@Model.MealId{
         background-color: #ff6a00;
+        width: @carbos;
     }
-    #fatGraph-@Model.MealId {
+    #fatGraph-@Model.MealId{
         background-color: #ffd800;
+        width: @fat;
     }
-    #graphs-@Model.MealId {
+    #graphCell-@Model.MealId {
         width: 100%;
     }
-    #graphs-@Model.MealId p{
-        width:@maxValue;
+    .progress-bar {
+        margin-top:2%;
     }
-
 </style>
