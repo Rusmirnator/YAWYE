@@ -1,5 +1,17 @@
 ﻿@using YAWYE.Core
 @model Meal
+@{
+    var protein = Model.Protein.ToString() + "%";
+    var carbos = Model.Carbohydrates.ToString() + "%";
+    var fat = Model.Fat.ToString() + "%";
+    var values = new List<decimal>();
+
+    values.Add(Model.Protein);
+    values.Add(Model.Carbohydrates);
+    values.Add(Model.Fat);
+
+    var maxValue = values.Max().ToString() + "%";
+}
 
 <tr>
     <td class="card-header">
@@ -8,10 +20,10 @@
     <td class="card-body">
         <h3>@Model.Name</h3>
     </td>
-    <td>
-        <p id="proteinGraph">P:</p>
-        <p id="carboGraph">C:</p>
-        <p id="fatGraph">F:</p>
+    <td id="graphs-@Model.MealId">
+        <p class="progress-bar" id="proteinGraph-@Model.MealId" style="width:@protein">P:</p>
+        <p class="progress-bar" id="carboGraph-@Model.MealId">C:</p>
+        <p class="progress-bar" id="fatGraph-@Model.MealId">F:</p>
     </td>
     <td class="card-footer">
         <a class="btn fas fa-file" title="See details"
@@ -29,3 +41,21 @@
     </td>
 </tr>
 <br />
+<style>
+    #proteinGraph-@Model.MealId{
+        background-color: #ff006e;
+    }
+    #carboGraph-@Model.MealId {
+        background-color: #ff6a00;
+    }
+    #fatGraph-@Model.MealId {
+        background-color: #ffd800;
+    }
+    #graphs-@Model.MealId {
+        width: 100%;
+    }
+    #graphs-@Model.MealId p{
+        width:@maxValue;
+    }
+
+</style>
