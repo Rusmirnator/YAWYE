@@ -12,19 +12,27 @@
 
     var maxValue = Math.Round(values.Max()).ToString() + "%";
 }
-
 <tr>
     <td class="card-header">
-        <img src="~/Images/@Model.ImgPath" class="img" width="100" height="100" alt="@Model.Name" />
+        <img src="~/Images/@Model.ImgPath" alt="@Model.Name" />
     </td>
     <td class="card-body">
         <h3>@Model.Name</h3>
     </td>
     <td id="graphCell-@Model.MealId">
         <div id="graphs-@Model.MealId">
-            <div class="progress-bar" id="proteinGraph-@Model.MealId" aria-valuemax="100">Protein @Model.Protein g</div>
-            <div class="progress-bar" id="carboGraph-@Model.MealId">Carbohydrates @Model.Carbohydrates g</div>
-            <div class="progress-bar" id="fatGraph-@Model.MealId">Fat @Model.Fat g</div>
+            <span class="badge badge-dark">Protein:</span>
+            <div class="progress">
+                <div class="progress-bar" id="proteinGraph-@Model.MealId" role="progressbar"> @Model.Protein g</div>
+            </div>
+            <span class="badge badge-dark">Carbohydrates:</span>
+            <div class="progress">
+                <div class="progress-bar" id="carboGraph-@Model.MealId" role="progressbar"> @Model.Carbohydrates g</div>
+            </div>
+            <span class="badge badge-dark">Fat:</span>
+            <div class="progress">
+                <div class="progress-bar" id="fatGraph-@Model.MealId" role="progressbar"> @Model.Fat g</div>
+            </div>
         </div>
     </td>
     <td class="card-footer">
@@ -42,24 +50,46 @@
         </a>
     </td>
 </tr>
-<br />
+
 <style>
-    #proteinGraph-@Model.MealId{
+    #proteinGraph-@Model.MealId {
         background-color: #ff006e;
         width: @protein;
+        font-family: 'Comic Sans MS';
+        color: black;
     }
-    #carboGraph-@Model.MealId{
+    #carboGraph-@Model.MealId {
         background-color: #ff6a00;
         width: @carbos;
+        font-family: 'Comic Sans MS';
+        color: black;
     }
-    #fatGraph-@Model.MealId{
+    #fatGraph-@Model.MealId {
         background-color: #ffd800;
         width: @fat;
+        font-family: 'Comic Sans MS';
+        color: black;
     }
     #graphCell-@Model.MealId {
         width: 100%;
+        text-align:left;
     }
-    .progress-bar {
-        margin-top:2%;
+    .progress {
+        margin-bottom:2%;
+        margin-left:1%;
+        margin-right:1%;
+    }
+    .card-body {
+        text-align: center;
+        align-items: center;
+        font-family:'Comic Sans MS';
+    }
+    .badge {
+        margin-left:1%;
+        font-family:'Comic Sans MS';
+    }
+    .card-header img {
+        width: auto;
+        height: 100px;
     }
 </style>

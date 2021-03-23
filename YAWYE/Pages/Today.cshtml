@@ -3,5 +3,37 @@
 @{
 }
 
-<h2>@Model.Day.Date</h2><h3>@Model.Day.Date.DayOfWeek</h3>
-<span>@Model.Day.OwnerName</span>
+<h2 id="dateNow">@Model.Day.Date</h2><h3>@Model.Day.Date.DayOfWeek</h3>
+
+
+<div class="input-group date">
+    <input type="date" class="form-control" id="datePicker">
+    <div class="input-group-addon">
+    </div>
+</div>
+
+<div id="test"></div>
+
+<style>
+    .input-group {
+        width:min-content;
+    }
+</style>
+
+@section Scripts
+{
+<script>
+    $(document).ready(function () {
+        setInterval(function () {
+            $('#dateNow').load(document.URL + ' #dateNow');
+        }, 1000);
+    });
+    $(document.getElementById("datePicker")).click(function () {
+        $("#test").print();
+    });
+
+    $("#btn").click(function () {
+        $("#test").print();
+    });
+</script>
+}

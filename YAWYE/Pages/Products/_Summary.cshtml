@@ -1,15 +1,42 @@
 ﻿@using YAWYE.Core
 @model Product
+@{
+    var protein = Math.Round(Model.Protein).ToString() + "%";
+    var carbos = Math.Round(Model.Carbohydrates).ToString() + "%";
+    var fat = Math.Round(Model.Fat).ToString() + "%";
+    var values = new List<decimal>();
 
-<div class="card">
-    <div class="card-header">
+    values.Add(Model.Protein);
+    values.Add(Model.Carbohydrates);
+    values.Add(Model.Fat);
+
+    var maxValue = Math.Round(values.Max()).ToString() + "%";
+}
+<tr>
+    <td class="card-header">
+        <img src="~/Images/@Model.ImgPath" alt="@Model.Name" />
+    </td>
+    <td class="card-body">
         <h3>@Model.Name</h3>
         <h4>@Model.Make</h4>
-    </div>
-    <div class="card-body">
-        <img src="~/Images/@Model.ImgPath" class="img" width="100" height="100" alt="@Model.Name" />
-    </div>
-    <div class="card-footer">
+    </td>
+    <td id="graphCell-@Model.ProductId">
+        <div id="graphs-@Model.ProductId">
+            <span class="badge badge-dark">Protein:</span>
+            <div class="progress">
+                <div class="progress-bar" id="proteinGraph-@Model.ProductId" role="progressbar"> @Model.Protein g</div>
+            </div>
+            <span class="badge badge-dark">Carbohydrates:</span>
+            <div class="progress">
+                <div class="progress-bar" id="carboGraph-@Model.ProductId" role="progressbar"> @Model.Carbohydrates g</div>
+            </div>
+            <span class="badge badge-dark">Fat:</span>
+            <div class="progress">
+                <div class="progress-bar" id="fatGraph-@Model.ProductId" role="progressbar"> @Model.Fat g</div>
+            </div>
+        </div>
+    </td>
+    <td class="card-footer">
         <a class="btn fas fa-file" title="See details"
            asp-page="./Details"
            asp-route-productId="@Model.ProductId">
@@ -22,6 +49,48 @@
            asp-page="./Delete"
            asp-route-productId="@Model.ProductId">
         </a>
-    </div>
-</div>
-<br />
+    </td>
+</tr>
+
+<style>
+    #proteinGraph-@Model.ProductId {
+        background-color: #ff006e;
+        width: @protein;
+        font-family: 'Comic Sans MS';
+        color: black;
+    }
+    #carboGraph-@Model.ProductId {
+        background-color: #ff6a00;
+        width: @carbos;
+        font-family: 'Comic Sans MS';
+        color: black;
+    }
+    #fatGraph-@Model.ProductId {
+        background-color: #ffd800;
+        width: @fat;
+        font-family: 'Comic Sans MS';
+        color: black;
+    }
+    #graphCell-@Model.ProductId {
+        width: 100%;
+        text-align:left;
+    }
+    .progress {
+        margin-bottom:2%;
+        margin-left:1%;
+        margin-right:1%;
+    }
+    .card-body {
+        text-align: center;
+        align-items: center;
+        font-family:'Comic Sans MS';
+    }
+    .badge {
+        margin-left:1%;
+        font-family:'Comic Sans MS';
+    }
+    .card-header img{
+        width:auto;
+        height:100px;
+    }
+</style>

@@ -4,7 +4,7 @@
 @{
 }
 <h2>@Model.Meal.Name</h2>
-<img src="~/Images/@Model.Meal.ImgPath" class="img img-fluid" width="200" height="200" alt="@Model.Meal.Name" />
+<img src="~/Images/@Model.Meal.ImgPath" alt="@Model.Meal.Name" id="img"/>
 <div class="panel-body">
     <h6> Nutritionts per @Model.Meal.Weight g</h6>
     <table class="table table-striped">
@@ -40,3 +40,11 @@
 
 <a asp-page="./UpdateMeal" asp-route-mealId="@Model.Meal.MealId" class="btn btn-warning">Edit</a>
 <a asp-page="./MealList" class="btn btn-primary">All meals</a>
+
+<style>
+    #img {
+        border-radius:8px;
+        height: 200px;
+        width:auto;
+    }
+</style>

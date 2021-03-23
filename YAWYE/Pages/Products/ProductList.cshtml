@@ -1,8 +1,8 @@
 ﻿@page
-
 @model YAWYE.Pages.Products.ProductListModel
 @{
 }
+
 
 <form method="get" label="Search">
     <div class="form-group">
@@ -16,25 +16,31 @@
         </div>
     </div>
 </form>
-<div id="list">
+
+<table id="list" class="table-bordered">
     @foreach (var product in Model.Products)
     {
         <partial name="_Summary" model="product" />
 
     }
-</div>
+</table>
 @if(Model.Message != null)
 {
     <div class="alert alert-info">@Model.Message</div>
 }
 
+<style>
+    #list {
+        width: 100%;
+    }
+</style>
 @section Scripts
 {
 <script type="text/javascript">
     $(document).ready(function () {
         $("#searchInput").on("keyup", function () {
             var value = $(this).val().toLowerCase();
-            $("#list div").filter(function () {
+            $("#list tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
