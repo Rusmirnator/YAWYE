@@ -4,7 +4,7 @@
 @{
 }
 <h2>@Model.Meal.Name</h2>
-<img src="~/Images/@Model.Meal.ImgPath" alt="@Model.Meal.Name" id="img"/>
+<img src="~/Images/@Model.Meal.ImgPath" alt="@Model.Meal.Name" id="img" />
 <div class="panel-body">
     <h6> Nutritionts per @Model.Meal.Weight g</h6>
     <table class="table table-striped">
@@ -33,6 +33,12 @@
         </table>
     }
 </div>
+<div class="container my-4">
+    <hr class="my-4">
+    <div>
+        <canvas id="pieChart" style="max-width: 300px;"></canvas>
+    </div>
+</div>
 @if (Model.Message != null)
 {
     <div class="alert alert-info">@Model.Message</div>
@@ -43,8 +49,30 @@
 
 <style>
     #img {
-        border-radius:8px;
+        border-radius: 8px;
         height: 200px;
-        width:auto;
+        width: auto;
     }
 </style>
+@section Scripts
+{
+    <script>
+        $(document).ready(function () { 
+            var ctxP = document.getElementById("pieChart").getContext('2d');
+            var myPieChart = new Chart(ctxP, {
+                type: 'pie',
+                data: {
+                    labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+                    datasets: [{
+                        data: [300, 50, 100, 40, 120],
+                        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+                        hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+        });
+    </script>
+}
