@@ -2,22 +2,39 @@
 @model YAWYE.Pages.Products.DetailsModel
 
 @{
+    var sum = Model.Product.Protein + Model.Product.Carbohydrates + Model.Product.Fat + Model.Product.Fiber;
+
+        var proteinPercent = sum > 0 ? Math.Round((Model.Product.Protein * 100) / sum) : 0;
+        var carbosPercent = sum > 0 ? Math.Round((Model.Product.Carbohydrates * 100) / sum) : 0;
+        var fatPercent = sum > 0 ? Math.Round((Model.Product.Fat * 100) / sum) : 0;
+        var fiberPercent = sum > 0 ? Math.Round((Model.Product.Fiber * 100) / sum) : 0;
+    
 }
 <h2>@Model.Product.Name</h2>
-<img src="~/Images/@Model.Product.ImgPath" alt="@Model.Product.Name" id="img" />
+<div class="container my-4" id="tableDiv">
+    <div id="row">
+        <div id="img">
+            <img src="~/Images/@Model.Product.ImgPath" alt="@Model.Product.Name" class="img-fluid" />
+        </div>
+        <div id="chart">
+            <canvas id="pieChart"></canvas>
+        </div>
+    </div>
+</div>
+<br />
 <div class="panel-body">
     <h6> Nutritionts per @Model.Product.Weight g</h6>
     <table class="table table-striped">
         <tr><td>Kcal: @Model.Product.Kcal </td></tr>
-        <tr><td>Protein: @Model.Product.Protein g </td></tr>
-        <tr><td>Carbohydrates: @Model.Product.Carbohydrates g </td></tr>
-        <tr><td>Fat: @Model.Product.Fat g </td></tr>
-        <tr><td>Fiber: @Model.Product.Fiber g </td></tr>
+        <tr><td id="protein" value="@proteinPercent">Protein: @Model.Product.Protein g </td></tr>
+        <tr><td id="carbos" value="@carbosPercent">Carbohydrates: @Model.Product.Carbohydrates g </td></tr>
+        <tr><td id="fat" value="@fatPercent">Fat: @Model.Product.Fat g </td></tr>
+        <tr><td id="fiber" value="@fiberPercent">Fiber: @Model.Product.Fiber g </td></tr>
         <tr><td>Price: @Model.Product.Price PLN </td></tr>
         <tr><td>Barcode: @Model.Product.BarCode</td></tr>
     </table>
 </div>
-@if(Model.Message != null)
+@if (Model.Message != null)
 {
     <div class="alert alert-info">@Model.Message</div>
 }
@@ -26,9 +43,65 @@
 <a asp-page="./ProductList" class="btn btn-primary">All products</a>
 
 <style>
+    #tableDiv {
+        display: table;
+    }
+
+    #row {
+        display: table-row;
+        width: 100%;
+    }
+
     #img {
-        border-radius: 8px;
-        height: 200px;
-        width: auto;
+        display: table-cell;
+        width: 50%;
+    }
+
+        #img img {
+            max-width: auto;
+            max-height: 100%;
+            vertical-align: bottom;
+        }
+
+    #chart {
+        display: table-cell;
+        width: 50%;
+        vertical-align: top;
+    }
+
+    #pieChart {
+        max-width: 100%;
+        float: right;
     }
 </style>
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            var ctxP = document.getElementById("pieChart").getContext('2d');
+            var protein = document.getElementById("protein").getAttribute('value');
+            var carbos = document.getElementById("carbos").getAttribute('value');
+            var fat = document.getElementById("fat").getAttribute('value');
+            var fiber = document.getElementById("fiber").getAttribute('value');
+            var myPieChart = new Chart(ctxP, {
+                type: 'pie',
+                data: {
+                    labels: ["Protein", "Fiber", "Fat", "Carbohydrates"],
+                    datasets: [{
+                        data: [protein.valueOf(), fiber.valueOf(), fat.valueOf(), carbos.valueOf()],
+                        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1"],
+                        hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5"]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Nutrition percentage:',
+                        position: 'top'
+                    }
+                }
+            });
+        });
+    </script>
+}
