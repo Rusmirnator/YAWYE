@@ -1,5 +1,6 @@
 # YAWYE
 A simple web app designed for controlling daily calories intake.
 
-It is my first independent project in my way to become a .NET dev.
-The project is created using ASP.NET Core MVVM, Bootsrap and Entity Framework.
+The project is mainly created using ASP.NET Core MVVM, Bootsrap, Entity Framework Core and jQuery.
+
+It is still being developed - it is my training area at the moment.
