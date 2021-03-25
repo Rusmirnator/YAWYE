@@ -37,15 +37,15 @@
         </div>
     </td>
     <td class="card-footer">
-        <a class="btn fas fa-file" title="See details"
+        <a class="btn fas fa-file" title="See details" style="color:sandybrown;"
            asp-page="./Details"
            asp-route-productId="@Model.ProductId">
         </a>
-        <a class="btn fas fa-edit" title="Edit"
+        <a class="btn fas fa-edit" title="Edit" style="color:deepskyblue;"
            asp-page="./UpdateProduct"
            asp-route-productId="@Model.ProductId">
         </a>
-        <a class="btn fas fa-trash" title="Delete"
+        <a class="btn fas fa-trash" title="Delete" style="color:red;"
            asp-page="./Delete"
            asp-route-productId="@Model.ProductId">
         </a>

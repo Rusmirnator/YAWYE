@@ -68,21 +68,21 @@ else
                             <td>
                                 @if (!product.MealProducts.Where(m => m.MealId == Model.Meal.MealId).Any())
                                 {
-                                    <a class="btn fas fa-plus-circle" title="Add"
+                                    <a class="btn fas fa-plus-circle" title="Add" style="color:green;"
                                        asp-page="./Recalc"
                                        asp-route-productId="@product.ProductId"
                                        asp-route-mealId="@Model.Meal.MealId"></a>
                                 }
                                 else
                                 {
-                                    <a class="btn fas fa-trash" title="Remove"
+                                    <a class="btn fas fa-trash" title="Remove" style="color:red;"
                                        asp-page="./Recalc"
                                        asp-route-productId="@product.ProductId"
                                        asp-route-mealId="@Model.Meal.MealId"
                                        asp-route-trigger="true"></a>
                                 }
                                 <a class="btn fas fa-info" href="#" data-toggle="popover" data-trigger="hover"
-                                   title="@product.Name per 100 g"
+                                   title="@product.Name per 100 g" style="color:sandybrown;"
                                    data-content="Kcal: @product.Kcal
                                    Protein: @product.Protein g
                                    Carbohydrates: @product.Carbohydrates g

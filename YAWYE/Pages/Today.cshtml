@@ -4,19 +4,59 @@
 }
 
 <h2 id="dateNow">@Model.Day.Date</h2><h3>@Model.Day.Date.DayOfWeek</h3>
-
-
 <div class="input-group date">
     <input type="date" class="form-control" id="datePicker">
     <div class="input-group-addon">
     </div>
 </div>
+<div class="container-fluid" id="meals">
+    <div id="breakfast">
+        <div class="card-header border">Breakfast<button class="btn fas fa-plus-circle"></button></div>
+        <div class="card-body border"></div>
+        <div class="card-footer border"><button class="btn fas fa-trash" title="Clear"></button></div>
+    </div>
+    <div id="lunch">
+        <div class="card-header border">Lunch<button class="btn fas fa-plus-circle"></button></div>
+        <div class="card-body border"></div>
+        <div class="card-footer border"><button class="btn fas fa-trash" title="Clear"></button></div>
+    </div>
+    <div id="dinner">
+        <div class="card-header border">Dinner<button class="btn fas fa-plus-circle"></button></div>
+        <div class="card-body border"></div>
+        <div class="card-footer border"><button class="btn fas fa-trash" title="Clear"></button></div>
+    </div>
+    <div id="supper">
+        <div class="card-header border">Supper<button class="btn fas fa-plus-circle"></button></div>
+        <div class="card-body border"></div>
+        <div class="card-footer border"><button class="btn fas fa-trash" title="Clear"></button></div>
+    </div>
+    <div id="snacks">
+        <div class="card-header border">Snacks<button class="btn fas fa-plus-circle"></button></div>
+        <div class="card-body border"></div>
+        <div class="card-footer border"><button class="btn fas fa-trash" title="Clear"></button></div>
+    </div>
+</div>
+<div class="container-fluid" id="charts">
 
-<div id="test"></div>
+</div>
 
 <style>
     .input-group {
         width:min-content;
+    }
+    #meals {
+        font-family:'Comic Sans MS';
+        margin-top:2%;
+    }
+    .card-footer {
+        margin-bottom:1%;
+    }
+    .card-footer button{
+        color:red;
+    }
+    .card-header button{
+        float:right;
+        color:green;
     }
 </style>
 
