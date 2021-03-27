@@ -15,29 +15,37 @@ namespace YAWYE.API
     public class ProductsController : ControllerBase
     {
         private readonly YAWYEDbContext context;
+        private readonly IProductData productData;
 
-        public ProductsController(YAWYEDbContext context)
+        public ProductsController(YAWYEDbContext context, IProductData productData)
         {
             this.context = context;
+            this.productData = productData;
         }
+        public Product Product { get; set; } = new Product();
         // GET: api/<ProductsController>
         [HttpGet]
-        public IEnumerable<Product> Get()
+        public IEnumerable<Product> GetAll()
         {
             return context.Products;
         }
 
         // GET api/<ProductsController>/5
         [HttpGet("{id}")]
-        public Product Get(int id)
+        public Product GetById(int id)
         {
             return context.Products.SingleOrDefault(p => p.ProductId == id);
         }
 
         // POST api/<ProductsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public Product CreateNew([FromForm] string name, [FromForm] string make, [FromForm] string barcode, [FromForm] string imgpath, [FromForm] decimal kcal, [FromForm] decimal protein,
+            [FromForm] decimal carbohydrates, [FromForm] decimal fat, [FromForm] decimal fiber, [FromForm] decimal price, [FromForm] decimal totalweight)
         {
+            Product = new Product { Name = name, Make = make, BarCode = barcode, ImgPath = imgpath, Kcal = kcal, Protein = protein, Carbohydrates = carbohydrates, Fat = fat, Fiber = fiber, Price = price, TotalWeight = totalweight };
+            context.Add(Product);
+            context.SaveChanges();
+            return Product;
         }
 
         // PUT api/<ProductsController>/5
@@ -50,6 +58,8 @@ namespace YAWYE.API
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            productData.Delete(id);
+            context.SaveChanges();
         }
     }
 }
