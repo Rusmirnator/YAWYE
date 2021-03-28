@@ -38,11 +38,19 @@ namespace YAWYE.API
         }
 
         // POST api/<ProductsController>
-        [HttpPost]
+        [HttpPost("{name}/{make}/(barcode)/{imgpath}/{kcal}/{protein}/{carbohydrates}/{fat}/{fiber}/{price}/{totalweight}")]
         public Product CreateNew([FromForm] string name, [FromForm] string make, [FromForm] string barcode, [FromForm] string imgpath, [FromForm] decimal kcal, [FromForm] decimal protein,
             [FromForm] decimal carbohydrates, [FromForm] decimal fat, [FromForm] decimal fiber, [FromForm] decimal price, [FromForm] decimal totalweight)
         {
             Product = new Product { Name = name, Make = make, BarCode = barcode, ImgPath = imgpath, Kcal = kcal, Protein = protein, Carbohydrates = carbohydrates, Fat = fat, Fiber = fiber, Price = price, TotalWeight = totalweight };
+            context.Add(Product);
+            context.SaveChanges();
+            return Product;
+        }
+        [HttpPost("{product}")]
+        public Product CreateNewDTO([FromBody]Product newProductDto)
+        {
+            Product = newProductDto;
             context.Add(Product);
             context.SaveChanges();
             return Product;
