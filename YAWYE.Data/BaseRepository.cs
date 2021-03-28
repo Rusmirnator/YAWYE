@@ -51,11 +51,5 @@ namespace YAWYE.Data
             entity.State = EntityState.Modified;
             return updatedProduct;
         }
-        public Product SetProps(string name, string make, string barcode, string imgpath, decimal kcal, decimal protein,
-            decimal carbohydrates, decimal fat, decimal fiber, decimal price, decimal totalweight)
-        {
-            var newProduct = new Product { Name = name, Make = make, BarCode = barcode, ImgPath = imgpath, Kcal = kcal, Protein = protein, Carbohydrates = carbohydrates, Fat = fat, Fiber = fiber, Price = price, TotalWeight = totalweight };
-            return newProduct;
-        }
     }
 }

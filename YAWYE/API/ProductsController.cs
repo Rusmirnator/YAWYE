@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,52 +23,77 @@ namespace YAWYE.API
             this.context = context;
             this.productData = productData;
         }
-        public Product Product { get; set; } = new Product();
-        // GET: api/<ProductsController>
+
         [HttpGet]
-        public IEnumerable<Product> GetAll()
+        public async Task<ActionResult<IEnumerable<Product>>> GetAll()
         {
-            return context.Products;
+            return await context.Products.ToListAsync();
         }
 
-        // GET api/<ProductsController>/5
+
         [HttpGet("{id}")]
-        public Product GetById(int id)
+        public async Task<ActionResult<Product>> GetById(int id)
         {
-            return context.Products.SingleOrDefault(p => p.ProductId == id);
+            var product = await context.Products.FindAsync(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return product;
         }
 
-        // POST api/<ProductsController>
+
         [HttpPost("{name}/{make}/(barcode)/{imgpath}/{kcal}/{protein}/{carbohydrates}/{fat}/{fiber}/{price}/{totalweight}")]
-        public Product CreateNew([FromForm] string name, [FromForm] string make, [FromForm] string barcode, [FromForm] string imgpath, [FromForm] decimal kcal, [FromForm] decimal protein,
+        public async Task<ActionResult<Product>> PostProduct([FromForm] string name, [FromForm] string make, [FromForm] string barcode, [FromForm] string imgpath, [FromForm] decimal kcal, [FromForm] decimal protein,
             [FromForm] decimal carbohydrates, [FromForm] decimal fat, [FromForm] decimal fiber, [FromForm] decimal price, [FromForm] decimal totalweight)
         {
-            Product = new Product { Name = name, Make = make, BarCode = barcode, ImgPath = imgpath, Kcal = kcal, Protein = protein, Carbohydrates = carbohydrates, Fat = fat, Fiber = fiber, Price = price, TotalWeight = totalweight };
+            var Product = new Product { Name = name, Make = make, BarCode = barcode, ImgPath = imgpath, Kcal = kcal, Protein = protein, Carbohydrates = carbohydrates, Fat = fat, Fiber = fiber, Price = price, TotalWeight = totalweight };
+
             context.Add(Product);
-            context.SaveChanges();
-            return Product;
-        }
-        [HttpPost("{product}")]
-        public Product CreateNewDTO([FromBody]Product newProductDto)
-        {
-            Product = newProductDto;
-            context.Add(Product);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return Product;
         }
 
-        // PUT api/<ProductsController>/5
+
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<Product>> PutProduct(int id, [FromForm] string? name, [FromForm] string? make, [FromForm] string? barcode,[FromForm] decimal? kcal, [FromForm] decimal? protein,
+            [FromForm] decimal? carbohydrates, [FromForm] decimal? fat, [FromForm] decimal? fiber, [FromForm] decimal? price, [FromForm] decimal? totalweight)
         {
+            var product = await context.Products.FindAsync(id);
+            SetProps(product,name,make,barcode,kcal,protein,carbohydrates,fat,fiber,price,totalweight);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            productData.Update(product);
+            await context.SaveChangesAsync();
+
+            return product;
         }
 
-        // DELETE api/<ProductsController>/5
+
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
             productData.Delete(id);
             context.SaveChanges();
+        }
+        private Product SetProps(Product Product, string? name, string? make, string? barcode, decimal? kcal, decimal? protein,
+             decimal? carbohydrates, decimal? fat, decimal? fiber, decimal? price, decimal? totalweight)
+        {
+            Product.Name = name != null ? name : Product.Name;
+            Product.Make = make != null ? make : Product.Make;
+            Product.BarCode = barcode != null ? barcode : Product.BarCode;
+            Product.Kcal = kcal != null ? (decimal)kcal : Product.Kcal;
+            Product.Protein = protein != null ? (decimal)protein : Product.Protein;
+            Product.Carbohydrates = carbohydrates != null ? (decimal)carbohydrates : Product.Carbohydrates;
+            Product.Fat = fat != null ? (decimal)fat : Product.Fat;
+            Product.Fiber = fiber != null ? (decimal)fiber : Product.Fiber;
+            Product.Price = price != null ? (decimal)price : Product.Price;
+            Product.TotalWeight = totalweight != null ? (decimal)totalweight : Product.TotalWeight;
+
+            return Product;
         }
     }
 }
