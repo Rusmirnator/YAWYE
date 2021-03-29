@@ -64,22 +64,22 @@ namespace YAWYE.Pages.Meals
                 {
                     switch(Category)
                     {
-                        case (int)Meal.Category.None:
+                        case 0:
                             ImgPath = "groceries.png";
                             break;
-                        case (int)Meal.Category.Breakfast:
+                        case 1:
                             ImgPath = "breakfast.png";
                             break;
-                        case (int)Meal.Category.Lunch:
+                        case 2:
                             ImgPath = "lunch.png";
                             break;
-                        case (int)Meal.Category.Dinner:
+                        case 3:
                             ImgPath = "dinner.png";
                             break;
-                        case (int)Meal.Category.Supper:
+                        case 4:
                             ImgPath = "supper.png";
                             break;
-                        case (int)Meal.Category.Snacks:
+                        case 5:
                             ImgPath = "snacks.png";
                             break;
                     }
@@ -91,6 +91,7 @@ namespace YAWYE.Pages.Meals
             {
                 mealData.AddMeal(Meal);
                 Meal.ImgPath = "groceries.png";
+                Meal.Owner = User.Identity.Name;
             }
 
             mealData.Commit();

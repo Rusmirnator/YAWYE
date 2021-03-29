@@ -14,27 +14,40 @@ namespace YAWYE.Pages
     public class TodayModel : PageModel
     {
         private readonly IDayData dayData;
+        private readonly IMealData mealData;
 
         public IEnumerable<Meal> Meals { get; set; }
+        public IEnumerable<Meal> TodayMeals { get; set; }
         public Meal Meal { get; set; }
         public Day Day { get; set; }
-        public TodayModel(IDayData dayData)
+        public TodayModel(IDayData dayData, IMealData mealData)
         {
             this.dayData = dayData;
+            this.mealData = mealData;
         }
 
-        public void OnGet(int? dayId)
+        public IActionResult OnGet()
         {
-            if(!dayId.HasValue)
+            try
+            {
+                Day = dayData.GetByDate(DateTime.Now.Date);
+            }
+            catch(NullReferenceException ex)
+            {
+                Console.WriteLine(ex);
+            }
+            finally
             {
                 Day = new Day();
-                Day.Date = DateTime.Now;
-                Day.OwnerName = User.Identity.Name;
             }
-            else
-            {
-                Day = dayData.GetById(dayId.Value);
-            }
+            Meals = mealData.GetMealsByOwner(User.Identity.Name);
+            return Page();
         }
+        public IActionResult OnPost()
+        {
+            Day.Date = DateTime.Now.Date;
+            return RedirectToPage("/Today");
+        }
+
     }
 }

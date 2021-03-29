@@ -39,7 +39,7 @@ namespace YAWYE.Data
 
         public Meal Delete(int id)
         {
-            var Meal = db.Meals.Where(m => m.MealId == id).Include(m => m.Products).First();
+            var Meal = db.Meals.Where(m => m.MealId == id).Include(m => m.Products).FirstOrDefault();
             if (Meal != null)
             {
                 db.Meals.Remove(Meal);
@@ -53,7 +53,8 @@ namespace YAWYE.Data
             var query = db.Meals
                 .Where(m => m.MealId == meal.MealId)
                 .Include(Meal => Meal.Products)
-                .ThenInclude(Meal => Meal.MealProducts).First();
+                .ThenInclude(Meal => Meal.MealProducts).FirstOrDefault();
+
             return query;
         }
 
@@ -105,6 +106,11 @@ namespace YAWYE.Data
                         select i.ProductId;
 
             return query;
+        }
+
+        public IEnumerable<Meal> GetMealsByOwner(string owner)
+        {
+            return db.Meals.Where(m => m.Owner == owner);
         }
     }
 }

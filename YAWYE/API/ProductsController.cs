@@ -55,13 +55,15 @@ namespace YAWYE.API
             return Product;
         }
 
-
+#nullable enable
         [HttpPut("{id}")]
         public async Task<ActionResult<Product>> PutProduct(int id, [FromForm] string? name, [FromForm] string? make, [FromForm] string? barcode,[FromForm] decimal? kcal, [FromForm] decimal? protein,
             [FromForm] decimal? carbohydrates, [FromForm] decimal? fat, [FromForm] decimal? fiber, [FromForm] decimal? price, [FromForm] decimal? totalweight)
         {
+#nullable disable
             var product = await context.Products.FindAsync(id);
             SetProps(product,name,make,barcode,kcal,protein,carbohydrates,fat,fiber,price,totalweight);
+
             if (product == null)
             {
                 return NotFound();
@@ -79,12 +81,13 @@ namespace YAWYE.API
             productData.Delete(id);
             context.SaveChanges();
         }
+#nullable enable
         private Product SetProps(Product Product, string? name, string? make, string? barcode, decimal? kcal, decimal? protein,
              decimal? carbohydrates, decimal? fat, decimal? fiber, decimal? price, decimal? totalweight)
         {
-            Product.Name = name != null ? name : Product.Name;
-            Product.Make = make != null ? make : Product.Make;
-            Product.BarCode = barcode != null ? barcode : Product.BarCode;
+            Product.Name = name ?? Product.Name;
+            Product.Make = make ?? Product.Make;
+            Product.BarCode = barcode ?? Product.BarCode;
             Product.Kcal = kcal != null ? (decimal)kcal : Product.Kcal;
             Product.Protein = protein != null ? (decimal)protein : Product.Protein;
             Product.Carbohydrates = carbohydrates != null ? (decimal)carbohydrates : Product.Carbohydrates;
@@ -95,5 +98,6 @@ namespace YAWYE.API
 
             return Product;
         }
+#nullable disable
     }
 }

@@ -18,6 +18,7 @@ namespace YAWYE.Data
         Meal LoadIngredients(Meal meal);
         Dictionary<string, decimal> GetStatistics(int mid);
         public IEnumerable<int> GetRelatedById(int mid);
+        public IEnumerable<Meal> GetMealsByOwner(string owner);
 
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YAWYE.Data;
 
 namespace YAWYE.Data.Migrations
 {
     [DbContext(typeof(YAWYEDbContext))]
-    partial class YAWYEDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210329144316_MealOwner2")]
+    partial class MealOwner2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,35 +31,12 @@ namespace YAWYE.Data.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DayMealDayId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DayMealMealId")
-                        .HasColumnType("int");
-
                     b.Property<string>("OwnerName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DayId");
 
-                    b.HasIndex("DayMealDayId", "DayMealMealId");
-
                     b.ToTable("Days");
-                });
-
-            modelBuilder.Entity("YAWYE.Core.DayMeal", b =>
-                {
-                    b.Property<int>("DayId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MealId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DayId", "MealId");
-
-                    b.HasIndex("MealId");
-
-                    b.ToTable("DayMeal");
                 });
 
             modelBuilder.Entity("YAWYE.Core.Meal", b =>
@@ -200,28 +179,6 @@ namespace YAWYE.Data.Migrations
                     b.HasIndex("MealId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("YAWYE.Core.Day", b =>
-                {
-                    b.HasOne("YAWYE.Core.DayMeal", null)
-                        .WithMany("DayMeals")
-                        .HasForeignKey("DayMealDayId", "DayMealMealId");
-                });
-
-            modelBuilder.Entity("YAWYE.Core.DayMeal", b =>
-                {
-                    b.HasOne("YAWYE.Core.Day", "Day")
-                        .WithMany("DayMeals")
-                        .HasForeignKey("DayId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("YAWYE.Core.Meal", "Meal")
-                        .WithMany("DayMeals")
-                        .HasForeignKey("MealId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("YAWYE.Core.Meal", b =>

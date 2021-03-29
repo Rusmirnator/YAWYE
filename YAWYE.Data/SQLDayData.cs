@@ -58,5 +58,12 @@ namespace YAWYE.Data
         {
             return db.SaveChanges();
         }
+
+        public List<Meal> AddMeal(Meal meal)
+        {
+            var todaymeals = new Day().Meals.ToList();
+            todaymeals.Add(meal);
+            return todaymeals;
+        }
     }
 }
