@@ -36,9 +36,9 @@ namespace YAWYE.Data
             return db.Days.Where(d => d.OwnerName == user).DefaultIfEmpty();
         }
 
-        public Day GetByDate(DateTime dt)
+        public Day GetByDate(DateTime dt, string user)
         {
-            var day = db.Days.Where(d => d.Date == dt).Include(d => d.Meals).FirstOrDefault();
+            var day = db.Days.Where(d => d.Date == dt && d.OwnerName == user).Include(d => d.Meals).FirstOrDefault();
             return day;
         }
 
