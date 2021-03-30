@@ -61,7 +61,7 @@ namespace YAWYE.Data
 
         public List<Meal> AddMeal(Meal meal)
         {
-            var todaymeals = new Day().Meals.ToList();
+            var todaymeals = new List<Meal>();
             todaymeals.Add(meal);
             return todaymeals;
         }

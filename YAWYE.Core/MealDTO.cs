@@ -19,17 +19,10 @@ namespace YAWYE.Core
         public decimal Price { get; set; }
         public decimal Weight { get; set; }
         public string ImgPath { get; set; }
-        public enum Category
-        {
-            None,
-            Breakfast,
-            Lunch,
-            Dinner,
-            Supper,
-            Snacks
-
-        }
+        public string Owner { get; set; }
+        public MealCategory Category { get; set; } = 0;
         public List<Product> Products { get; set; }
         public List<MealProduct> MealProducts { get; set; }
+        public List<DayMeal> DayMeals { get; set; }
     }
 }
