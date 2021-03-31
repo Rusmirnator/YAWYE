@@ -67,7 +67,7 @@ namespace YAWYE.Pages
         {
             var meal = mealData.GetById(mid);
             Day.Meals = dayData.AddMeal(meal);
-            dayData.Update(Day);
+            await Task.Run(() => dayData.Update(Day));
             return Day;
         }
 

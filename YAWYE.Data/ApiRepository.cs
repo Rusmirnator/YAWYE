@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using YAWYE.Core;
 
@@ -137,6 +139,17 @@ namespace YAWYE.Data
                 };
             }
             return null;
+        }
+        public static List<ProductDTO> ProductsToDto(List<Product> products)
+        {
+            var result = new List<ProductDTO>();
+            var dto = new ProductDTO();
+            foreach(var p in products)
+            {
+                dto = ProductToDto(p);
+                result.Add(dto);
+            }
+            return result;
         }
     }
 }

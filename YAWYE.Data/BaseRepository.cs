@@ -40,12 +40,12 @@ namespace YAWYE.Data
             return product;
         }
 
-        public T GetById(int id)
+        public T GetByIdGeneric(int id)
         {
             return db.Find<T>(id);
         }
 
-        public T Update(T updatedProduct)
+        public T UpdateGeneric(T updatedProduct)
         {
             var entity = db.Attach<T>(updatedProduct);
             entity.State = EntityState.Modified;

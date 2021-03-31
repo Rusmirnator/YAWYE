@@ -20,11 +20,19 @@ namespace YAWYE.API
         {
             this.productData = productData;
         }
+        public List<Product> Products { get; set; } = new List<Product>();
+        public List<ProductDTO> ProductsDTOs { get; set; } = new List<ProductDTO>();
+        public Product Product { get; set; }
+
+
         // GET: api/<ProductsController>
         [HttpGet]
-        public IEnumerable<ProductDTO> GetAll()
+        public List<ProductDTO> GetAll()
         {
-            return null;
+            Products = productData.GetAll().ToList();
+            ProductsDTOs = ApiRepository.ProductsToDto(Products);
+
+            return ProductsDTOs;
         }
 
         // GET api/<ProductsController>/5
