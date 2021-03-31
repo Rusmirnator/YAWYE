@@ -17,8 +17,9 @@ namespace YAWYE.Pages
         private readonly IMealData mealData;
 
         public IEnumerable<Meal> Meals { get; set; }
-        public IEnumerable<Meal> TodayMeals { get; set; }
+        public List<Meal> TodayMeals { get; set; }
         public Meal Meal { get; set; }
+        [BindProperty]
         public Day Day { get; set; }
         public TodayModel(IDayData dayData, IMealData mealData)
         {
@@ -28,28 +29,20 @@ namespace YAWYE.Pages
 
         public IActionResult OnGet()
         {
-            try
+            Day = dayData.GetByDate(DateTime.Now.Date, User.Identity.Name);
+            if(Day == null)
             {
-                Day = dayData.GetByDate(DateTime.Now.Date, User.Identity.Name);
+                Day = new Day();
             }
-            catch (NullReferenceException ex)
-            {
-                Console.WriteLine("" + ex);
-                return RedirectToPage("/Error");
-            }
-            finally
-            {
-                if(Day == null)
-                {
-                    Day = new Day();
-                }
-            }
-
             Meals = mealData.GetMealsByOwner(User.Identity.Name);
             return Page();
         }
         public IActionResult OnPost()
         {
+            if(!ModelState.IsValid)
+            {
+                return Page();
+            }
             if (Day.DayId == 0)
             {
                 Day = new Day();
@@ -64,13 +57,7 @@ namespace YAWYE.Pages
             mealData.Commit();
             return RedirectToPage("/Today");
         }
-        public async Task<Day> AddMealAsync(int mid)
-        {
-            var meal = mealData.GetById(mid);
-            Day.Meals = dayData.AddMeal(meal);
-            await Task.Run(() => dayData.Update(Day));
-            return Day;
-        }
+
 
     }
 }

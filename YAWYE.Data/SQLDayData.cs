@@ -23,7 +23,12 @@ namespace YAWYE.Data
 
         public Day Delete(int id)
         {
-            var day = db.Days.Where(d => d.DayId == id).Include(d => d.Meals).First();
+            var day = db.Days
+                .Where(d => d.DayId == id)
+                .Include(d => d.Meals)
+                .ThenInclude(d => d.DayMeals)
+                .First();
+
             if(day != null)
             {
                 db.Days.Remove(day);
@@ -33,18 +38,30 @@ namespace YAWYE.Data
 
         public IEnumerable<Day> GetAllByOwner(string user)
         {
-            return db.Days.Where(d => d.OwnerName == user).DefaultIfEmpty();
+            return db.Days
+                .Where(d => d.OwnerName == user)
+                .Include(d => d.Meals)
+                .ThenInclude(d => d.DayMeals)
+                .DefaultIfEmpty();
         }
 
         public Day GetByDate(DateTime dt, string user)
         {
-            var day = db.Days.Where(d => d.Date == dt && d.OwnerName == user).Include(d => d.Meals).FirstOrDefault();
+            var day = db.Days
+                .Where(d => d.Date == dt && d.OwnerName == user)
+                .Include(d => d.Meals).Include(d => d.Meals)
+                .FirstOrDefault();
+
             return day;
         }
 
         public Day GetById(int id)
         {
-            var day = db.Days.Where(d => d.DayId == id).Include(d => d.Meals).FirstOrDefault();
+            var day = db.Days
+                .Where(d => d.DayId == id)
+                .Include(d => d.Meals)
+                .FirstOrDefault();
+
             return day;
         }
 
@@ -59,9 +76,9 @@ namespace YAWYE.Data
             return db.SaveChanges();
         }
 
-        public List<Meal> AddMeal(Meal meal)
+        public List<Meal> AddMeal(Meal meal, Day day = null)
         {
-            var todaymeals = new List<Meal>();
+            var todaymeals = day.Meals.ToList() ?? new List<Meal>();
             todaymeals.Add(meal);
             return todaymeals;
         }

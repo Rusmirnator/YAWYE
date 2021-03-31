@@ -15,9 +15,6 @@
         <div class="input-group-addon">
         </div>
     </div>
-</form>
-
-<form method="post" enctype="multipart/form-data">
     <div class="container-fluid" id="meals">
         <div id="breakfast">
             <div class="card-header border">Breakfast<button class="btn fas fa-plus-circle" id="add"></button></div>
@@ -30,7 +27,7 @@
             <div class="card-footer border"><button class="btn fas fa-trash" title="Clear"></button></div>
         </div>
         <div id="lunch">
-            <div class="card-header border">Lunch<button class="btn fas fa-plus-circle"></button></div>
+            <div class="card-header border">Lunch<button class="btn fas fa-plus-circle" asp-page-handler="@Model.AddMeal(1)"></button></div>
             <div class="card-body border">
                 @foreach (var meal in lncMeals)
                 {
@@ -72,39 +69,47 @@
     </div>
     <button class="btn fas fa-plus-circle" type="submit"></button>
 </form>
+@foreach (var meal in nonMeals)
+{
+    <div>@meal.Name</div>
+}
 <div class="container-fluid" id="charts">
 
 </div>
 
 <style>
     .input-group {
-        width:min-content;
+        width: min-content;
     }
+
     #meals {
-        font-family:'Comic Sans MS';
-        margin-top:2%;
+        font-family: 'Comic Sans MS';
+        margin-top: 2%;
     }
+
     .card-footer {
-        margin-bottom:1%;
+        margin-bottom: 1%;
     }
-    .card-footer button{
-        color:red;
-    }
-    .card-header button{
-        float:right;
-        color:green;
+
+        .card-footer button {
+            color: red;
+        }
+
+    .card-header button {
+        float: right;
+        color: green;
     }
 </style>
 
 @section Scripts
 {
-<script>
-    $(document).change(function () {
+    <script>
+        $(document).change(function () {
             $('#meals').load(document.URL + ' #meals');
-    });
+        });
 
-    $("#add").click(function () {
-        $("#entry").append("<div>bitch please</div>");
-    });
-</script>
+        $("#add").click(function () {
+            $("#entry").append("<div>bitch please</div>");
+        });
+    </script>
 }

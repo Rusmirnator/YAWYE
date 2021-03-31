@@ -13,6 +13,6 @@ namespace YAWYE.Data
         Day Add(Day newDay);
         Day Update(Day updatedDay);
         Day Delete(int id);
-        List<Meal> AddMeal(Meal meal);
+        List<Meal> AddMeal(Meal meal, Day day = null);
     }
 }
