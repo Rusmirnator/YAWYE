@@ -19,7 +19,6 @@ namespace YAWYE.Pages
         public IEnumerable<Meal> Meals { get; set; }
         public IEnumerable<Meal> TodayMeals { get; set; }
         public Meal Meal { get; set; }
-        [BindProperty]
         public Day Day { get; set; }
         public TodayModel(IDayData dayData, IMealData mealData)
         {
@@ -33,17 +32,19 @@ namespace YAWYE.Pages
             {
                 Day = dayData.GetByDate(DateTime.Now.Date, User.Identity.Name);
             }
-            catch(NullReferenceException ex)
+            catch (NullReferenceException ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine("" + ex);
+                return RedirectToPage("/Error");
             }
             finally
             {
-                if (Day == null)
+                if(Day == null)
                 {
                     Day = new Day();
                 }
             }
+
             Meals = mealData.GetMealsByOwner(User.Identity.Name);
             return Page();
         }

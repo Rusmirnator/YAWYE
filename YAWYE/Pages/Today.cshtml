@@ -9,13 +9,12 @@
     var nonMeals = Model.Meals.Where(m => (int)m.Category == 0);
 }
 
-<form method="get" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data">
     <div class="input-group date">
         <input type="date" class="form-control" id="datePicker" asp-for="Day.Date">
         <div class="input-group-addon">
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Go to date</button>
 </form>
 
 <form method="post" enctype="multipart/form-data">
@@ -100,12 +99,6 @@
 @section Scripts
 {
 <script>
-    $(document).ready(function () {
-        setInterval(function () {
-            $('#dateNow').load(document.URL + ' #dateNow');
-        }, 1000);
-    });
-
     $(document).change(function () {
             $('#meals').load(document.URL + ' #meals');
     });
