@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using YAWYE.Core;
+using YAWYE.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,28 +14,43 @@ namespace YAWYE.API
     [ApiController]
     public class DaysController : ControllerBase
     {
-        // GET: api/<DaysController>
+        private readonly IDayData dayData;
+        private readonly IMealData mealData;
+
+        public DaysController(IDayData dayData, IMealData mealData)
+        {
+            this.dayData = dayData;
+            this.mealData = mealData;
+        }
+        public DayDTO DayDTO { get; set; }
+        public Day Day { get; set; }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<DayDTO> GetToday()
         {
-            return new string[] { "value1", "value2" };
+            Day = dayData.GetByDate(DateTime.Now.Date, User.Identity.Name);
+            Day ??= new Day();
+
+            return Ok(ApiRepository.DayToDto(Day));
         }
 
-        // GET api/<DaysController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+
+        [HttpGet("{date}")]
+        ///Time not needed, can be 0 
+        public ActionResult<DayDTO> GetBySpecificDate(string datePicked)
         {
-            return "value";
+            Day = dayData.GetByDate(DateTime.Parse(datePicked).Date, User.Identity.Name);
+            return Ok(ApiRepository.DayToDto(Day));
         }
 
-        // POST api/<DaysController>
+
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
         // PUT api/<DaysController>/5
-        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }

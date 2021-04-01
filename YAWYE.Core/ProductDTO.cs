@@ -7,7 +7,6 @@ namespace YAWYE.Core
 {
     public class ProductDTO
     {
-        public int ProductId { get; set; }
         public decimal Weight { get; set; } = 100;
         [Required]
         public decimal TotalWeight { get; set; }
@@ -26,6 +25,5 @@ namespace YAWYE.Core
         public string BarCode { get; set; }
         public string ImgPath { get; set; }
         public bool HasImage { get; set; }
-        public List<MealProduct> MealProducts { get; set; }
     }
 }

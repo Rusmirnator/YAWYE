@@ -17,7 +17,7 @@
     </div>
     <div class="container-fluid" id="meals">
         <div id="breakfast">
-            <div class="card-header border">Breakfast<button class="btn fas fa-plus-circle" id="add"></button></div>
+            <div class="card-header border">Breakfast<a class="btn fas fa-plus-circle" data-toggle="modal" data-target="#myModal"></a></div>
             <div class="card-body border" id="entry">
                 @foreach (var meal in brfMeals)
                 {
@@ -27,7 +27,7 @@
             <div class="card-footer border"><button class="btn fas fa-trash" title="Clear"></button></div>
         </div>
         <div id="lunch">
-            <div class="card-header border">Lunch<button class="btn fas fa-plus-circle"></button></div>
+            <div class="card-header border">Lunch<a class="btn fas fa-plus-circle" data-toggle="modal" data-target="#myModal"></a></div>
             <div class="card-body border">
                 @foreach (var meal in lncMeals)
                 {
@@ -37,7 +37,7 @@
             <div class="card-footer border"><button class="btn fas fa-trash" title="Clear"></button></div>
         </div>
         <div id="dinner">
-            <div class="card-header border">Dinner<button class="btn fas fa-plus-circle"></button></div>
+            <div class="card-header border">Dinner<a class="btn fas fa-plus-circle" data-toggle="modal" data-target="#myModal"></a></div>
             <div class="card-body border">
                 @foreach (var meal in dinMeals)
                 {
@@ -47,7 +47,7 @@
             <div class="card-footer border"><button class="btn fas fa-trash" title="Clear"></button></div>
         </div>
         <div id="supper">
-            <div class="card-header border">Supper<button class="btn fas fa-plus-circle"></button></div>
+            <div class="card-header border">Supper<a class="btn fas fa-plus-circle" data-toggle="modal" data-target="#myModal"></a></div>
             <div class="card-body border">
                 @foreach (var meal in supMeals)
                 {
@@ -57,7 +57,7 @@
             <div class="card-footer border"><button class="btn fas fa-trash" title="Clear"></button></div>
         </div>
         <div id="snacks">
-            <div class="card-header border">Snacks<button class="btn fas fa-plus-circle"></button></div>
+            <div class="card-header border">Snacks<a class="btn fas fa-plus-circle" data-toggle="modal" data-target="#myModal"></a></div>
             <div class="card-body border">
                 @foreach (var meal in snkMeals)
                 {
@@ -95,21 +95,38 @@
             color: red;
         }
 
-    .card-header button {
+    .card-header [class="btn fas fa-plus-circle"]{
         float: right;
-        color: green;
+        color:green;
     }
+
 </style>
 
 @section Scripts
 {
     <script>
-        $(document).change(function () {
-            $('#meals').load(document.URL + ' #meals');
-        });
-
-        $("#add").click(function () {
-            $("#entry").append("<div>bitch please</div>");
-        });
     </script>
 }
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        Modal body..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

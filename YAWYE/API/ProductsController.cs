@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,6 @@ namespace YAWYE.API
     public class ProductsController : ControllerBase
     {
         private readonly IProductData productData;
-
         public ProductsController(IProductData productData)
         {
             this.productData = productData;
@@ -23,23 +23,26 @@ namespace YAWYE.API
         public List<Product> Products { get; set; } = new List<Product>();
         public List<ProductDTO> ProductsDTOs { get; set; } = new List<ProductDTO>();
         public Product Product { get; set; }
+        public ProductDTO ProductDTO { get; set; }
+
 
 
         // GET: api/<ProductsController>
         [HttpGet]
-        public List<ProductDTO> GetAll()
+        public ActionResult<IEnumerable<ProductDTO>> GetAll()
         {
             Products = productData.GetAll().ToList();
-            ProductsDTOs = ApiRepository.ProductsToDto(Products);
 
-            return ProductsDTOs;
+            return Ok(ApiRepository.ProductsToDto(Products));
         }
 
         // GET api/<ProductsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<ProductDTO> GetById(int id)
         {
-            return "value";
+            Product = productData.GetById(id);
+
+            return Ok(ApiRepository.ProductToDto(Product));
         }
 
         // POST api/<ProductsController>
@@ -49,7 +52,7 @@ namespace YAWYE.API
         }
 
         // PUT api/<ProductsController>/5
-        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }

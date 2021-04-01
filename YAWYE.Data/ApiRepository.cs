@@ -16,7 +16,6 @@ namespace YAWYE.Data
             {
                 return dto = dto ?? new ProductDTO
                 {
-                    ProductId = product.ProductId,
                     Weight = product.Weight,
                     TotalWeight = product.TotalWeight,
                     Name = product.Name,
@@ -30,7 +29,6 @@ namespace YAWYE.Data
                     BarCode = product.BarCode,
                     ImgPath = product.ImgPath,
                     HasImage = product.HasImage,
-                    MealProducts = product.MealProducts.ToList()
                 };
             }
             return null;
@@ -41,7 +39,6 @@ namespace YAWYE.Data
             {
                 return ent = ent ?? new Product
                 {
-                    ProductId = product.ProductId,
                     Weight = product.Weight,
                     TotalWeight = product.TotalWeight,
                     Name = product.Name,
@@ -55,7 +52,6 @@ namespace YAWYE.Data
                     BarCode = product.BarCode,
                     ImgPath = product.ImgPath,
                     HasImage = product.HasImage,
-                    MealProducts = product.MealProducts.ToList()
                 };
             }
             return null;
@@ -66,7 +62,6 @@ namespace YAWYE.Data
             {
                 return dto = dto ?? new MealDTO
                 {
-                    MealId = meal.MealId,
                     Name = meal.Name,
                     Kcal = meal.Kcal,
                     Protein = meal.Protein,
@@ -78,9 +73,6 @@ namespace YAWYE.Data
                     ImgPath = meal.ImgPath,
                     Owner = meal.Owner,
                     Category = meal.Category,
-                    Products = meal.Products.ToList(),
-                    MealProducts = meal.MealProducts.ToList(),
-                    DayMeals = meal.DayMeals.ToList()
                 };
             }
             return null;
@@ -91,7 +83,6 @@ namespace YAWYE.Data
             {
                 return ent = ent ?? new Meal
                 {
-                    MealId = meal.MealId,
                     Name = meal.Name,
                     Kcal = meal.Kcal,
                     Protein = meal.Protein,
@@ -103,9 +94,6 @@ namespace YAWYE.Data
                     ImgPath = meal.ImgPath,
                     Owner = meal.Owner,
                     Category = meal.Category,
-                    Products = meal.Products.ToList(),
-                    MealProducts = meal.MealProducts.ToList(),
-                    DayMeals = meal.DayMeals.ToList()
                 };
             }
             return null;
@@ -119,8 +107,6 @@ namespace YAWYE.Data
                     DayId = day.DayId,
                     Date = day.Date,
                     OwnerName = day.OwnerName,
-                    Meals = day.Meals.ToList(),
-                    DayMeals = day.DayMeals.ToList()
                 };
             }
             return null;
@@ -134,8 +120,6 @@ namespace YAWYE.Data
                     DayId = day.DayId,
                     Date = day.Date,
                     OwnerName = day.OwnerName,
-                    Meals = day.Meals.ToList(),
-                    DayMeals = day.DayMeals.ToList()
                 };
             }
             return null;
@@ -147,6 +131,17 @@ namespace YAWYE.Data
             foreach(var p in products)
             {
                 dto = ProductToDto(p);
+                result.Add(dto);
+            }
+            return result;
+        }
+        public static List<MealDTO> MealsToDto(List<Meal> meals) 
+        {
+            var result = new List<MealDTO>();
+            var dto = new MealDTO();
+            foreach (var m in meals)
+            {
+                dto = MealtoDto(m);
                 result.Add(dto);
             }
             return result;

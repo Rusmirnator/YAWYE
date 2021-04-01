@@ -54,7 +54,7 @@ namespace YAWYE.Pages
             {
                 dayData.Update(Day);
             }
-            mealData.Commit();
+            //mealData.Commit();
             return RedirectToPage("/Today");
         }
 

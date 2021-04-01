@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using YAWYE.Core;
+using YAWYE.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,18 +14,34 @@ namespace YAWYE.API
     [ApiController]
     public class MealsController : ControllerBase
     {
+        private readonly IMealData mealData;
+        private readonly IProductData productData;
+
+        public MealsController(IMealData mealData, IProductData productData)
+        {
+            this.mealData = mealData;
+            this.productData = productData;
+        }
+        public Meal Meal { get; set; }
+        public MealDTO MealDTO { get; set; }
+        public List<Meal> Meals { get; set; }
+        public List<MealDTO> MealDTOs { get; set; }
         // GET: api/<MealsController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<IEnumerable<MealDTO>> GetAll()
         {
-            return new string[] { "value1", "value2" };
+            Meals = mealData.GetAll().ToList();
+
+            return Ok(ApiRepository.MealsToDto(Meals));
         }
 
         // GET api/<MealsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<MealDTO> GetById(int id)
         {
-            return "value";
+            Meal = mealData.GetById(id);
+
+            return Ok(ApiRepository.MealtoDto(Meal));
         }
 
         // POST api/<MealsController>

@@ -7,7 +7,6 @@ namespace YAWYE.Core
 {
     public class MealDTO
     {
-        public int MealId { get; set; }
         public IEnumerable<Meal> Meals { get; set; }
         [Required]
         public string Name { get; set; }
@@ -21,8 +20,6 @@ namespace YAWYE.Core
         public string ImgPath { get; set; }
         public string Owner { get; set; }
         public MealCategory Category { get; set; } = 0;
-        public List<Product> Products { get; set; }
-        public List<MealProduct> MealProducts { get; set; }
-        public List<DayMeal> DayMeals { get; set; }
+
     }
 }
