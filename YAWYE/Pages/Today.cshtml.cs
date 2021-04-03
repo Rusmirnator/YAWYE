@@ -27,14 +27,15 @@ namespace YAWYE.Pages
             this.mealData = mealData;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int? dayId = null)
         {
+            Meals = mealData.GetMealsByOwner(User.Identity.Name);
             Day = dayData.GetByDate(DateTime.Now.Date, User.Identity.Name);
             if(Day == null)
             {
                 Day = new Day();
             }
-            Meals = mealData.GetMealsByOwner(User.Identity.Name);
+            
             return Page();
         }
         public IActionResult OnPost()
@@ -54,8 +55,9 @@ namespace YAWYE.Pages
             {
                 dayData.Update(Day);
             }
-            //mealData.Commit();
-            return RedirectToPage("/Today");
+            mealData.Commit();
+
+            return RedirectToPage("/Today", new { dayId = Day.DayId });
         }
 
 

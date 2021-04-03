@@ -22,9 +22,6 @@ namespace YAWYE.Pages.Meals
         public IEnumerable<Product> Products { get; set; }
         [TempData]
         public string Message { get; set; }
-        [Range(0,5)]
-        public int Category { get; set; }
-        public string ImgPath { get; set; }
 
 
         public UpdateMealModel(IMealData mealData, IProductData productData)
@@ -49,6 +46,7 @@ namespace YAWYE.Pages.Meals
             }
 
             Products = productData.GetAll();
+
             return Page();
         }
         public IActionResult OnPost()
@@ -59,32 +57,6 @@ namespace YAWYE.Pages.Meals
             }
             if (Meal.MealId > 0)
             {
-
-                if (Meal.ImgPath == null)
-                {
-                    switch(Category)
-                    {
-                        case 0:
-                            ImgPath = "groceries.png";
-                            break;
-                        case 1:
-                            ImgPath = "breakfast.png";
-                            break;
-                        case 2:
-                            ImgPath = "lunch.png";
-                            break;
-                        case 3:
-                            ImgPath = "dinner.png";
-                            break;
-                        case 4:
-                            ImgPath = "supper.png";
-                            break;
-                        case 5:
-                            ImgPath = "snacks.png";
-                            break;
-                    }
-                    Meal.ImgPath = ImgPath;
-                }
                 mealData.Update(Meal);
             }
             else
