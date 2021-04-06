@@ -1,12 +1,7 @@
 ﻿@page "{dayId:int?}"
 @model YAWYE.Pages.TodayModel
 @{
-    var brfMeals = Model.Meals.Where(m => (int)m.Category == 1);
-    var lncMeals = Model.Meals.Where(m => (int)m.Category == 2);
-    var dinMeals = Model.Meals.Where(m => (int)m.Category == 3);
-    var supMeals = Model.Meals.Where(m => (int)m.Category == 4);
-    var snkMeals = Model.Meals.Where(m => (int)m.Category == 5);
-    var nonMeals = Model.Meals.Where(m => (int)m.Category == 0);
+
 }
 
 <form method="post" enctype="multipart/form-data">
@@ -17,62 +12,48 @@
     </div>
     <div class="container-fluid" id="meals">
         <div id="breakfast">
-            <div class="card-header border">Breakfast<a class="btn fas fa-plus-circle" data-toggle="modal" data-target="#myModal"></a></div>
-            <div class="card-body border" id="entry">
-                @foreach (var meal in brfMeals)
-                {
-                    <div>@meal.Name</div>
-                }
+            <div class="card-header border">Breakfast<button type="button" class="btn fas fa-plus-circle"></button></div>
+            <div class="card-body border">
+
             </div>
-            <div class="card-footer border"><button class="btn fas fa-trash" title="Clear"></button></div>
+            <div class="card-footer border"><button type="button" class="btn fas fa-trash" title="Clear"></button></div>
         </div>
         <div id="lunch">
-            <div class="card-header border">Lunch<a class="btn fas fa-plus-circle" data-toggle="modal" data-target="#myModal"></a></div>
+            <div class="card-header border">Lunch<button type="button" class="btn fas fa-plus-circle"></button></div>
             <div class="card-body border">
-                @foreach (var meal in lncMeals)
-                {
-                    <div style="display:table-cell">@meal.Name</div>
-                }
+
             </div>
-            <div class="card-footer border"><button class="btn fas fa-trash" title="Clear"></button></div>
+            <div class="card-footer border"><button type="button" class="btn fas fa-trash" title="Clear"></button></div>
         </div>
         <div id="dinner">
-            <div class="card-header border">Dinner<a class="btn fas fa-plus-circle" data-toggle="modal" data-target="#myModal"></a></div>
+            <div class="card-header border">Dinner<button type="button" class="btn fas fa-plus-circle"></button></div>
             <div class="card-body border">
-                @foreach (var meal in dinMeals)
-                {
-                    <div>@meal.Name</div>
-                }
+
             </div>
-            <div class="card-footer border"><button class="btn fas fa-trash" title="Clear"></button></div>
+            <div class="card-footer border"><button type="button" class="btn fas fa-trash" title="Clear"></button></div>
         </div>
         <div id="supper">
-            <div class="card-header border">Supper<a class="btn fas fa-plus-circle" data-toggle="modal" data-target="#myModal"></a></div>
+            <div class="card-header border">Supper<button type="button" class="btn fas fa-plus-circle"></button></div>
             <div class="card-body border">
-                @foreach (var meal in supMeals)
-                {
-                    <div>@meal.Name</div>
-                }
+
             </div>
-            <div class="card-footer border"><button class="btn fas fa-trash" title="Clear"></button></div>
+            <div class="card-footer border"><button type="button" class="btn fas fa-trash" title="Clear"></button></div>
         </div>
         <div id="snacks">
-            <div class="card-header border">Snacks<a class="btn fas fa-plus-circle" data-toggle="modal" data-target="#myModal"></a></div>
+            <div class="card-header border">Snacks<button type="button" class="btn fas fa-plus-circle"></button></div>
             <div class="card-body border">
-                @foreach (var meal in snkMeals)
-                {
-                    <div>@meal.Name</div>
-                }
+
             </div>
-            <div class="card-footer border"><button class="btn fas fa-trash" title="Clear"></button></div>
+            <div class="card-footer border"><button type="button" class="btn fas fa-trash" title="Clear"></button></div>
         </div>
     </div>
     <button class="btn fas fa-plus-circle" type="submit"></button>
 </form>
-@foreach (var meal in nonMeals)
+@if (Model.Message != null)
 {
-    <div>@meal.Name</div>
+    <div class="alert-info">@Model.Message</div>
 }
+
 <div class="container-fluid" id="charts">
 
 </div>
@@ -95,11 +76,10 @@
             color: red;
         }
 
-    .card-header [class="btn fas fa-plus-circle"]{
+    .card-header [class="btn fas fa-plus-circle"] {
         float: right;
-        color:green;
+        color: green;
     }
-
 </style>
 
 @section Scripts
@@ -107,26 +87,3 @@
     <script>
     </script>
 }
-<div class="modal" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-
-      <div class="modal-header">
-        <h4 class="modal-title">Modal Heading</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-
-      <div class="modal-body">
-        Modal body..
-      </div>
-
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-
-    </div>
-  </div>
-</div>

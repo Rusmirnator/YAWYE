@@ -17,10 +17,12 @@ namespace YAWYE.Pages
         private readonly IMealData mealData;
 
         public IEnumerable<Meal> Meals { get; set; }
-        public List<Meal> TodayMeals { get; set; }
+        public List<Meal> TodayMeals { get; set; } = new List<Meal>();
         public Meal Meal { get; set; }
-        [BindProperty]
-        public Day Day { get; set; }
+        public Day Day { get; set; } = new Day();
+        [TempData]
+        public string Message { get; set; }
+        public MealCategory Category { get; set; } = new MealCategory();
         public TodayModel(IDayData dayData, IMealData mealData)
         {
             this.dayData = dayData;
@@ -29,24 +31,34 @@ namespace YAWYE.Pages
 
         public IActionResult OnGet(int? dayId = null)
         {
-            Meals = mealData.GetMealsByOwner(User.Identity.Name);
-            Day = dayData.GetByDate(DateTime.Now.Date, User.Identity.Name);
+            if(dayId.HasValue)
+            {
+                Day = dayData.GetById(dayId.Value);
+            }
+            else
+            {
+                Day = dayData.GetByDate(DateTime.Now.Date, User.Identity.Name);
+            }
+            
             if(Day == null)
             {
                 Day = new Day();
+                Day.Date = DateTime.Now.Date;
             }
-            
+
+            Meals = mealData.GetMealsByOwner(User.Identity.Name);
+
             return Page();
         }
         public IActionResult OnPost()
         {
             if(!ModelState.IsValid)
             {
+                TempData["Message"] = "Invalid Operation";
                 return Page();
             }
             if (Day.DayId == 0)
             {
-                Day = new Day();
                 Day.Date = DateTime.Now.Date;
                 Day.OwnerName = User.Identity.Name;
                 dayData.Add(Day);
@@ -59,7 +71,6 @@ namespace YAWYE.Pages
 
             return RedirectToPage("/Today", new { dayId = Day.DayId });
         }
-
 
     }
 }
