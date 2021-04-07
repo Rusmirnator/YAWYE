@@ -1,0 +1,19 @@
+﻿@page "{dayId:int}/{category:int}"
+@model YAWYE.Pages.Days.UpdateDayModel
+@{
+}
+
+
+<div>
+    @foreach(var meal in Model.Meals)
+            {
+                <div style="display:table-cell">@meal <button class="btn fas fa-plus" type="submit" asp-route-mealId="@meal.MealId"></button></div>
+            }
+</div>
+<style>
+    .div [class="btn fas fa-plus"]
+    {
+        color:green;
+        float:right;
+    }
+</style>

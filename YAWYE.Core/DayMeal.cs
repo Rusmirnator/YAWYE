@@ -11,6 +11,7 @@ namespace YAWYE.Core
         public Day Day { get; set; }
         public int MealId { get; set; }
         public Meal Meal { get; set; }
+        public MealCategory Category { get; set; }
 
     }
 }

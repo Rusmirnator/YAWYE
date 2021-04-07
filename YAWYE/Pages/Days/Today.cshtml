@@ -1,0 +1,123 @@
+﻿@page "{dayId:int?}"
+@model YAWYE.Pages.Days.TodayModel
+@{
+
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="input-group date">
+        <input type="date" class="form-control" id="datePicker" asp-for="Day.Date" />
+        <input type="hidden" asp-for="Day.OwnerName" />
+        <input type="hidden" asp-for="Day.DayId" />
+        <input type="hidden" asp-for="Day.Meals" />
+        <input type="hidden" asp-for="Day.DayMeals" />
+        <div class="input-group-addon">
+        </div>
+    </div>
+    <div class="container-fluid" id="meals">
+        <div id="breakfast">
+            <div class="card-header border">Breakfast<button type="submit" class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId" 
+                                                                                                          asp-route-category="1"
+                                                                                                          asp-page="./UpdateDay"></button>
+            </div>
+            <div class="card-body border">
+                @foreach (var meal in Model.Day.Meals.Where(m => (int)m.Category == 1))
+                {
+                    <div>@meal.Name</div>
+                }
+            </div>
+            <div class="card-footer border"><button type="button" class="btn fas fa-trash" title="Clear"></button></div>
+        </div>
+        <div id="lunch">
+            <div class="card-header border">Lunch<button type="submit" class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId" 
+                                                                                                      asp-route-category="2"
+                                                                                                      asp-page="./UpdateDay"></button>
+            </div>
+            <div class="card-body border">
+                @foreach (var meal in Model.Day.Meals.Where(m => (int)m.Category == 2))
+                {
+                    <div>@meal.Name</div>
+                }
+            </div>
+            <div class="card-footer border"><button type="button" class="btn fas fa-trash" title="Clear"></button></div>
+        </div>
+        <div id="dinner">
+            <div class="card-header border">Dinner<button type="submit" class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId" 
+                                                                                                       asp-route-category="3"
+                                                                                                       asp-page="./UpdateDay"></button>
+            </div>
+            <div class="card-body border">
+                @foreach (var meal in Model.Day.Meals.Where(m => (int)m.Category == 3))
+                {
+                    <div>@meal.Name</div>
+                }
+            </div>
+            <div class="card-footer border"><button type="button" class="btn fas fa-trash" title="Clear"></button></div>
+        </div>
+        <div id="supper">
+            <div class="card-header border">Supper<button type="submit" class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId" 
+                                                                                                       asp-route-category="4"
+                                                                                                       asp-page="./UpdateDay"></button>
+            </div>
+            <div class="card-body border">
+                @foreach (var meal in Model.Day.Meals.Where(m => (int)m.Category == 4))
+                {
+                    <div>@meal.Name</div>
+                }
+            </div>
+            <div class="card-footer border"><button type="button" class="btn fas fa-trash" title="Clear"></button></div>
+        </div>
+        <div id="snacks">
+            <div class="card-header border">Snacks<button type="submit" class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId" 
+                                                                                                       asp-route-category="5"
+                                                                                                       asp-page="./UpdateDay"></button>
+            </div>
+            <div class="card-body border">
+                @foreach (var meal in Model.Day.Meals.Where(m => (int)m.Category == 5))
+                {
+                    <div>@meal.Name</div>
+                }
+            </div>
+            <div class="card-footer border"><button type="button" class="btn fas fa-trash" title="Clear"></button></div>
+        </div>
+    </div>
+    <button class="btn fas fa-plus-circle" type="submit"></button>
+</form>
+@if (Model.Message != null)
+{
+    <div class="alert alert-info">@Model.Message</div>
+}
+
+<div class="container-fluid" id="charts">
+
+</div>
+
+<style>
+    .input-group {
+        width: min-content;
+    }
+
+    #meals {
+        font-family: 'Comic Sans MS';
+        margin-top: 2%;
+    }
+
+    .card-footer {
+        margin-bottom: 1%;
+    }
+
+        .card-footer button {
+            color: red;
+        }
+
+    .card-header [class="btn fas fa-plus-circle"] {
+        float: right;
+        color: green;
+    }
+</style>
+
+@section Scripts
+{
+    <script>
+    </script>
+}

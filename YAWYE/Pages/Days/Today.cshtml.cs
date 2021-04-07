@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using YAWYE.Core;
 using YAWYE.Data;
 
-namespace YAWYE.Pages
+namespace YAWYE.Pages.Days
 {
     [Authorize]
     public class TodayModel : PageModel
@@ -19,7 +19,8 @@ namespace YAWYE.Pages
         public IEnumerable<Meal> Meals { get; set; }
         public List<Meal> TodayMeals { get; set; } = new List<Meal>();
         public Meal Meal { get; set; }
-        public Day Day { get; set; } = new Day();
+        [BindProperty]
+        public Day Day { get; set; }
         [TempData]
         public string Message { get; set; }
         public MealCategory Category { get; set; } = new MealCategory();
@@ -55,7 +56,7 @@ namespace YAWYE.Pages
             if(!ModelState.IsValid)
             {
                 TempData["Message"] = "Invalid Operation";
-                return Page();
+                return RedirectToPage("./Today");
             }
             if (Day.DayId == 0)
             {
@@ -69,7 +70,7 @@ namespace YAWYE.Pages
             }
             mealData.Commit();
 
-            return RedirectToPage("/Today", new { dayId = Day.DayId });
+            return RedirectToPage("./Today", new { dayId = Day.DayId });
         }
 
     }
