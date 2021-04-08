@@ -45,6 +45,7 @@ namespace YAWYE.Pages.Days
             {
                 Day = new Day();
                 Day.Date = DateTime.Now.Date;
+                Day.OwnerName = User.Identity.Name;
             }
 
             Meals = mealData.GetMealsByOwner(User.Identity.Name);

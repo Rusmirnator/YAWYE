@@ -6,6 +6,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace YAWYE.Data
 {
@@ -51,5 +52,6 @@ namespace YAWYE.Data
             entity.State = EntityState.Modified;
             return updatedProduct;
         }
+
     }
 }
