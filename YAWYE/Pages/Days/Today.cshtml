@@ -21,7 +21,7 @@
                                                                                                           asp-page="./UpdateDay"></button>
             </div>
             <div class="card-body border">
-                @foreach (var meal in Model.Day.Meals.Where(m => (int)m.Category == 1))
+                @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 1))
                 {
                     <div>@meal.Name</div>
                 }
@@ -34,7 +34,7 @@
                                                                                                       asp-page="./UpdateDay"></button>
             </div>
             <div class="card-body border">
-                @foreach (var meal in Model.Day.Meals.Where(m => (int)m.Category == 2))
+                @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 2))
                 {
                     <div>@meal.Name</div>
                 }
@@ -47,7 +47,7 @@
                                                                                                        asp-page="./UpdateDay"></button>
             </div>
             <div class="card-body border">
-                @foreach (var meal in Model.Day.Meals.Where(m => (int)m.Category == 3))
+                @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 3))
                 {
                     <div>@meal.Name</div>
                 }
@@ -60,7 +60,7 @@
                                                                                                        asp-page="./UpdateDay"></button>
             </div>
             <div class="card-body border">
-                @foreach (var meal in Model.Day.Meals.Where(m => (int)m.Category == 4))
+                @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 4))
                 {
                     <div>@meal.Name</div>
                 }
@@ -73,7 +73,7 @@
                                                                                                        asp-page="./UpdateDay"></button>
             </div>
             <div class="card-body border">
-                @foreach (var meal in Model.Day.Meals.Where(m => (int)m.Category == 5))
+                @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 5))
                 {
                     <div>@meal.Name</div>
                 }
