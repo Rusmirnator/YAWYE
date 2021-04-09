@@ -30,7 +30,7 @@ namespace YAWYE.Pages.Days
             this.mealData = mealData;
         }
 
-        public IActionResult OnGet(int? dayId = null)
+        public IActionResult OnGet(int? dayId)
         {
             if(dayId.HasValue)
             {

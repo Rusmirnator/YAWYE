@@ -16,9 +16,9 @@
     <div class="container-fluid" id="meals">
         <div id="breakfast">
             <div class="card-header border">
-                Breakfast<button type="submit" class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId"
+                Breakfast<a class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId"
                                  asp-route-category="1"
-                                 asp-page="./UpdateDay"></button>
+                                 asp-page="./UpdateDay"></a>
             </div>
             <div class="card-body border">
                 @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 0))
@@ -30,9 +30,9 @@
         </div>
         <div id="lunch">
             <div class="card-header border">
-                Lunch<button type="submit" class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId"
+                Lunch<a class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId"
                              asp-route-category="2"
-                             asp-page="./UpdateDay"></button>
+                             asp-page="./UpdateDay"></a>
             </div>
             <div class="card-body border">
                 @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 2))
@@ -44,9 +44,9 @@
         </div>
         <div id="dinner">
             <div class="card-header border">
-                Dinner<button type="submit" class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId"
+                Dinner<a class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId"
                               asp-route-category="3"
-                              asp-page="./UpdateDay"></button>
+                              asp-page="./UpdateDay"></a>
             </div>
             <div class="card-body border">
                 @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 3))
@@ -58,9 +58,9 @@
         </div>
         <div id="supper">
             <div class="card-header border">
-                Supper<button type="submit" class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId"
+                Supper<a class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId"
                               asp-route-category="4"
-                              asp-page="./UpdateDay"></button>
+                              asp-page="./UpdateDay"></a>
             </div>
             <div class="card-body border">
                 @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 4))
@@ -72,9 +72,9 @@
         </div>
         <div id="snacks">
             <div class="card-header border">
-                Snacks<button type="submit" class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId"
+                Snacks<a class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId"
                               asp-route-category="5"
-                              asp-page="./UpdateDay"></button>
+                              asp-page="./UpdateDay"></a>
             </div>
             <div class="card-body border">
                 @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 5))

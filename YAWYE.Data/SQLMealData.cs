@@ -110,7 +110,7 @@ namespace YAWYE.Data
 
         public IEnumerable<Meal> GetMealsByOwner(string owner)
         {
-            return db.Meals.Where(m => m.Owner == owner);
+            return db.Meals.Where(m => m.Owner == owner).Include(dm => dm.DayMeals);
         }
     }
 }
