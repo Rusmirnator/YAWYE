@@ -23,23 +23,24 @@
                     <td>
                         @if (!meal.DayMeals.Where(m => m.MealId == Model.Day.DayId).Any())
                         {
-                            <a class="btn fas fa-plus-circle" title="Add" style="color:green;"
+                            <a class="btn fas fa-plus-circle" title="Add"
                                asp-page="./UpdateDay"
                                asp-route-mealId="@meal.MealId"></a>
                         }
                         else
                         {
-                            <a class="btn fas fa-trash" title="Remove" style="color:red;"
+                            <a class="btn fas fa-trash" title="Remove"
                                asp-page="./UpdateDay"
                                asp-route-mealId="@meal.MealId"></a>
                         }
-                        <a class="btn fas fa-info" href="#" data-toggle="popover" data-trigger="hover"
-                           title="@meal.Name per 100 g" style="color:sandybrown;"
-                           data-content="Kcal: @meal.Kcal
+                        <i class="btn fas fa-info" href="#" data-toggle="popover" data-trigger="hover"
+                           title="@meal.Name per 100 g"
+                           data-content="
+                                   Kcal: @meal.Kcal
                                    Protein: @meal.Protein g
                                    Carbohydrates: @meal.Carbohydrates g
                                    Fat: @meal.Fat g
-                                   Fiber: @meal.Fiber g"></a>
+                                   Fiber: @meal.Fiber g"></i>
                     </td>
                 </tr>
             }
@@ -49,6 +50,15 @@
 <style>
     .popover {
         white-space: pre-line;
+    }
+    .fa-plus-circle {
+        color: green;
+    }
+    .fa-trash {
+        color:red;
+    }
+    .fa-info {
+        color:sandybrown;
     }
 </style>
 @section Scripts
