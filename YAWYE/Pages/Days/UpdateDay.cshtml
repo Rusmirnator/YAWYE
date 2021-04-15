@@ -5,7 +5,6 @@
 <input type="hidden" asp-for="Category" />
 <input type="hidden" asp-for="DayId" />
 <div class="container-fluid">
-    <form method="post" enctype="multipart/form-data">
         <table class="table table-striped mb-0" id="datatable">
             <thead class="thead-dark">
                 <tr>
@@ -17,36 +16,38 @@
             <tbody>
                 @foreach (var meal in Model.Meals)
                 {
-    <tr>
-        <th scope="row">@meal.MealId</th>
-        <td>@meal.Name</td>
-        <td>
-            @if (!meal.DayMeals.Where(m => m.MealId == Model.Day.DayId).Any())
-            {
-    <button class="btn fas fa-plus-circle" title="Add" style="color:green;"
-            asp-page="./UpdateDayDummyPage"
-            asp-route-dayId="@Model.DayId"
-            asp-route-mealId="@meal.MealId"
-            asp-route-category="@Model.Category"></button> }
-                    else
-                    {
-    <button class="btn fas fa-trash" title="Remove" style="color:red;"
-            asp-page="./UpdateDayDummyPage"
-            asp-route-dayId="@Model.DayId"
-            asp-route-mealId="@meal.MealId"
-            asp-route-category="@Model.Category"></button>}
-            <i class="btn fas fa-info" href="#" data-toggle="popover" data-trigger="hover"
-               title="@meal.Name per 100 g" style="color:sandybrown;"
-               data-content="Kcal: @meal.Kcal
-                                         Protein: @meal.Protein g
-                                         Carbohydrates: @meal.Carbohydrates g
-                                         Fat: @meal.Fat g
-                                         Fiber: @meal.Fiber g"></i>
-        </td>
-    </tr>            }
+                <tr>
+                    <th scope="row">@meal.MealId</th>
+                    <td>@meal.Name</td>
+                    <td>
+                        @if (!meal.DayMeals.Where(m => m.MealId == Model.Day.DayId).Any())
+                        {
+                        <form asp-page-handler="AddMeal" method="post">
+                        <button class="btn fas fa-plus-circle" title="Add" style="color:green;"></button>
+                        <input type="hidden" name="mealId" value="@meal.MealId">
+                        </form> 
+                        }
+                        else
+                        {
+                        <form asp-page-handler="RemoveMeal" method="post">
+                        <button class="btn fas fa-trash" title="Remove" style="color:red;"
+                                asp-route-dayId="@Model.DayId"
+                                asp-route-mealId="@meal.MealId"
+                                asp-route-category="@Model.Category"></button>
+                        </form>
+                        }
+                        <i class="btn fas fa-info" href="#" data-toggle="popover" data-trigger="hover"
+                           title="@meal.Name per 100 g" style="color:sandybrown;"
+                           data-content="Kcal: @meal.Kcal
+                                      Protein: @meal.Protein g
+                                      Carbohydrates: @meal.Carbohydrates g
+                                      Fat: @meal.Fat g
+                                      Fiber: @meal.Fiber g"></i>
+                    </td>
+                </tr>
+                }
             </tbody>
         </table>
-    </form>
 </div>
 <style>
     .popover {

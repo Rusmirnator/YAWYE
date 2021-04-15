@@ -24,6 +24,7 @@ namespace YAWYE.Pages.Days
         public IEnumerable<Meal> Meals { get; set; }
         public Day Day { get; set; } = new Day();
         public Meal Meal { get; set; }
+        public DayMeal DayMeal { get; set; } = new DayMeal();
         [BindProperty]
         public int Category { get; set; }
         [BindProperty]
@@ -40,6 +41,33 @@ namespace YAWYE.Pages.Days
             Meals = mealData.GetMealsByOwner(User.Identity.Name);
 
             return Page();
+        }
+        public IActionResult OnPostAddMeal(int mealId, [FromRoute] int dayId, [FromRoute] int category)
+        {
+
+            Meal = mealData.GetById(mealId);
+            Day = dayData.GetById(dayId) ?? new Day { Meals = new List<Meal>(), DayMeals = new List<DayMeal>() };
+            Meal.Category = (MealCategory)category;
+
+            Day.Meals.Add(Meal);
+            Day.DayMeals.Add(DayMeal);
+
+            if (Day.DayId == 0)
+            {
+                Day.OwnerName = User.Identity.Name;
+                Day.Date = DateTime.Now.Date;
+                dayData.Add(Day);
+            }
+            else
+            {
+                Day = dayData.GetById(dayId);
+                dayData.Update(Day);
+            }
+
+
+            mealData.Commit();
+
+            return RedirectToPage("./Today", new { dayId = Day.DayId });
         }
     }
 }

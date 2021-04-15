@@ -60,6 +60,7 @@ namespace YAWYE.Data
             var day = db.Days
                 .Where(d => d.DayId == id)
                 .Include(d => d.Meals)
+                .Include(d => d.DayMeals)
                 .FirstOrDefault();
 
             return day;
