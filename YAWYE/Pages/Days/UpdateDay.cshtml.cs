@@ -15,11 +15,13 @@ namespace YAWYE.Pages.Days
     {
         private readonly IMealData mealData;
         private readonly IDayData dayData;
+        private readonly IDayMealData dayMealData;
 
-        public UpdateDayModel(IMealData mealData, IDayData dayData)
+        public UpdateDayModel(IMealData mealData, IDayData dayData, IDayMealData dayMealData)
         {
             this.mealData = mealData;
             this.dayData = dayData;
+            this.dayMealData = dayMealData;
         }
         public IEnumerable<Meal> Meals { get; set; }
         public Day Day { get; set; } = new Day();
@@ -49,6 +51,7 @@ namespace YAWYE.Pages.Days
             Day = dayData.GetById(dayId) ?? new Day { Meals = new List<Meal>(), DayMeals = new List<DayMeal>() };
             Meal.Category = (MealCategory)category;
 
+            DayMeal = dayMealData.SetValues(Day, Meal, Meal.Category);
             Day.Meals.Add(Meal);
             Day.DayMeals.Add(DayMeal);
 
