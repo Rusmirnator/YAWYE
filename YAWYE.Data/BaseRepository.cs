@@ -1,57 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using YAWYE.Core;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace YAWYE.Data
 {
-    public class BaseRepository<T> where T : class
+    public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        private readonly YAWYEDbContext db;
+        private readonly YAWYEDbContext context;
 
-        public BaseRepository(YAWYEDbContext db)
+        public BaseRepository(YAWYEDbContext context)
         {
-            this.db = db;
+            this.context = context;
         }
 
-        public T Add(T newProduct)
-        {
-            db.Add<T>(newProduct);
-            return newProduct;
-        }
 
+        public T Add(T newT)
+        {
+            return null;
+        }
 
         public int Commit()
         {
-            return db.SaveChanges();
+            throw new NotImplementedException();
         }
 
         public T Delete(int id)
         {
-            var product = db.Find<T>(id);
-            if (product != null)
-            {
-                db.Remove<T>(product);
-            }
-            return product;
+            throw new NotImplementedException();
         }
 
-        public T GetByIdGeneric(int id)
+        public T Get()
         {
-            return db.Find<T>(id);
+            throw new NotImplementedException();
         }
 
-        public T UpdateGeneric(T updatedProduct)
+        public IEnumerable<T> GetAll()
         {
-            var entity = db.Attach<T>(updatedProduct);
-            entity.State = EntityState.Modified;
-            return updatedProduct;
+            throw new NotImplementedException();
         }
 
+        public T Update(T updatedT)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

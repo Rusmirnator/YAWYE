@@ -8,5 +8,6 @@ namespace YAWYE.Data
     public interface IDayMealData
     {
         DayMeal SetValues(Day day, Meal meal, MealCategory category);
+        IEnumerable<DayMeal> GetAll();
     }
 }

@@ -49,11 +49,11 @@ namespace YAWYE.Pages.Days
 
             Meal = mealData.GetById(mealId);
             Day = dayData.GetById(dayId) ?? new Day { Meals = new List<Meal>(), DayMeals = new List<DayMeal>() };
-            Meal.Category = (MealCategory)category;
 
-            DayMeal = dayMealData.SetValues(Day, Meal, Meal.Category);
-            Day.Meals.Add(Meal);
-            Day.DayMeals.Add(DayMeal);
+            DayMeal = dayMealData.SetValues(Day, Meal, (MealCategory)category);
+
+            
+            //Day.DayMeals.Add(DayMeal);
 
             if (Day.DayId == 0)
             {
