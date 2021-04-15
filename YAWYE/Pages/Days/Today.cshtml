@@ -12,7 +12,6 @@
         <div class="input-group-addon">
         </div>
     </div>
-    <button class="btn fas fa-plus-circle" type="submit"></button>
     <div class="container-fluid" id="meals">
         <div id="breakfast">
             <div class="card-header border">
@@ -21,7 +20,7 @@
                                  asp-page="./UpdateDay"></a>
             </div>
             <div class="card-body border">
-                @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 0))
+                @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 1))
                 {
                     <div>@meal.Name</div>
                 }

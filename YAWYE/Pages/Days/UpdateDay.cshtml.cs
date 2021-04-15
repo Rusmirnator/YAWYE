@@ -41,30 +41,6 @@ namespace YAWYE.Pages.Days
 
             return Page();
         }
-        public IActionResult OnPost([FromForm]int mealId)
-        {
-            Meal = mealData.GetById(mealId);
-            Meal.Category = (MealCategory)Category;
-
-            Day.Meals.Add(Meal);
-
-            if(Day.DayId == 0)
-            {
-                Day.OwnerName = User.Identity.Name;
-                Day.Date = DateTime.Now.Date;
-                dayData.Add(Day);
-            }
-            else
-            {
-                Day = dayData.GetById(DayId);
-                dayData.Update(Day);
-            }
-
-
-            mealData.Commit();
-
-            return RedirectToPage("./Today", new { dayId = Day.DayId});
-        }
     }
 }
 

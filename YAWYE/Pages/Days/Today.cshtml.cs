@@ -48,7 +48,7 @@ namespace YAWYE.Pages.Days
                 Day.OwnerName = User.Identity.Name;
             }
 
-            Meals = mealData.GetMealsByOwner(User.Identity.Name);
+            TodayMeals = mealData.GetMealsByOwner(User.Identity.Name).ToList();
 
             return Page();
         }
