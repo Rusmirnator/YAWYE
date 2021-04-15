@@ -4,7 +4,6 @@
 }
 <input type="hidden" asp-for="Category" />
 <input type="hidden" asp-for="DayId" />
-
 <div class="container-fluid">
     <table class="table table-striped mb-0" id="datatable">
         <thead class="thead-dark">
@@ -23,24 +22,23 @@
                     <td>
                         @if (!meal.DayMeals.Where(m => m.MealId == Model.Day.DayId).Any())
                         {
-                            <a class="btn fas fa-plus-circle" title="Add"
+                            <a class="btn fas fa-plus-circle" title="Add" style="color:green;"
                                asp-page="./UpdateDay"
                                asp-route-mealId="@meal.MealId"></a>
                         }
                         else
                         {
-                            <a class="btn fas fa-trash" title="Remove"
+                            <a class="btn fas fa-trash" title="Remove" style="color:red;"
                                asp-page="./UpdateDay"
                                asp-route-mealId="@meal.MealId"></a>
                         }
-                        <i class="btn fas fa-info" href="#" data-toggle="popover" data-trigger="hover"
-                           title="@meal.Name per 100 g"
-                           data-content="
-                                   Kcal: @meal.Kcal
+                        <a class="btn fas fa-info" href="#" data-toggle="popover" data-trigger="hover"
+                           title="@meal.Name per 100 g" style="color:sandybrown;"
+                           data-content="Kcal: @meal.Kcal
                                    Protein: @meal.Protein g
                                    Carbohydrates: @meal.Carbohydrates g
                                    Fat: @meal.Fat g
-                                   Fiber: @meal.Fiber g"></i>
+                                   Fiber: @meal.Fiber g"></a>
                     </td>
                 </tr>
             }

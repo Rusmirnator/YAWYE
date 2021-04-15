@@ -41,7 +41,7 @@ namespace YAWYE.Pages.Days
 
             return Page();
         }
-        public IActionResult OnPost([FromRoute] int mealId)
+        public IActionResult OnPost([FromForm]int mealId)
         {
             Meal = mealData.GetById(mealId);
             Meal.Category = (MealCategory)Category;
