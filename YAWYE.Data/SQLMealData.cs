@@ -78,5 +78,20 @@ namespace YAWYE.Data
         {
             return db.Meals.Where(m => m.Owner == owner).Include(dm => dm.DayMeals);
         }
+        public Meal Recomposite(Meal meal, Product product, decimal weight)
+        {
+
+            var multiplier = weight / 100;
+            var modMeal = meal;
+            var modProd = product;
+            modMeal.Kcal += modProd.Kcal * multiplier;
+            modMeal.Protein += modProd.Protein * multiplier;
+            modMeal.Carbohydrates += modProd.Carbohydrates * multiplier;
+            modMeal.Fat += modProd.Fat * multiplier;
+            modMeal.Fiber += modProd.Fiber * multiplier;
+            modMeal.Price += modProd.Price * (modProd.Price > 0 ? multiplier : 1);
+            modMeal.Weight += modProd.Weight * multiplier;
+            return modMeal;
+        }
     }
 }

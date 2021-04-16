@@ -14,6 +14,7 @@ namespace YAWYE.Pages.Meals
     {
         private readonly IBaseRepository<Product> baseProdRepo;
         private readonly IBaseRepository<Meal> baseMealRepo;
+        private readonly IProductData productData;
 
         [BindProperty]
         public Meal Meal { get; set; }
@@ -24,10 +25,11 @@ namespace YAWYE.Pages.Meals
         public string Message { get; set; }
 
 
-        public UpdateMealModel(IBaseRepository<Product> baseProdRepo, IBaseRepository<Meal> baseMealRepo)
+        public UpdateMealModel(IBaseRepository<Product> baseProdRepo, IBaseRepository<Meal> baseMealRepo, IProductData productData)
         {
             this.baseProdRepo = baseProdRepo;
             this.baseMealRepo = baseMealRepo;
+            this.productData = productData;
         }
         public IActionResult OnGet(int? mealId)
         {
@@ -45,7 +47,7 @@ namespace YAWYE.Pages.Meals
                 return RedirectToPage("./NotFound");
             }
 
-            Products = baseProdRepo.GetAll();
+            Products = productData.GetAll();
 
             return Page();
         }

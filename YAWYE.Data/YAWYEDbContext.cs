@@ -26,12 +26,24 @@ namespace YAWYE.Data
             builder.Entity<MealProduct>()
                 .HasOne(mp => mp.Meal)
                 .WithMany(m => m.MealProducts)
-                .HasForeignKey(mp => mp.MealId);
+                .HasForeignKey(mp => mp.MealId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Meal>()
+                .HasMany(m => m.MealProducts)
+                .WithOne(mp => mp.Meal)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<MealProduct>()
                 .HasOne(mp => mp.Product)
                 .WithMany(p => p.MealProducts)
-                .HasForeignKey(mp => mp.ProductId);
+                .HasForeignKey(mp => mp.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Product>()
+                .HasMany(p => p.MealProducts)
+                .WithOne(mp => mp.Product)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<DayMeal>()
                 .HasKey(dm => new { dm.DayId, dm.MealId });
@@ -45,7 +57,6 @@ namespace YAWYE.Data
                 .HasOne(dm => dm.Meal)
                 .WithMany(m => m.DayMeals)
                 .HasForeignKey(dm => dm.MealId);
-
         }
 
     }
