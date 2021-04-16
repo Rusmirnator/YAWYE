@@ -6,10 +6,8 @@ using YAWYE.Core;
 
 namespace YAWYE.Data
 {
-    public interface IProductData
+    public interface IProductData : IBaseRepository<Product>
     {
-        IEnumerable<Product> GetAll();
-
         IEnumerable<Product> GetProductByName(string name);
     }
     

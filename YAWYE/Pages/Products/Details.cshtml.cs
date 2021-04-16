@@ -11,19 +11,19 @@ namespace YAWYE.Pages.Products
 {
     public class DetailsModel : PageModel
     {
-        private readonly IBaseRepository<Product> baseProdRepo;
+        private readonly IProductData productData;
 
         [TempData]
         public string Message { get; set; }
         public Product Product { get; set; }
-        public DetailsModel(IBaseRepository<Product> baseProdRepo)
+        public DetailsModel(IProductData productData)
         {
-            this.baseProdRepo = baseProdRepo;
+            this.productData = productData;
         }
 
         public void OnGet(int productId)
         {
-            Product = baseProdRepo.Get(productId);
+            Product = productData.GetById(productId);
         }
     }
 }

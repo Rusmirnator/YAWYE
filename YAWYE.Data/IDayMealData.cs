@@ -5,9 +5,8 @@ using YAWYE.Core;
 
 namespace YAWYE.Data
 {
-    public interface IDayMealData
+    public interface IDayMealData : IBaseRepository<DayMeal>
     {
         DayMeal SetValues(Day day, Meal meal, MealCategory category);
-        IEnumerable<DayMeal> GetAll();
     }
 }

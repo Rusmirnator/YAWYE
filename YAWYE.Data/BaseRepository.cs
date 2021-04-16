@@ -38,7 +38,7 @@ namespace YAWYE.Data
             return entity;
         }
 
-        public T Get(int id)
+        public T GetById(int id)
         {
             return context.Set<T>().Find(id);
         }

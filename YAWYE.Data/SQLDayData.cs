@@ -7,7 +7,7 @@ using YAWYE.Core;
 
 namespace YAWYE.Data
 {
-    public class SQLDayData : IDayData
+    public class SQLDayData : IBaseRepository<Day>, IDayData
     {
         private readonly YAWYEDbContext db;
 
@@ -34,22 +34,51 @@ namespace YAWYE.Data
 
             return day;
         }
-
         public Day GetById(int id)
         {
-            var day = db.Days
+            return db.Set<Day>()
                 .Where(d => d.DayId == id)
                 .Include(d => d.DayMeals)
                 .FirstOrDefault();
+        }
+
+        public IEnumerable<Day> GetAll()
+        {
+            return db.Set<Day>()
+                .Include(d => d.DayMeals)
+                .DefaultIfEmpty();
+        }
+
+        public Day Add(Day newT)
+        {
+            db.Set<Day>().Add(newT);
+
+            return newT;
+        }
+
+        public Day Update(Day updatedT)
+        {
+            var entity = db.Set<Day>().Attach(updatedT);
+            entity.State = EntityState.Modified;
+
+            return updatedT;
+        }
+
+        public Day Delete(int id)
+        {
+            var day = db.Set<Day>().Find(id);
+
+            if (day != null)
+            {
+                db.Set<Day>().Remove(day);
+            }
 
             return day;
         }
 
-        public List<Meal> AddMeal(Meal meal, Day day = null)
+        public int Commit()
         {
-            var todaymeals = day.Meals.ToList() ?? new List<Meal>();
-            todaymeals.Add(meal);
-            return todaymeals;
+            return db.SaveChanges();
         }
     }
 }

@@ -15,9 +15,7 @@ namespace YAWYE.Pages.Days
     public class TodayModel : PageModel
     {
         private readonly IDayData dayData;
-        private readonly IMealData mealData;
         private readonly IDayMealData dayMealData;
-        private readonly IBaseRepository<Day> baseRepository;
 
         public IEnumerable<Meal> Meals { get; set; }
         public IEnumerable<DayMeal> DayMeals { get; set; }
@@ -28,12 +26,10 @@ namespace YAWYE.Pages.Days
         [TempData]
         public string Message { get; set; }
         public MealCategory Category { get; set; } = new MealCategory();
-        public TodayModel(IDayData dayData, IMealData mealData, IDayMealData dayMealData, IBaseRepository<Day> baseRepository)
+        public TodayModel(IDayData dayData, IDayMealData dayMealData)
         {
             this.dayData = dayData;
-            this.mealData = mealData;
             this.dayMealData = dayMealData;
-            this.baseRepository = baseRepository;
         }
 
         public IActionResult OnGet(int? dayId)

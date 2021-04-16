@@ -12,9 +12,7 @@ namespace YAWYE.Pages.Meals
     {
         private readonly IMealData mealData;
         private readonly IMealProductData mealProductData;
-        private readonly IBaseRepository<Meal> baseMealRepo;
-        private readonly IBaseRepository<Product> baseProductRepo;
-        private readonly IBaseRepository<MealProduct> baseMealPRepo;
+        private readonly IProductData productData;
 
         public Product Product { get; set; }
         public Meal Meal { get; set; }
@@ -25,13 +23,11 @@ namespace YAWYE.Pages.Meals
         public List<MealProduct> MealProducts { get; set; } = new List<MealProduct>();
         public IEnumerable<Meal> Meals { get; set; }
 
-        public RecalcModel(IMealData mealData, IMealProductData mealProductData, IBaseRepository<Meal> baseMealRepo, IBaseRepository<Product> baseProductRepo, IBaseRepository<MealProduct> baseMealPRepo)
+        public RecalcModel(IMealData mealData, IMealProductData mealProductData, IProductData productData )
         {
             this.mealData = mealData;
             this.mealProductData = mealProductData;
-            this.baseMealRepo = baseMealRepo;
-            this.baseProductRepo = baseProductRepo;
-            this.baseMealPRepo = baseMealPRepo;
+            this.productData = productData;
         }
         public IActionResult OnGet(int productId, int? mealId, bool trigger = false)
         {
@@ -42,8 +38,8 @@ namespace YAWYE.Pages.Meals
                 return RedirectToPage("./NotFound");
             }
 
-            Meal = baseMealRepo.Get(mealId.Value);
-            Product = baseProductRepo.Get(productId);
+            Meal = mealData.GetById(mealId.Value);
+            Product = productData.GetById(productId);
 
             return Page();
         }
@@ -54,9 +50,9 @@ namespace YAWYE.Pages.Meals
                 return Page();
             }
 
-            Meal = baseMealRepo.Get(mealId);
+            Meal = mealData.GetById(mealId);
             Meal = mealData.LoadIngredients(Meal);
-            Product = baseProductRepo.Get(productId);
+            Product = productData.GetById(productId);
 
             MealProduct = new MealProduct();
             var modMeal = Meal;
@@ -70,8 +66,8 @@ namespace YAWYE.Pages.Meals
                 MetaRemoveIngredientsAndStatistics(mealId, productId, modMeal);
             }
 
-            baseMealRepo.Update(Meal);
-            baseMealRepo.Commit();
+            mealData.Update(Meal);
+            mealData.Commit();
 
             TempData["Message"] = "Meal saved!";
             return RedirectToPage("./UpdateMeal", new { mealId = Meal.MealId });
@@ -88,13 +84,13 @@ namespace YAWYE.Pages.Meals
 
             MealProduct = mealProductData.SetValues(MealProduct, mealId, productId, Weight);
 
-            baseMealPRepo.Add(MealProduct);
+            mealProductData.Add(MealProduct);
             MealProducts.Add(MealProduct);
 
 
             Meal.Products = Products;
             Meal.MealProducts = MealProducts;
-            baseMealRepo.Commit();
+            mealData.Commit();
         }
         private void MetaRemoveIngredientsAndStatistics(int mealId, int productId, Meal modMeal)
         {

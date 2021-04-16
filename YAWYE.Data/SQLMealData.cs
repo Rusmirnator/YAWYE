@@ -6,7 +6,7 @@ using System.IO;
 
 namespace YAWYE.Data
 {
-    public class SQLMealData : IMealData
+    public class SQLMealData : IBaseRepository<Meal>, IMealData
     {
         private readonly YAWYEDbContext db;
 
@@ -35,14 +35,6 @@ namespace YAWYE.Data
 
             return query;
         }
-
-        public IEnumerable<Meal> GetAll()
-        {
-            return from m in db.Meals.Include(mp => mp.MealProducts)
-                   orderby m.MealId
-                   select m;
-        }
-
         public IEnumerable<Meal> GetMealByName(string name)
         {
             var query =
@@ -76,7 +68,9 @@ namespace YAWYE.Data
 
         public IEnumerable<Meal> GetMealsByOwner(string owner)
         {
-            return db.Meals.Where(m => m.Owner == owner).Include(dm => dm.DayMeals);
+            return db.Meals
+                .Where(m => m.Owner == owner)
+                .Include(dm => dm.DayMeals);
         }
         public Meal Recomposite(Meal meal, Product product, decimal weight)
         {
@@ -92,6 +86,53 @@ namespace YAWYE.Data
             modMeal.Price += modProd.Price * (modProd.Price > 0 ? multiplier : 1);
             modMeal.Weight += modProd.Weight * multiplier;
             return modMeal;
+        }
+
+        public Meal GetById(int id)
+        {
+            return db.Set<Meal>()
+                .Where(m => m.MealId == id)
+                .Include(m => m.MealProducts)
+                .FirstOrDefault();
+        }
+
+        public IEnumerable<Meal> GetAll()
+        {
+            return db.Set<Meal>()
+                .Include(m => m.MealProducts)
+                .DefaultIfEmpty();
+        }
+
+        public Meal Add(Meal newT)
+        {
+            db.Set<Meal>().Add(newT);
+
+            return newT;
+        }
+
+        public Meal Update(Meal updatedT)
+        {
+            var entity = db.Set<Meal>().Attach(updatedT);
+            entity.State = EntityState.Modified;
+
+            return updatedT;
+        }
+
+        public Meal Delete(int id)
+        {
+            var meal = db.Set<Meal>().Find(id);
+
+            if (meal != null)
+            {
+                db.Set<Meal>().Remove(meal);
+            }
+
+            return meal;
+        }
+
+        public int Commit()
+        {
+            return db.SaveChanges();
         }
     }
 }

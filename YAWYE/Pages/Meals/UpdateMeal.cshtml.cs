@@ -12,9 +12,8 @@ namespace YAWYE.Pages.Meals
 {
     public class UpdateMealModel : PageModel
     {
-        private readonly IBaseRepository<Product> baseProdRepo;
-        private readonly IBaseRepository<Meal> baseMealRepo;
         private readonly IProductData productData;
+        private readonly IMealData mealData;
 
         [BindProperty]
         public Meal Meal { get; set; }
@@ -25,18 +24,17 @@ namespace YAWYE.Pages.Meals
         public string Message { get; set; }
 
 
-        public UpdateMealModel(IBaseRepository<Product> baseProdRepo, IBaseRepository<Meal> baseMealRepo, IProductData productData)
+        public UpdateMealModel(IProductData productData, IMealData mealData)
         {
-            this.baseProdRepo = baseProdRepo;
-            this.baseMealRepo = baseMealRepo;
             this.productData = productData;
+            this.mealData = mealData;
         }
         public IActionResult OnGet(int? mealId)
         {
 
             if (mealId.HasValue)
             {
-                Meal = baseMealRepo.Get(mealId.Value);
+                Meal = mealData.GetById(mealId.Value);
             }
             else
             {
@@ -59,17 +57,17 @@ namespace YAWYE.Pages.Meals
             }
             if (Meal.MealId > 0)
             {
-                baseMealRepo.Update(Meal);
+                mealData.Update(Meal);
             }
             else
             {
-                baseMealRepo.Add(Meal);
+                mealData.Add(Meal);
 
                 Meal.ImgPath = "groceries.png";
                 Meal.Owner = User.Identity.Name;
             }
 
-            baseMealRepo.Commit();
+            mealData.Commit();
 
             TempData["Message"] = "Meal saved!";
 

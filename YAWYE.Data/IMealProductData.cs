@@ -5,7 +5,7 @@ using YAWYE.Core;
 
 namespace YAWYE.Data
 {
-    public interface IMealProductData
+    public interface IMealProductData : IBaseRepository<MealProduct>
     {
         MealProduct SetValues(MealProduct mp, int mid, int pid, decimal weight);
         decimal FindWeight(int mid, int pid);
