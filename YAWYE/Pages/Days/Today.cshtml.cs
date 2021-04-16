@@ -62,27 +62,6 @@ namespace YAWYE.Pages.Days
 
             return Page();
         }
-        public IActionResult OnPost()
-        {
-            if (!ModelState.IsValid)
-            {
-                TempData["Message"] = "Invalid Operation";
-                return RedirectToPage("./Today");
-            }
-            if (Day.DayId == 0)
-            {
-                Day.Date = DateTime.Now.Date;
-                Day.OwnerName = User.Identity.Name;
-                baseRepository.Add(Day);
-            }
-            else
-            {
-                baseRepository.Update(Day);
-            }
-            baseRepository.Commit();
-
-            return RedirectToPage("./Today", new { dayId = Day.DayId });
-        }
 
     }
 }

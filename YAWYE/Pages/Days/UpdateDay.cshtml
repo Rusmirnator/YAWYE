@@ -11,6 +11,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Meal</th>
                     <th scope="col">Action</th>
+                    <th scope="col">Details</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +37,8 @@
                                 asp-route-category="@Model.Category"></button>
                         </form>
                         }
+                    </td>
+                    <td>
                         <i class="btn fas fa-info" href="#" data-toggle="popover" data-trigger="hover"
                            title="@meal.Name per 100 g" style="color:sandybrown;"
                            data-content="Kcal: @meal.Kcal

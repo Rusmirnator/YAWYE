@@ -17,7 +17,7 @@ namespace YAWYE.Data
         }
         public IEnumerable<DayMeal> GetAll()
         {
-            return db.DayMeals;
+            return db.DayMeals.Include(dm => dm.Meal);
         }
 
         public DayMeal SetValues(Day day, Meal meal, MealCategory category)

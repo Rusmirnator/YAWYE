@@ -52,12 +52,11 @@ namespace YAWYE.Pages.Days
         {
 
             Meal = baseMealRepo.Get(mealId);
-            Day = dayData.GetById(dayId) ?? new Day { Meals = new List<Meal>(), DayMeals = new List<DayMeal>() };
+            Day = dayData.GetById(dayId) ?? new Day { DayMeals = new List<DayMeal>() };
 
             DayMeal = dayMealData.SetValues(Day, Meal, (MealCategory)category);
 
-            
-            //Day.DayMeals.Add(DayMeal);
+            Day.DayMeals.Add(DayMeal);
 
             if (Day.DayId == 0)
             {
