@@ -7,11 +7,6 @@ namespace YAWYE.Data
 {
     public interface IMealData
     {
-        Meal GetById(int id);
-        Meal AddMeal(Meal newMeal);
-        Meal Delete(int id);
-        Meal Update(Meal updatedMeal);
-        int Commit();
         IEnumerable<Meal> GetMealByName(string name);
         IEnumerable<Meal> GetAll();
         List<Product> AddIngredient(int pId, int mid);

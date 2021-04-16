@@ -10,9 +10,6 @@ namespace YAWYE.Data
         Day GetById(int id);
         Day GetByDate(DateTime dt, string user);
         IEnumerable<Day> GetAllByOwner(string user);
-        Day Add(Day newDay);
-        Day Update(Day updatedDay);
-        Day Delete(int id);
         List<Meal> AddMeal(Meal meal, Day day = null);
     }
 }

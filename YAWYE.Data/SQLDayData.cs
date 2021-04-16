@@ -15,26 +15,6 @@ namespace YAWYE.Data
         {
             this.db = db;
         }
-        public Day Add(Day newDay)
-        {
-            db.Add(newDay);
-            return newDay;
-        }
-
-        public Day Delete(int id)
-        {
-            var day = db.Days
-                .Where(d => d.DayId == id)
-                .Include(d => d.Meals)
-                .ThenInclude(d => d.DayMeals)
-                .First();
-
-            if(day != null)
-            {
-                db.Days.Remove(day);
-            }
-            return day;
-        }
 
         public IEnumerable<Day> GetAllByOwner(string user)
         {
@@ -64,17 +44,6 @@ namespace YAWYE.Data
                 .FirstOrDefault();
 
             return day;
-        }
-
-        public Day Update(Day updatedDay)
-        {
-            var entity = db.Days.Attach(updatedDay);
-            entity.State = EntityState.Modified;
-            return updatedDay;
-        }
-        public int Commit()
-        {
-            return db.SaveChanges();
         }
 
         public List<Meal> AddMeal(Meal meal, Day day = null)

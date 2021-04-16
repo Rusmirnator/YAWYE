@@ -16,17 +16,6 @@ namespace YAWYE.Data
             this.db = db;
         }
 
-        public MealProduct Add(MealProduct newMP)
-        {
-            db.Add(newMP);
-            return newMP;
-        }
-
-        public int Commit()
-        {
-            return db.SaveChanges();
-        }
-
         public MealProduct SetValues(MealProduct mp, int mid, int pid, decimal weight)
         {
             var ump = mp;
@@ -34,26 +23,6 @@ namespace YAWYE.Data
             ump.ProductId = pid;
             ump.ProductWeight = weight;
             return ump;
-        }
-
-        public MealProduct LoadLast()
-        {
-            var mp = from mps in db.MealProducts
-                     orderby mps.MealId
-                     select mps;
-            return mp.LastOrDefault();
-        }
-
-        public MealProduct Update(MealProduct updatedMP)
-        {
-            var entity = db.MealProducts.Attach(updatedMP);
-            entity.State = EntityState.Modified;
-            return updatedMP;
-        }
-
-        public IEnumerable<MealProduct> GetAll()
-        {
-            return db.MealProducts;
         }
 
         public decimal FindWeight(int mid, int pid)

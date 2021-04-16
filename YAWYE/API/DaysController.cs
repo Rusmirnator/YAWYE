@@ -15,12 +15,10 @@ namespace YAWYE.API
     public class DaysController : ControllerBase
     {
         private readonly IDayData dayData;
-        private readonly IMealData mealData;
 
-        public DaysController(IDayData dayData, IMealData mealData)
+        public DaysController(IDayData dayData)
         {
             this.dayData = dayData;
-            this.mealData = mealData;
         }
         public DayDTO DayDTO { get; set; }
         public Day Day { get; set; }

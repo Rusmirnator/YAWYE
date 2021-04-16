@@ -9,12 +9,11 @@ using System.IO;
 
 namespace YAWYE.Data
 {
-    public class SQLProductData : BaseRepository<Product>, IProductData
+    public class SQLProductData : IProductData
     {
         private readonly YAWYEDbContext db;
 
         public SQLProductData(YAWYEDbContext db)
-            : base(db)
         {
             this.db = db;
         }
@@ -26,11 +25,6 @@ namespace YAWYE.Data
                    select p;
         }
 
-        public Product GetById(int id)
-        {
-            return db.Products.Find(id);
-        }
-
         public IEnumerable<Product> GetProductByName(string name)
         {
             var query =
@@ -39,12 +33,6 @@ namespace YAWYE.Data
                 orderby p.Name
                 select p;
             return query;
-        }
-        public Product Update(Product updatedProduct)
-        {
-            var entity = db.Products.Attach(updatedProduct);
-            entity.State = EntityState.Modified;
-            return updatedProduct;
         }
     }
 }

@@ -11,16 +11,17 @@ namespace YAWYE.Pages.Products
 {
     public class DeleteModel : PageModel
     {
-        private readonly IProductData productData;
         public Product Product { get; set; }
-        public DeleteModel(IProductData productData)
+        public IBaseRepository<Product> BaseProdRepo { get; }
+
+        public DeleteModel(IBaseRepository<Product> baseProdRepo)
         {
-            this.productData = productData;
+            BaseProdRepo = baseProdRepo;
         }
 
         public IActionResult OnGet(int productId)
         {
-            Product = productData.GetById(productId);
+            Product = BaseProdRepo.Get(productId);
             if (Product == null)
             {
                 return RedirectToPage("/NotFound");
@@ -29,8 +30,9 @@ namespace YAWYE.Pages.Products
         }
         public IActionResult OnPost(int productId)
         {
-            var product = productData.Delete(productId);
-            productData.Commit();
+            var product = BaseProdRepo.Delete(productId);
+            BaseProdRepo.Commit();
+
             if (Product != null)
             {
                 return RedirectToPage("./ProductList");

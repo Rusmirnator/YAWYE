@@ -15,10 +15,11 @@ namespace YAWYE.API
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductData productData;
-        public ProductsController(IProductData productData)
+        private readonly IBaseRepository<Product> baseProdRepo;
+
+        public ProductsController(IBaseRepository<Product> baseProdRepo)
         {
-            this.productData = productData;
+            this.baseProdRepo = baseProdRepo;
         }
         public List<Product> Products { get; set; } = new List<Product>();
         public List<ProductDTO> ProductsDTOs { get; set; } = new List<ProductDTO>();
@@ -31,7 +32,7 @@ namespace YAWYE.API
         [HttpGet]
         public ActionResult<IEnumerable<ProductDTO>> GetAll()
         {
-            Products = productData.GetAll().ToList();
+            Products = baseProdRepo.GetAll().ToList();
 
             return Ok(ApiRepository.ProductsToDto(Products));
         }
@@ -40,7 +41,7 @@ namespace YAWYE.API
         [HttpGet("{id}")]
         public ActionResult<ProductDTO> GetById(int id)
         {
-            Product = productData.GetById(id);
+            Product = baseProdRepo.Get(id);
 
             return Ok(ApiRepository.ProductToDto(Product));
         }

@@ -12,15 +12,18 @@ namespace YAWYE.Pages.Meals
     public class DeleteModel : PageModel
     {
         private readonly IMealData mealData;
+        private readonly IBaseRepository<Meal> baseMealRepo;
+
         public Meal Meal { get; set; }
-        public DeleteModel(IMealData mealData)
+        public DeleteModel(IMealData mealData, IBaseRepository<Meal> baseMealRepo)
         {
             this.mealData = mealData;
+            this.baseMealRepo = baseMealRepo;
         }
 
         public IActionResult OnGet(int mealId)
         {
-            Meal = mealData.GetById(mealId);
+            Meal = baseMealRepo.Get(mealId);
             Meal = mealData.LoadIngredients(Meal);
 
             if (Meal == null)
@@ -31,13 +34,15 @@ namespace YAWYE.Pages.Meals
         }
         public IActionResult OnPost(int mealId)
         {
-            var meal = mealData.Delete(mealId);
-            mealData.Commit();
+            Meal = baseMealRepo.Delete(mealId);
+            baseMealRepo.Commit();
+
             if (Meal != null)
             {
                 return RedirectToPage("./MealList");
             }
-            TempData["Message"] = $"{meal.Name} deleted!";
+
+            TempData["Message"] = $"{Meal.Name} deleted!";
             return RedirectToPage("./MealList");
         }
     }

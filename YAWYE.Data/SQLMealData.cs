@@ -25,28 +25,6 @@ namespace YAWYE.Data
             return Ingredients;
         }
 
-
-        public Meal AddMeal(Meal newMeal)
-        {
-            db.Add(newMeal);
-            return newMeal;
-        }
-
-        public int Commit()
-        {
-            return db.SaveChanges();
-        }
-
-        public Meal Delete(int id)
-        {
-            var Meal = db.Meals.Where(m => m.MealId == id).Include(m => m.Products).FirstOrDefault();
-            if (Meal != null)
-            {
-                db.Meals.Remove(Meal);
-            }
-            return Meal;
-        }
-
         public Meal LoadIngredients(Meal meal)
         {
             var Meal = meal;
@@ -65,11 +43,6 @@ namespace YAWYE.Data
                    select m;
         }
 
-        public Meal GetById(int id)
-        {
-            return db.Meals.Find(id);
-        }
-
         public IEnumerable<Meal> GetMealByName(string name)
         {
             var query =
@@ -78,13 +51,6 @@ namespace YAWYE.Data
             orderby m.Name
             select m;
             return query;
-        }
-
-        public Meal Update(Meal updatedMeal)
-        {
-            var entity = db.Meals.Attach(updatedMeal);
-            entity.State = EntityState.Modified;
-            return updatedMeal;
         }
 
         public Dictionary<string, decimal> GetStatistics(int mid)

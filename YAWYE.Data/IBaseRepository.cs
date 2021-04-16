@@ -6,7 +6,7 @@ namespace YAWYE.Data
 {
     public interface IBaseRepository<T> where T : class
     {
-        T Get();
+        T Get(int id);
         IEnumerable<T> GetAll();
         T Add(T newT);
         T Update(T updatedT);

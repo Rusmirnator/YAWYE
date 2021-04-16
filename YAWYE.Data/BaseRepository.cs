@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -16,32 +17,42 @@ namespace YAWYE.Data
 
         public T Add(T newT)
         {
-            return null;
+            context.Add<T>(newT);
+            return newT;
         }
 
         public int Commit()
         {
-            throw new NotImplementedException();
+            return context.SaveChanges();
         }
 
         public T Delete(int id)
         {
-            throw new NotImplementedException();
+            var entity = context.Set<T>().Find(id);
+
+            if(entity != null)
+            {
+                context.Set<T>().Remove(entity);
+            }
+
+            return entity;
         }
 
-        public T Get()
+        public T Get(int id)
         {
-            throw new NotImplementedException();
+            return context.Set<T>().Find(id);
         }
 
         public IEnumerable<T> GetAll()
         {
-            throw new NotImplementedException();
+            return context.Set<T>().Include(t => t);
         }
 
         public T Update(T updatedT)
         {
-            throw new NotImplementedException();
+            var entity = context.Set<T>().Attach(updatedT);
+            entity.State = EntityState.Modified;
+            return updatedT;
         }
     }
 }

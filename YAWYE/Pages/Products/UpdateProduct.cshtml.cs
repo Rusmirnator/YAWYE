@@ -16,8 +16,8 @@ namespace YAWYE.Pages.Products
 {
     public class UpdateProductModel : PageModel
     {
-        private readonly IProductData productData;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IBaseRepository<Product> baseProdRepo;
 
         [BindProperty]
         public Product Product { get; set; }
@@ -25,10 +25,10 @@ namespace YAWYE.Pages.Products
         public IFormFile Image { get; set; }
 
 
-        public UpdateProductModel(IProductData productData, IWebHostEnvironment webHostEnvironment)
+        public UpdateProductModel(IWebHostEnvironment webHostEnvironment, IBaseRepository<Product> baseProdRepo)
         {
-            this.productData = productData;
             this.webHostEnvironment = webHostEnvironment;
+            this.baseProdRepo = baseProdRepo;
         }
 
 
@@ -36,7 +36,7 @@ namespace YAWYE.Pages.Products
         {
             if (productId.HasValue)
             {
-                Product = productData.GetById(productId.Value);
+                Product = baseProdRepo.Get(productId.Value);
             }
             else
             {
@@ -58,14 +58,14 @@ namespace YAWYE.Pages.Products
             {
                 Product.ImgPath = Product.ImgPath ?? Utilities.Utilities.AddImageFromFile(Product, webHostEnvironment.WebRootPath, Image);
 
-                productData.Update(Product);
+                baseProdRepo.Update(Product);
             }
             else
             {
                 CreateProduct();
             }
 
-            productData.Commit();
+            baseProdRepo.Commit();
             TempData["Message"] = "Product saved!";
             return RedirectToPage("./Details", new { productId = Product.ProductId });
 
@@ -73,7 +73,7 @@ namespace YAWYE.Pages.Products
 
         private void CreateProduct()
         {
-            productData.Add(Product);
+            baseProdRepo.Add(Product);
             Product.ImgPath = Utilities.Utilities.AddImageFromFile(Product, webHostEnvironment.WebRootPath, Image);
             RecalculatePrice();
             Product.ImgPath = Product.ImgPath ?? "gorecerydefault.jpg";

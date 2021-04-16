@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using YAWYE.Core;
 using YAWYE.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace YAWYE.Pages.Days
 {
@@ -16,6 +17,7 @@ namespace YAWYE.Pages.Days
         private readonly IDayData dayData;
         private readonly IMealData mealData;
         private readonly IDayMealData dayMealData;
+        private readonly IBaseRepository<Day> baseRepository;
 
         public IEnumerable<Meal> Meals { get; set; }
         public IEnumerable<DayMeal> DayMeals { get; set; }
@@ -26,11 +28,12 @@ namespace YAWYE.Pages.Days
         [TempData]
         public string Message { get; set; }
         public MealCategory Category { get; set; } = new MealCategory();
-        public TodayModel(IDayData dayData, IMealData mealData, IDayMealData dayMealData)
+        public TodayModel(IDayData dayData, IMealData mealData, IDayMealData dayMealData, IBaseRepository<Day> baseRepository)
         {
             this.dayData = dayData;
             this.mealData = mealData;
             this.dayMealData = dayMealData;
+            this.baseRepository = baseRepository;
         }
 
         public IActionResult OnGet(int? dayId)
@@ -70,13 +73,13 @@ namespace YAWYE.Pages.Days
             {
                 Day.Date = DateTime.Now.Date;
                 Day.OwnerName = User.Identity.Name;
-                dayData.Add(Day);
+                baseRepository.Add(Day);
             }
             else
             {
-                dayData.Update(Day);
+                baseRepository.Update(Day);
             }
-            mealData.Commit();
+            baseRepository.Commit();
 
             return RedirectToPage("./Today", new { dayId = Day.DayId });
         }

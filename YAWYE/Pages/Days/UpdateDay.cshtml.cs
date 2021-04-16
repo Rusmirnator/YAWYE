@@ -16,12 +16,16 @@ namespace YAWYE.Pages.Days
         private readonly IMealData mealData;
         private readonly IDayData dayData;
         private readonly IDayMealData dayMealData;
+        private readonly IBaseRepository<Meal> baseMealRepo;
+        private readonly IBaseRepository<Day> baseDayRepo;
 
-        public UpdateDayModel(IMealData mealData, IDayData dayData, IDayMealData dayMealData)
+        public UpdateDayModel(IMealData mealData, IDayData dayData, IDayMealData dayMealData, IBaseRepository<Meal> baseMealRepo, IBaseRepository<Day> baseDayRepo )
         {
             this.mealData = mealData;
             this.dayData = dayData;
             this.dayMealData = dayMealData;
+            this.baseMealRepo = baseMealRepo;
+            this.baseDayRepo = baseDayRepo;
         }
         public IEnumerable<Meal> Meals { get; set; }
         public Day Day { get; set; } = new Day();
@@ -47,7 +51,7 @@ namespace YAWYE.Pages.Days
         public IActionResult OnPostAddMeal(int mealId, [FromRoute] int dayId, [FromRoute] int category)
         {
 
-            Meal = mealData.GetById(mealId);
+            Meal = baseMealRepo.Get(mealId);
             Day = dayData.GetById(dayId) ?? new Day { Meals = new List<Meal>(), DayMeals = new List<DayMeal>() };
 
             DayMeal = dayMealData.SetValues(Day, Meal, (MealCategory)category);
@@ -59,16 +63,16 @@ namespace YAWYE.Pages.Days
             {
                 Day.OwnerName = User.Identity.Name;
                 Day.Date = DateTime.Now.Date;
-                dayData.Add(Day);
+                baseDayRepo.Add(Day);
             }
             else
             {
                 Day = dayData.GetById(dayId);
-                dayData.Update(Day);
+                baseDayRepo.Update(Day);
             }
 
 
-            mealData.Commit();
+            baseDayRepo.Commit();
 
             return RedirectToPage("./Today", new { dayId = Day.DayId });
         }

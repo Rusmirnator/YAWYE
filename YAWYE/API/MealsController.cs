@@ -14,13 +14,11 @@ namespace YAWYE.API
     [ApiController]
     public class MealsController : ControllerBase
     {
-        private readonly IMealData mealData;
-        private readonly IProductData productData;
+        private readonly IBaseRepository<Meal> baseMealRepo;
 
-        public MealsController(IMealData mealData, IProductData productData)
+        public MealsController(IBaseRepository<Meal> baseMealRepo)
         {
-            this.mealData = mealData;
-            this.productData = productData;
+            this.baseMealRepo = baseMealRepo;
         }
         public Meal Meal { get; set; }
         public MealDTO MealDTO { get; set; }
@@ -30,7 +28,7 @@ namespace YAWYE.API
         [HttpGet]
         public ActionResult<IEnumerable<MealDTO>> GetAll()
         {
-            Meals = mealData.GetAll().ToList();
+            Meals = baseMealRepo.GetAll().ToList();
 
             return Ok(ApiRepository.MealsToDto(Meals));
         }
@@ -39,7 +37,7 @@ namespace YAWYE.API
         [HttpGet("{id}")]
         public ActionResult<MealDTO> GetById(int id)
         {
-            Meal = mealData.GetById(id);
+            Meal = baseMealRepo.Get(id);
 
             return Ok(ApiRepository.MealtoDto(Meal));
         }
