@@ -1,7 +1,12 @@
 ﻿@page "{dayId:int?}"
 @model YAWYE.Pages.Days.TodayModel
 @{
-
+    var EmptyState = new YAWYE.Core.SimpleDTOs.SimpleMeal { Kcal = 0, Protein = 0, Carbohydrates = 0, Fat = 0, Fiber = 0 };
+    var bStats = Model.TodayMeals.Where(m => m.Category.Equals(1)).DefaultIfEmpty(EmptyState);
+    var lStats = Model.TodayMeals.Where(m => m.Category.Equals(2)).DefaultIfEmpty(EmptyState);
+    var dStats = Model.TodayMeals.Where(m => m.Category.Equals(3)).DefaultIfEmpty(EmptyState);
+    var suStats = Model.TodayMeals.Where(m => m.Category.Equals(4)).DefaultIfEmpty(EmptyState);
+    var snStats = Model.TodayMeals.Where(m => m.Category.Equals(5)).DefaultIfEmpty(EmptyState);
 }
 <input type="hidden" asp-for="Day.OwnerName" />
 <input type="hidden" asp-for="Day.DayId" />
@@ -12,10 +17,15 @@
         </div>
     </div>
 </form>
+@if (Model.Message != null)
+{
+    <div class="alert alert-info">@Model.Message</div>
+}
 <div class="container-fluid" id="meals">
     <div id="breakfast">
         <div class="card-header border">
-            Breakfast<a class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId"
+            Breakfast<span>Kcal:@bStats.Sum(m=>m.Kcal) P: @bStats.Sum(m=>m.Protein)</span>
+            <a class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId"
                         asp-route-category="1"
                         asp-page="./UpdateDay"></a>
         </div>
@@ -25,7 +35,12 @@
                 <div>@meal.Name</div>
             }
         </div>
-        <div class="card-footer border"><button type="button" class="btn fas fa-trash" title="Clear"></button></div>
+        <div class="card-footer border">
+            <a class="btn fas fa-trash" title="Clear" asp-route-dayId="@Model.Day.DayId"
+                     asp-route-category="1"
+                     asp-route-isremoved="true"
+                     asp-page="./UpdateDay"></a>
+        </div>
     </div>
     <div id="lunch">
         <div class="card-header border">
@@ -39,7 +54,12 @@
                 <div>@meal.Name</div>
             }
         </div>
-        <div class="card-footer border"><button type="button" class="btn fas fa-trash" title="Clear"></button></div>
+        <div class="card-footer border">
+            <a class="btn fas fa-trash" title="Clear" asp-route-dayId="@Model.Day.DayId"
+                     asp-route-category="2"
+                     asp-route-isremoved="true"
+                     asp-page="./UpdateDay"></a>
+        </div>
     </div>
     <div id="dinner">
         <div class="card-header border">
@@ -53,7 +73,12 @@
                 <div>@meal.Name</div>
             }
         </div>
-        <div class="card-footer border"><button type="button" class="btn fas fa-trash" title="Clear"></button></div>
+        <div class="card-footer border">
+            <a class="btn fas fa-trash" title="Clear" asp-route-dayId="@Model.Day.DayId"
+                     asp-route-category="3"
+                     asp-route-isremoved="true"
+                     asp-page="./UpdateDay"></a>
+        </div>
     </div>
     <div id="supper">
         <div class="card-header border">
@@ -67,7 +92,12 @@
                 <div>@meal.Name</div>
             }
         </div>
-        <div class="card-footer border"><button type="button" class="btn fas fa-trash" title="Clear"></button></div>
+        <div class="card-footer border">
+            <a class="btn fas fa-trash" title="Clear" asp-route-dayId="@Model.Day.DayId"
+                     asp-route-category="4"
+                     asp-route-isremoved="true"
+                     asp-page="./UpdateDay"></a>
+        </div>
     </div>
     <div id="snacks">
         <div class="card-header border">
@@ -81,14 +111,14 @@
                 <div>@meal.Name</div>
             }
         </div>
-        <div class="card-footer border"><button type="button" class="btn fas fa-trash" title="Clear"></button></div>
+        <div class="card-footer border">
+            <a class="btn fas fa-trash" title="Clear" asp-route-dayId="@Model.Day.DayId"
+                     asp-route-category="5"
+                     asp-route-isremoved="true"
+                     asp-page="./UpdateDay"></a>
+        </div>
     </div>
 </div>
-
-@if (Model.Message != null)
-{
-    <div class="alert alert-info">@Model.Message</div>
-}
 
 <div class="container-fluid" id="charts">
 
@@ -108,13 +138,12 @@
         margin-bottom: 1%;
     }
 
-        .card-footer button {
-            color: red;
-        }
-
-    .card-header [class="btn fas fa-plus-circle"] {
+    .fa-plus-circle {
         float: right;
         color: green;
+    }
+    .fa-trash {
+        color: red;
     }
 </style>
 

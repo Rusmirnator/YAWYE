@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YAWYE.Data;
 
 namespace YAWYE.Data.Migrations
 {
     [DbContext(typeof(YAWYEDbContext))]
-    partial class YAWYEDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210418191105_DayMeal3PK")]
+    partial class DayMeal3PK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,7 +31,13 @@ namespace YAWYE.Data.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DayMealId")
+                    b.Property<int?>("DayMealCategory")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DayMealDayId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DayMealMealId")
                         .HasColumnType("int");
 
                     b.Property<string>("OwnerName")
@@ -38,30 +46,23 @@ namespace YAWYE.Data.Migrations
 
                     b.HasKey("DayId");
 
-                    b.HasIndex("DayMealId");
+                    b.HasIndex("DayMealDayId", "DayMealMealId", "DayMealCategory");
 
                     b.ToTable("Days");
                 });
 
             modelBuilder.Entity("YAWYE.Core.DayMeal", b =>
                 {
-                    b.Property<int>("DayMealId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Category")
-                        .HasColumnType("int");
-
                     b.Property<int>("DayId")
                         .HasColumnType("int");
 
                     b.Property<int>("MealId")
                         .HasColumnType("int");
 
-                    b.HasKey("DayMealId");
+                    b.Property<int>("Category")
+                        .HasColumnType("int");
 
-                    b.HasIndex("DayId");
+                    b.HasKey("DayId", "MealId", "Category");
 
                     b.HasIndex("MealId");
 
@@ -214,7 +215,7 @@ namespace YAWYE.Data.Migrations
                 {
                     b.HasOne("YAWYE.Core.DayMeal", null)
                         .WithMany("DayMeals")
-                        .HasForeignKey("DayMealId");
+                        .HasForeignKey("DayMealDayId", "DayMealMealId", "DayMealCategory");
                 });
 
             modelBuilder.Entity("YAWYE.Core.DayMeal", b =>

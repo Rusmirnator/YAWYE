@@ -46,7 +46,7 @@ namespace YAWYE.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<DayMeal>()
-                .HasKey(dm => new { dm.DayId, dm.MealId });
+                .HasKey(dm => new { dm.DayMealId });
 
             builder.Entity<DayMeal>()
                 .HasOne(dm => dm.Day)

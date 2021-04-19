@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using YAWYE.Core;
 using YAWYE.Data;
 using Microsoft.EntityFrameworkCore;
+using YAWYE.Core.SimpleDTOs;
 
 namespace YAWYE.Pages.Days
 {
@@ -17,9 +18,8 @@ namespace YAWYE.Pages.Days
         private readonly IDayData dayData;
         private readonly IDayMealData dayMealData;
 
-        public IEnumerable<Meal> Meals { get; set; }
         public IEnumerable<DayMeal> DayMeals { get; set; }
-        public List<Meal> TodayMeals { get; set; } = new List<Meal>();
+        public List<SimpleMeal> TodayMeals { get; set; } = new List<SimpleMeal>();
         public Meal Meal { get; set; }
         [BindProperty]
         public Day Day { get; set; }
@@ -45,19 +45,40 @@ namespace YAWYE.Pages.Days
 
             if (Day == null)
             {
-                Day = new Day();
-                Day.Date = DateTime.Now.Date;
-                Day.OwnerName = User.Identity.Name;
+                InitializeDay();
             }
 
-            TodayMeals = dayMealData
-                .GetAll()
-                .Where(dm => dm.DayId == Day.DayId)
-                .Select(m => m.Meal)
-                .ToList();
+            if (Day.DayMeals.Count > 0)
+            {
+                PresentTodayMeals();
+            }
 
             return Page();
         }
 
+        private void InitializeDay()
+        {
+            Day = new Day();
+            Day.DayMeals = new List<DayMeal>();
+            Day.Date = DateTime.Now.Date;
+            Day.OwnerName = User.Identity.Name;
+        }
+
+        private void PresentTodayMeals()
+        {
+            TodayMeals = (from m in dayMealData.GetAll()
+                          where m.DayId == Day.DayId
+                          select new SimpleMeal
+                          {
+                              Name = m.Meal.Name,
+                              Kcal = m.Meal.Kcal,
+                              Protein = m.Meal.Protein,
+                              Carbohydrates = m.Meal.Carbohydrates,
+                              Fat = m.Meal.Fat,
+                              Fiber = m.Meal.Fiber,
+                              Category = m.Category
+                          })
+                          .ToList();
+        }
     }
 }

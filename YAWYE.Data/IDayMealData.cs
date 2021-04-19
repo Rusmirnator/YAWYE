@@ -8,5 +8,6 @@ namespace YAWYE.Data
     public interface IDayMealData : IBaseRepository<DayMeal>
     {
         DayMeal SetValues(Day day, Meal meal, MealCategory category);
+        DayMeal GetByValues(int did, int mid, MealCategory cat);
     }
 }

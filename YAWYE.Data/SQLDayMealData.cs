@@ -48,14 +48,30 @@ namespace YAWYE.Data
                 .DefaultIfEmpty();
         }
 
+        public DayMeal GetByValues(int did, int mid, MealCategory cat)
+        {
+            return db.Set<DayMeal>().FirstOrDefault(dm => dm.DayId == did && dm.MealId == mid && dm.Category == cat);
+        }
+
         public DayMeal GetById(int id)
         {
-            return default;
+            return db.Set<DayMeal>()
+                .Where(dm => dm.DayMealId == id)
+                .Include(dm => dm.Day)
+                .Include(dm => dm.Meal)
+                .FirstOrDefault();
         }
 
         public DayMeal SetValues(Day day, Meal meal, MealCategory category)
         {
-            return new DayMeal { Day = day, Meal = meal, Category = category, DayId = day.DayId, MealId = meal.MealId };
+            return new DayMeal 
+            { 
+                Day = day, 
+                Meal = meal, 
+                Category = category, 
+                DayId = day.DayId, 
+                MealId = meal.MealId 
+            };
         }
 
         public DayMeal Update(DayMeal updatedT)

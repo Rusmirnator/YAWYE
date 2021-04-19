@@ -29,7 +29,7 @@ namespace YAWYE.Data
         {
             var day = db.Days
                 .Where(d => d.Date == dt && d.OwnerName == user)
-                .Include(d => d.Meals).Include(d => d.Meals)
+                .Include(d => d.DayMeals)
                 .FirstOrDefault();
 
             return day;

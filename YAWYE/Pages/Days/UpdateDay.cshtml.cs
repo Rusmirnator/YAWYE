@@ -30,42 +30,71 @@ namespace YAWYE.Pages.Days
         public int Category { get; set; }
         [BindProperty]
         public int DayId { get; set; }
-        public IActionResult OnGet(int category, int dayId)
+        public bool IsRemoved { get; set; }
+        public IActionResult OnGet(int category, int dayId, bool isremoved = false)
         {
+            IsRemoved = isremoved;
             Category = category;
             DayId = dayId;
+
             if (dayId != 0)
             {
                 Day = dayData.GetById(dayId);
             }
 
-            Meals = mealData.GetMealsByOwner(User.Identity.Name);
+            if (IsRemoved)
+            {
+                Meals = (from m in dayMealData.GetAll()
+                         where m.DayId == Day.DayId
+                         select m.Meal)
+                         .ToList();
+            }
+            else
+            {
+                Meals = mealData.GetMealsByOwner(User.Identity.Name);
+            }
 
             return Page();
         }
-        public IActionResult OnPostAddMeal(int mealId, [FromRoute] int dayId, [FromRoute] int category)
+        public IActionResult OnPostProcessMeal(int mealId, [FromRoute] int dayId, [FromRoute] int category,[FromRoute] bool? isremoved = false)
         {
+            IsRemoved = isremoved.Value;
 
             Meal = mealData.GetById(mealId);
             Day = dayData.GetById(dayId) ?? new Day { DayMeals = new List<DayMeal>() };
 
-            DayMeal = dayMealData.SetValues(Day, Meal, (MealCategory)category);
-
-            Day.DayMeals.Add(DayMeal);
-
-            if (Day.DayId == 0)
+            if (!IsRemoved)
             {
-                Day.OwnerName = User.Identity.Name;
-                Day.Date = DateTime.Now.Date;
-                dayData.Add(Day);
+                DayMeal = dayMealData.SetValues(Day, Meal, (MealCategory)category);
+
+                Day.DayMeals.Add(DayMeal);
+
+                if (Day.DayId == 0)
+                {
+                    Day.OwnerName = User.Identity.Name;
+                    Day.Date = DateTime.Now.Date;
+                    dayData.Add(Day);
+                }
+                else
+                {
+                    Day = dayData.GetById(dayId);
+                    dayData.Update(Day);
+                }
+
+                TempData["Message"] = $"{Meal.Name} added to {(MealCategory)category}";
             }
             else
             {
-                Day = dayData.GetById(dayId);
-                dayData.Update(Day);
+                DayMeal = dayMealData.GetByValues(dayId,mealId,(MealCategory)category);
+
+                Day.DayMeals.Remove(DayMeal);
+
+                TempData["Message"] = $"{Meal.Name} removed from {(MealCategory)category}";
             }
 
             dayData.Commit();
+
+
 
             return RedirectToPage("./Today", new { dayId = Day.DayId });
         }
