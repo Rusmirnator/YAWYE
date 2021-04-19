@@ -1,39 +1,55 @@
 ﻿@page "{category:int}/{dayId:int}/{isremoved:bool?}"
 @model YAWYE.Pages.Days.UpdateDayModel
 @{
+    var currentCategory = (Core.MealCategory)Model.Category;
 }
 <input type="hidden" asp-for="Category" />
 <input type="hidden" asp-for="DayId" />
 <div class="container-fluid">
-        <table class="table table-striped mb-0" id="datatable">
-            <thead class="thead-dark">
+    @if (!Model.IsRemoved)
+    {
+        <h1>Editing @currentCategory</h1>
+    }
+    else
+    {
+        <h1>Removing from @Model.Day.Date.ToShortDateString()</h1>
+    }
+    <table class="table table-striped mb-0" id="datatable">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Meal</th>
+                <th scope="col">Category</th>
+                <th scope="col">Action</th>
+                <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var meal in Model.Meals)
+            {
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Meal</th>
-                    <th scope="col">Action</th>
-                    <th scope="col">Details</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var meal in Model.Meals)
-                {
-                <tr>
-                    <th scope="row">@meal.MealId</th>
+                    <th scope="row"><img src="~/Images/@(meal.DayMeals.Select(dm=>dm.Category).First().ToString() +".png")" alt="@meal.Name" class="img-fluid" /></th>
                     <td>@meal.Name</td>
+                    <td>
+                        @if (Model.IsRemoved)
+                        {
+                            @meal.Category
+                        }
+                    </td>
                     <td>
                         @if (!Model.IsRemoved)
                         {
-                        <form asp-page-handler="ProcessMeal" method="post">
-                        <button class="btn fas fa-plus-circle" title="Add"></button>
-                        <input type="hidden" name="mealId" value="@meal.MealId"/>
-                        </form> 
+                            <form asp-page-handler="ProcessMeal" method="post">
+                                <button class="btn fas fa-plus-circle" title="Add"></button>
+                                <input type="hidden" name="mealId" value="@meal.MealId" />
+                            </form>
                         }
                         else
                         {
-                        <form asp-page-handler="ProcessMeal" method="post">
-                        <button class="btn fas fa-trash" title="Remove"></button>
-                        <input type="hidden" name="mealId" value="@meal.MealId"/>
-                        </form>
+                            <form asp-page-handler="ProcessMeal" method="post">
+                                <button class="btn fas fa-trash" title="Remove"></button>
+                                <input type="hidden" name="mealId" value="@meal.MealId" />
+                            </form>
                         }
                     </td>
                     <td>
@@ -46,9 +62,9 @@
                                       Fiber: @meal.Fiber g"></i>
                     </td>
                 </tr>
-                }
-            </tbody>
-        </table>
+            }
+        </tbody>
+    </table>
 </div>
 <style>
     .popover {
@@ -62,6 +78,9 @@
     }
     .fa-info {
         color:sandybrown;
+    }
+    .img-fluid {
+        max-height:75px;
     }
 </style>
 @section Scripts

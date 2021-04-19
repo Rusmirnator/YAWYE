@@ -2,11 +2,11 @@
 @model YAWYE.Pages.Days.TodayModel
 @{
     var EmptyState = new YAWYE.Core.SimpleDTOs.SimpleMeal { Kcal = 0, Protein = 0, Carbohydrates = 0, Fat = 0, Fiber = 0 };
-    var bStats = Model.TodayMeals.Where(m => m.Category.Equals(1)).DefaultIfEmpty(EmptyState);
-    var lStats = Model.TodayMeals.Where(m => m.Category.Equals(2)).DefaultIfEmpty(EmptyState);
-    var dStats = Model.TodayMeals.Where(m => m.Category.Equals(3)).DefaultIfEmpty(EmptyState);
-    var suStats = Model.TodayMeals.Where(m => m.Category.Equals(4)).DefaultIfEmpty(EmptyState);
-    var snStats = Model.TodayMeals.Where(m => m.Category.Equals(5)).DefaultIfEmpty(EmptyState);
+    var bStats = Model.TodayMeals.Where(m => (int)m.Category == 1).DefaultIfEmpty(EmptyState);
+    var lStats = Model.TodayMeals.Where(m => (int)m.Category == 2).DefaultIfEmpty(EmptyState);
+    var dStats = Model.TodayMeals.Where(m => (int)m.Category == 3).DefaultIfEmpty(EmptyState);
+    var suStats = Model.TodayMeals.Where(m => (int)m.Category == 4).DefaultIfEmpty(EmptyState);
+    var snStats = Model.TodayMeals.Where(m => (int)m.Category == 5).DefaultIfEmpty(EmptyState);
 }
 <input type="hidden" asp-for="Day.OwnerName" />
 <input type="hidden" asp-for="Day.DayId" />
@@ -24,10 +24,8 @@
 <div class="container-fluid" id="meals">
     <div id="breakfast">
         <div class="card-header border">
-            Breakfast<span>Kcal:@bStats.Sum(m=>m.Kcal) P: @bStats.Sum(m=>m.Protein)</span>
-            <a class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId"
-                        asp-route-category="1"
-                        asp-page="./UpdateDay"></a>
+            <label>Breakfast</label>
+            <span> Kcal:@bStats.Sum(m=>m.Kcal) | Pro:@bStats.Sum(m=>m.Protein) g | Car:@bStats.Sum(m=>m.Carbohydrates) g | Fat:@bStats.Sum(m=>m.Fat) g | Fib:@bStats.Sum(m=>m.Fiber) g</span>
         </div>
         <div class="card-body border">
             @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 1))
@@ -36,17 +34,23 @@
             }
         </div>
         <div class="card-footer border">
-            <a class="btn fas fa-trash" title="Clear" asp-route-dayId="@Model.Day.DayId"
-                     asp-route-category="1"
-                     asp-route-isremoved="true"
-                     asp-page="./UpdateDay"></a>
+            <a class="btn fas fa-trash" title="Remove" 
+               asp-route-dayId="@Model.Day.DayId"
+               asp-route-category="1"
+               asp-route-isremoved="true"
+               asp-page="./UpdateDay">
+            </a>
+            <a class="btn fas fa-plus-circle" title="Add" 
+               asp-route-dayId="@Model.Day.DayId"
+               asp-route-category="1"
+               asp-page="./UpdateDay">
+            </a>
         </div>
     </div>
     <div id="lunch">
         <div class="card-header border">
-            Lunch<a class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId"
-                    asp-route-category="2"
-                    asp-page="./UpdateDay"></a>
+            <label>Lunch</label>
+            <span> Kcal:@lStats.Sum(m => m.Kcal) | Pro:@lStats.Sum(m => m.Protein) g | Car:@lStats.Sum(m => m.Carbohydrates) g | Fat:@lStats.Sum(m => m.Fat) g | Fib:@lStats.Sum(m => m.Fiber) g</span>
         </div>
         <div class="card-body border">
             @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 2))
@@ -55,17 +59,23 @@
             }
         </div>
         <div class="card-footer border">
-            <a class="btn fas fa-trash" title="Clear" asp-route-dayId="@Model.Day.DayId"
-                     asp-route-category="2"
-                     asp-route-isremoved="true"
-                     asp-page="./UpdateDay"></a>
+            <a class="btn fas fa-trash" title="Remove" 
+               asp-route-dayId="@Model.Day.DayId"
+               asp-route-category="2"
+               asp-route-isremoved="true"
+               asp-page="./UpdateDay">
+            </a>
+            <a class="btn fas fa-plus-circle" title="Add" 
+               asp-route-dayId="@Model.Day.DayId"
+               asp-route-category="2"
+               asp-page="./UpdateDay">
+            </a>
         </div>
     </div>
     <div id="dinner">
         <div class="card-header border">
-            Dinner<a class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId"
-                     asp-route-category="3"
-                     asp-page="./UpdateDay"></a>
+            <label>Dinner</label>
+            <span> Kcal:@dStats.Sum(m => m.Kcal) | Pro:@dStats.Sum(m => m.Protein) g | Car:@dStats.Sum(m => m.Carbohydrates) g | Fat:@dStats.Sum(m => m.Fat) g | Fib:@dStats.Sum(m => m.Fiber) g</span>
         </div>
         <div class="card-body border">
             @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 3))
@@ -74,36 +84,48 @@
             }
         </div>
         <div class="card-footer border">
-            <a class="btn fas fa-trash" title="Clear" asp-route-dayId="@Model.Day.DayId"
-                     asp-route-category="3"
-                     asp-route-isremoved="true"
-                     asp-page="./UpdateDay"></a>
+            <a class="btn fas fa-trash" title="Remove" 
+               asp-route-dayId="@Model.Day.DayId"
+               asp-route-category="3"
+               asp-route-isremoved="true"
+               asp-page="./UpdateDay">
+            </a>
+            <a class="btn fas fa-plus-circle" title="Add" 
+               asp-route-dayId="@Model.Day.DayId"
+               asp-route-category="3"
+               asp-page="./UpdateDay">
+            </a>
         </div>
     </div>
     <div id="supper">
         <div class="card-header border">
-            Supper<a class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId"
-                     asp-route-category="4"
-                     asp-page="./UpdateDay"></a>
+            <label>Supper</label>
+            <span> Kcal:@suStats.Sum(m => m.Kcal) | Pro:@suStats.Sum(m => m.Protein) g | Car:@suStats.Sum(m => m.Carbohydrates) g | Fat:@suStats.Sum(m => m.Fat) g | Fib:@suStats.Sum(m => m.Fiber) g</span>
         </div>
         <div class="card-body border">
-            @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 4))
-            {
-                <div>@meal.Name</div>
-            }
+                @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 4))
+                {
+                    <div>@meal.Name</div>
+                }
         </div>
         <div class="card-footer border">
-            <a class="btn fas fa-trash" title="Clear" asp-route-dayId="@Model.Day.DayId"
-                     asp-route-category="4"
-                     asp-route-isremoved="true"
-                     asp-page="./UpdateDay"></a>
+            <a class="btn fas fa-trash" title="Remove"
+               asp-route-dayId="@Model.Day.DayId"
+               asp-route-category="4"
+               asp-route-isremoved="true"
+               asp-page="./UpdateDay">
+            </a>
+            <a class="btn fas fa-plus-circle" title="Add" 
+               asp-route-dayId="@Model.Day.DayId"
+               asp-route-category="4"
+               asp-page="./UpdateDay">
+            </a>
         </div>
     </div>
     <div id="snacks">
         <div class="card-header border">
-            Snacks<a class="btn fas fa-plus-circle" asp-route-dayId="@Model.Day.DayId"
-                     asp-route-category="5"
-                     asp-page="./UpdateDay"></a>
+            <label>Snacks</label>
+            <span> Kcal:@snStats.Sum(m => m.Kcal) | Pro:@snStats.Sum(m => m.Protein) g | Car:@snStats.Sum(m => m.Carbohydrates) g | Fat:@snStats.Sum(m => m.Fat) g | Fib:@snStats.Sum(m => m.Fiber) g</span>
         </div>
         <div class="card-body border">
             @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 5))
@@ -112,10 +134,17 @@
             }
         </div>
         <div class="card-footer border">
-            <a class="btn fas fa-trash" title="Clear" asp-route-dayId="@Model.Day.DayId"
-                     asp-route-category="5"
-                     asp-route-isremoved="true"
-                     asp-page="./UpdateDay"></a>
+            <a class="btn fas fa-trash" title="Remove" 
+               asp-route-dayId="@Model.Day.DayId"
+               asp-route-category="5"
+               asp-route-isremoved="true"
+               asp-page="./UpdateDay">
+            </a>
+            <a class="btn fas fa-plus-circle" title="Add"
+               asp-route-dayId="@Model.Day.DayId"
+               asp-route-category="5"
+               asp-page="./UpdateDay">
+            </a>
         </div>
     </div>
 </div>
@@ -139,11 +168,18 @@
     }
 
     .fa-plus-circle {
-        float: right;
         color: green;
     }
     .fa-trash {
         color: red;
+    }
+    .card-header span {
+        color:indianred;
+        display:table-cell;
+        float:right;
+    }
+    .card-header label {
+        color:green;
     }
 </style>
 
