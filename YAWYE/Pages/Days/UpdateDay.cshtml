@@ -6,20 +6,12 @@
 <input type="hidden" asp-for="Category" />
 <input type="hidden" asp-for="DayId" />
 <div class="container-fluid">
-    @if (!Model.IsRemoved)
-    {
-        <h1>Editing @currentCategory</h1>
-    }
-    else
-    {
-        <h1>Removing from @Model.Day.Date.ToShortDateString()</h1>
-    }
+   <h1>Editing @currentCategory</h1>
     <table class="table table-striped mb-0" id="datatable">
         <thead class="thead-dark">
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Meal</th>
-                <th scope="col">Category</th>
                 <th scope="col">Action</th>
                 <th scope="col">Details</th>
             </tr>
@@ -28,14 +20,10 @@
             @foreach (var meal in Model.Meals)
             {
                 <tr>
-                    <th scope="row"><img src="~/Images/@(meal.DayMeals.Select(dm=>dm.Category).First().ToString() +".png")" alt="@meal.Name" class="img-fluid" /></th>
+                    <th scope="row">
+                    <img src="~/Images/@(currentCategory + ".png")" alt="@meal.Name" class="img-fluid" />
+                    </th>
                     <td>@meal.Name</td>
-                    <td>
-                        @if (Model.IsRemoved)
-                        {
-                            @meal.Category
-                        }
-                    </td>
                     <td>
                         @if (!Model.IsRemoved)
                         {

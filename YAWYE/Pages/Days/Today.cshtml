@@ -7,6 +7,11 @@
     var dStats = Model.TodayMeals.Where(m => (int)m.Category == 3).DefaultIfEmpty(EmptyState);
     var suStats = Model.TodayMeals.Where(m => (int)m.Category == 4).DefaultIfEmpty(EmptyState);
     var snStats = Model.TodayMeals.Where(m => (int)m.Category == 5).DefaultIfEmpty(EmptyState);
+    var proteinTotal = Math.Round(Model.TodayMeals.Sum(m => m.Protein));
+    var carbosTotal = Math.Round(Model.TodayMeals.Sum(m => m.Carbohydrates));
+    var fatTotal = Math.Round(Model.TodayMeals.Sum(m => m.Fat));
+    var fiberTotal = Math.Round(Model.TodayMeals.Sum(m => m.Fiber));
+    var kcalTotal = Math.Round(Model.TodayMeals.Sum(m => m.Kcal));
 }
 <input type="hidden" asp-for="Day.OwnerName" />
 <input type="hidden" asp-for="Day.DayId" />
@@ -28,21 +33,21 @@
             <span> Kcal:@bStats.Sum(m=>m.Kcal) | Pro:@bStats.Sum(m=>m.Protein) g | Car:@bStats.Sum(m=>m.Carbohydrates) g | Fat:@bStats.Sum(m=>m.Fat) g | Fib:@bStats.Sum(m=>m.Fiber) g</span>
         </div>
         <div class="card-body border">
-            @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 1))
-            {
-                <div>@meal.Name</div>
-            }
+                @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 1))
+                {
+                    <div>@meal.Name</div>
+                }
         </div>
         <div class="card-footer border">
-            <a class="btn fas fa-trash" title="Remove" 
+            <a class="btn fas fa-plus-circle" title="Add"
+               asp-route-dayId="@Model.Day.DayId"
+               asp-route-category="1"
+               asp-page="./UpdateDay">
+            </a>
+            <a class="btn fas fa-trash" title="Remove"
                asp-route-dayId="@Model.Day.DayId"
                asp-route-category="1"
                asp-route-isremoved="true"
-               asp-page="./UpdateDay">
-            </a>
-            <a class="btn fas fa-plus-circle" title="Add" 
-               asp-route-dayId="@Model.Day.DayId"
-               asp-route-category="1"
                asp-page="./UpdateDay">
             </a>
         </div>
@@ -53,21 +58,21 @@
             <span> Kcal:@lStats.Sum(m => m.Kcal) | Pro:@lStats.Sum(m => m.Protein) g | Car:@lStats.Sum(m => m.Carbohydrates) g | Fat:@lStats.Sum(m => m.Fat) g | Fib:@lStats.Sum(m => m.Fiber) g</span>
         </div>
         <div class="card-body border">
-            @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 2))
-            {
-                <div>@meal.Name</div>
-            }
+                @foreach (var meal in Model.TodayMeals.Where(m => (int)m.Category == 2))
+                {
+                    <div>@meal.Name</div>
+                }
         </div>
         <div class="card-footer border">
-            <a class="btn fas fa-trash" title="Remove" 
+            <a class="btn fas fa-plus-circle" title="Add"
+               asp-route-dayId="@Model.Day.DayId"
+               asp-route-category="2"
+               asp-page="./UpdateDay">
+            </a>
+            <a class="btn fas fa-trash" title="Remove"
                asp-route-dayId="@Model.Day.DayId"
                asp-route-category="2"
                asp-route-isremoved="true"
-               asp-page="./UpdateDay">
-            </a>
-            <a class="btn fas fa-plus-circle" title="Add" 
-               asp-route-dayId="@Model.Day.DayId"
-               asp-route-category="2"
                asp-page="./UpdateDay">
             </a>
         </div>
@@ -84,15 +89,15 @@
             }
         </div>
         <div class="card-footer border">
-            <a class="btn fas fa-trash" title="Remove" 
+            <a class="btn fas fa-plus-circle" title="Add"
+               asp-route-dayId="@Model.Day.DayId"
+               asp-route-category="3"
+               asp-page="./UpdateDay">
+            </a>
+            <a class="btn fas fa-trash" title="Remove"
                asp-route-dayId="@Model.Day.DayId"
                asp-route-category="3"
                asp-route-isremoved="true"
-               asp-page="./UpdateDay">
-            </a>
-            <a class="btn fas fa-plus-circle" title="Add" 
-               asp-route-dayId="@Model.Day.DayId"
-               asp-route-category="3"
                asp-page="./UpdateDay">
             </a>
         </div>
@@ -109,15 +114,15 @@
                 }
         </div>
         <div class="card-footer border">
+            <a class="btn fas fa-plus-circle" title="Add"
+               asp-route-dayId="@Model.Day.DayId"
+               asp-route-category="4"
+               asp-page="./UpdateDay">
+            </a>
             <a class="btn fas fa-trash" title="Remove"
                asp-route-dayId="@Model.Day.DayId"
                asp-route-category="4"
                asp-route-isremoved="true"
-               asp-page="./UpdateDay">
-            </a>
-            <a class="btn fas fa-plus-circle" title="Add" 
-               asp-route-dayId="@Model.Day.DayId"
-               asp-route-category="4"
                asp-page="./UpdateDay">
             </a>
         </div>
@@ -134,15 +139,15 @@
             }
         </div>
         <div class="card-footer border">
-            <a class="btn fas fa-trash" title="Remove" 
-               asp-route-dayId="@Model.Day.DayId"
-               asp-route-category="5"
-               asp-route-isremoved="true"
-               asp-page="./UpdateDay">
-            </a>
             <a class="btn fas fa-plus-circle" title="Add"
                asp-route-dayId="@Model.Day.DayId"
                asp-route-category="5"
+               asp-page="./UpdateDay">
+            </a>
+            <a class="btn fas fa-trash" title="Remove"
+               asp-route-dayId="@Model.Day.DayId"
+               asp-route-category="5"
+               asp-route-isremoved="true"
                asp-page="./UpdateDay">
             </a>
         </div>
@@ -150,9 +155,9 @@
 </div>
 
 <div class="container-fluid" id="charts">
-
+    <canvas id="totalChart"></canvas>
 </div>
-
+<div id="values" protein="@proteinTotal" carbos="@carbosTotal" fat="@fatTotal" fiber="@fiberTotal" kcal="@kcalTotal"></div>
 <style>
     .input-group {
         width: min-content;
@@ -186,5 +191,44 @@
 @section Scripts
 {
     <script>
+        $(document).ready(function () {
+            var proteinTotal = document.getElementById("values").getAttribute('protein');
+            var carbosTotal = document.getElementById("values").getAttribute('carbos');
+            var fatTotal = document.getElementById("values").getAttribute('fat');
+            var fiberTotal = document.getElementById("values").getAttribute('fiber');
+            var kcalTotal = document.getElementById("values").getAttribute('kcal');
+
+            var ctx = document.getElementById('totalChart');
+            var totalChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Protein', 'Carbohydrates', 'Fat', 'Fiber'],
+                    datasets: [{
+                        label: 'Total weight in grams',
+                        data: [proteinTotal.valueOf(), carbosTotal.valueOf(), fatTotal.valueOf(), fiberTotal.valueOf()],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
     </script>
 }

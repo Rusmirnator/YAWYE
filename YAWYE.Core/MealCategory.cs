@@ -9,7 +9,7 @@ namespace YAWYE.Core
     public enum MealCategory
     {
         [Description("groceries.png")]
-        Groceries,
+        None,
         [Description("breakfast.png")]
         Breakfast,
         [Description("lunch.png")]

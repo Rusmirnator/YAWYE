@@ -45,7 +45,7 @@ namespace YAWYE.Pages.Days
             if (IsRemoved)
             {
                 Meals = (from m in dayMealData.GetAll()
-                         where m.DayId == Day.DayId
+                         where m.DayId == Day.DayId && m.Category == (MealCategory)Category
                          select m.Meal)
                          .ToList();
             }
