@@ -1,0 +1,50 @@
+﻿@page
+@model YAWYE.Pages.Days.DayListModel
+@{
+}
+
+<div class="container-fluid">
+    <table class="table table-striped mb-0" id="datatable">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Day of week</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var day in Model.Days)
+            {
+                <tr>
+                    <td>@day.Date.ToShortDateString()</td>
+                    <td>@day.Date.DayOfWeek</td>
+                    <td>
+                        <a class="btn fas fa-arrow-right" 
+                           asp-page="./Today"
+                           asp-route-dayId="@day.DayId">
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .table-bordered {
+        width: 100%;
+    }
+    .fa-arrow-right {
+        color:sandybrown;
+    }
+</style>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('[id="datatable"]').DataTable();
+        });
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
+}
