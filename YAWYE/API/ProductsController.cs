@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using YAWYE.Data;
 
 namespace YAWYE.API
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
@@ -30,38 +32,124 @@ namespace YAWYE.API
 
         // GET: api/<ProductsController>
         [HttpGet]
-        public ActionResult<IEnumerable<ProductDTO>> GetAll()
+        public IActionResult GetAll()
         {
-            Products = productData.GetAll().ToList();
+            try
+            {
+                Products = productData.GetAll().ToList();
 
-            return Ok(ApiRepository.ProductsToDto(Products));
+                if(!Products.Any())
+                {
+                    return NotFound();
+                }
+
+                return Ok(ApiRepository.ProductsToDto(Products));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
         }
 
         // GET api/<ProductsController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public ActionResult<ProductDTO> GetById(int id)
         {
-            Product = productData.GetById(id);
+            try
+            {
+                Product = productData.GetById(id);
 
-            return Ok(ApiRepository.ProductToDto(Product));
+                if (Product == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(ApiRepository.ProductToDto(Product));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
         }
 
         // POST api/<ProductsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post(ProductDTO dto)
         {
+            try
+            {
+                Product = ApiRepository.DtoToProduct(dto);
+
+                productData.Add(Product);
+
+                if (productData.Commit() > 0)
+                {
+                    return CreatedAtAction("GetById", new { id = Product.ProductId }, Product);
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
         }
 
         // PUT api/<ProductsController>/5
-        [HttpPatch("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{id:int}")]
+        public IActionResult Put(int id, ProductDTO dto)
         {
+            try
+            {
+                Product = productData.GetById(id);
+                if (Product == null)
+                {
+                    return NotFound($"Could not find product with id:{id}");
+                }
+
+                ApiRepository.DtoToProduct(dto, Product);
+                productData.Update(Product);
+
+                if (productData.Commit() > 0)
+                {
+                    return Ok("Updated!");
+                }
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+            return BadRequest();
         }
 
         // DELETE api/<ProductsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{id:int}")]
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                Product = productData.GetById(id);
+
+                if (Product == null)
+                {
+                    return NotFound($"Could not find product with id:{id}");
+                }
+
+                productData.Delete(id);
+
+                if (productData.Commit() > 0)
+                {
+                    return Ok();
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
         }
     }
 }

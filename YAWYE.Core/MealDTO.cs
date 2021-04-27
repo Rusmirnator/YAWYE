@@ -7,7 +7,6 @@ namespace YAWYE.Core
 {
     public class MealDTO
     {
-        public IEnumerable<Meal> Meals { get; set; }
         [Required]
         public string Name { get; set; }
         public decimal Kcal { get; set; }
@@ -18,6 +17,7 @@ namespace YAWYE.Core
         public decimal Price { get; set; }
         public decimal Weight { get; set; }
         public string ImgPath { get; set; }
+        [Required]
         public string Owner { get; set; }
         public MealCategory Category { get; set; } = 0;
 

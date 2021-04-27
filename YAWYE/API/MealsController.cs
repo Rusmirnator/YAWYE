@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,10 +8,10 @@ using System.Threading.Tasks;
 using YAWYE.Core;
 using YAWYE.Data;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace YAWYE.API
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MealsController : ControllerBase
@@ -26,38 +28,125 @@ namespace YAWYE.API
         public List<MealDTO> MealDTOs { get; set; }
         // GET: api/<MealsController>
         [HttpGet]
-        public ActionResult<IEnumerable<MealDTO>> GetAll()
+        public IActionResult GetAll()
         {
-            Meals = mealData.GetAll().ToList();
+            try
+            {
+                Meals = mealData.GetAll().ToList();
 
-            return Ok(ApiRepository.MealsToDto(Meals));
+                if (!Meals.Any())
+                {
+                    return NotFound();
+                }
+
+                return Ok(ApiRepository.MealsToDto(Meals));
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
         }
 
         // GET api/<MealsController>/5
-        [HttpGet("{id}")]
-        public ActionResult<MealDTO> GetById(int id)
+        [HttpGet("{id:int}")]
+        public IActionResult GetById(int id)
         {
-            Meal = mealData.GetById(id);
+            try
+            {
+                Meal = mealData.GetById(id);
 
-            return Ok(ApiRepository.MealtoDto(Meal));
+                if (Meal == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(ApiRepository.MealtoDto(Meal));
+            }
+
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
         }
 
         // POST api/<MealsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post(MealDTO dto)
         {
+            try
+            {
+                Meal = ApiRepository.DtoToMeal(dto);
+
+                mealData.Add(Meal);
+
+                if (mealData.Commit() > 0)
+                {
+                    return CreatedAtAction("GetById", new { id = Meal.MealId }, Meal);
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
         }
 
         // PUT api/<MealsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{id:int}")]
+        public IActionResult Put(int id,MealDTO dto)
         {
+            try
+            {
+                Meal = mealData.GetById(id);
+                if (Meal == null)
+                {
+                    return NotFound($"Could not find meal with id:{id}");
+                }
+
+                ApiRepository.DtoToMeal(dto, Meal);
+                mealData.Update(Meal);
+
+                if (mealData.Commit() > 0)
+                {
+                    return Ok("Updated!");
+                }
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+            return BadRequest();
         }
 
         // DELETE api/<MealsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{id:int}")]
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                Meal = mealData.GetById(id);
+
+                if (Meal == null)
+                {
+                    return NotFound($"Could not find meal with id:{id}");
+                }
+
+                mealData.Delete(id);
+
+                if (mealData.Commit() > 0)
+                {
+                    return Ok();
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
         }
     }
 }
