@@ -169,7 +169,7 @@ namespace YAWYE.API
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
 
-            return BadRequest();
+            return BadRequest("Failed to delete day");
         }
     }
 }
