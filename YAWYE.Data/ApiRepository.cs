@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using YAWYE.Core;
+using YAWYE.Core.DTOs;
 
 namespace YAWYE.Data
 {
@@ -143,6 +144,91 @@ namespace YAWYE.Data
             foreach (var m in meals)
             {
                 dto = MealtoDto(m);
+                result.Add(dto);
+            }
+            return result;
+        }
+        public static MealProductDTO MealProductToDto(MealProduct product, MealProductDTO dto = null)
+        {
+            if (product != null)
+            {
+                return dto = dto ?? new MealProductDTO
+                {
+                    MealId = product.MealId,
+                    ProductId = product.ProductId,
+                    Meal = product.Meal,
+                    Product = product.Product,
+                    ProductWeight = product.ProductWeight,
+                };
+            }
+            return null;
+        }
+        public static MealProduct DtoToMealProduct(MealProductDTO product, MealProduct ent = null)
+        {
+            if (product != null)
+            {
+                return ent = ent ?? new MealProduct
+                {
+                    MealId = product.MealId,
+                    ProductId = product.ProductId,
+                    Meal = product.Meal,
+                    Product = product.Product,
+                    ProductWeight = product.ProductWeight,
+                };
+            }
+            return null;
+        }
+
+        public static DayMealDTO DayMealToDto(DayMeal product, DayMealDTO dto = null)
+        {
+            if (product != null)
+            {
+                return dto = dto ?? new DayMealDTO
+                {
+                    DayMealId = product.DayMealId,
+                    DayId = product.DayId,
+                    MealId = product.MealId,
+                    Day = product.Day,
+                    Meal = product.Meal,
+                    Category = product.Category
+                };
+            }
+            return null;
+        }
+        public static DayMeal DtoToDayMeal(DayMealDTO product, DayMeal ent = null)
+        {
+            if (product != null)
+            {
+                return ent = ent ?? new DayMeal
+                {
+                    DayMealId = product.DayMealId,
+                    DayId = product.DayId,
+                    MealId = product.MealId,
+                    Day = product.Day,
+                    Meal = product.Meal,
+                    Category = product.Category
+                };
+            }
+            return null;
+        }
+        public static List<MealProductDTO> MealProductsToDto(List<MealProduct> products)
+        {
+            var result = new List<MealProductDTO>();
+            var dto = new MealProductDTO();
+            foreach (var p in products)
+            {
+                dto = MealProductToDto(p);
+                result.Add(dto);
+            }
+            return result;
+        }
+        public static List<DayMealDTO> DayMealsToDto(List<DayMeal> meals)
+        {
+            var result = new List<DayMealDTO>();
+            var dto = new DayMealDTO();
+            foreach (var m in meals)
+            {
+                dto = DayMealToDto(m);
                 result.Add(dto);
             }
             return result;

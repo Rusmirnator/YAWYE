@@ -144,7 +144,6 @@ namespace YAWYE.API
         }
 
         // DELETE api/<DaysController>/5
-        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id:int}")]
         public IActionResult Delete(int id)
         {

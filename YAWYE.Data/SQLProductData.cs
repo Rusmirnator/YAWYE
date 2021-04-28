@@ -42,6 +42,18 @@ namespace YAWYE.Data
             return product;
         }
 
+        public Product DeleteSpecific(Product t)
+        {
+            var product = db.Set<Product>().Find(t);
+
+            if (product != null)
+            {
+                db.Set<Product>().Remove(product);
+            }
+
+            return product;
+        }
+
         public IEnumerable<Product> GetAll()
         {
             return db.Set<Product>()

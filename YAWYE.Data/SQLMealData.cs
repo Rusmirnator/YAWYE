@@ -134,5 +134,17 @@ namespace YAWYE.Data
         {
             return db.SaveChanges();
         }
+
+        public Meal DeleteSpecific(Meal t)
+        {
+            var meal = db.Set<Meal>().Find(t);
+
+            if (meal != null)
+            {
+                db.Set<Meal>().Remove(meal);
+            }
+
+            return meal;
+        }
     }
 }

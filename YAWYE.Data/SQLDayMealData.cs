@@ -81,5 +81,17 @@ namespace YAWYE.Data
 
             return updatedT;
         }
+
+        public DayMeal DeleteSpecific(DayMeal t)
+        {
+            var dayMeal = db.Set<DayMeal>().Find(t);
+
+            if (dayMeal != null)
+            {
+                db.Set<DayMeal>().Remove(dayMeal);
+            }
+
+            return dayMeal;
+        }
     }
 }

@@ -80,5 +80,16 @@ namespace YAWYE.Data
         {
             return db.SaveChanges();
         }
+
+        public Day DeleteSpecific(Day t)
+        {
+            var day = db.Set<Day>().Find(t);
+
+            if(day != null)
+            {
+                db.Set<Day>().Remove(day);
+            }
+            return day;
+        }
     }
 }

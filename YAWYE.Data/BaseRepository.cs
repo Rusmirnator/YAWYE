@@ -37,6 +37,17 @@ namespace YAWYE.Data
 
             return entity;
         }
+        public T DeleteSpecific(T deleteT)
+        {
+            var entity = context.Set<T>().Find(deleteT);
+
+            if (entity != null)
+            {
+                context.Set<T>().Remove(entity);
+            }
+
+            return entity;
+        }
 
         public T GetById(int id)
         {

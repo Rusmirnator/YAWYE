@@ -84,5 +84,17 @@ namespace YAWYE.Data
         {
             return db.SaveChanges();
         }
+
+        public MealProduct DeleteSpecific(MealProduct t)
+        {
+            var mealProduct = db.Set<MealProduct>().Find(t);
+
+            if (mealProduct != null)
+            {
+                db.Set<MealProduct>().Remove(mealProduct);
+            }
+
+            return mealProduct;
+        }
     }
 }

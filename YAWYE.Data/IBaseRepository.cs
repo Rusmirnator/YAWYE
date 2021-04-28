@@ -11,6 +11,7 @@ namespace YAWYE.Data
         T Add(T newT);
         T Update(T updatedT);
         T Delete(int id);
+        T DeleteSpecific(T t);
         int Commit();
 
     }
