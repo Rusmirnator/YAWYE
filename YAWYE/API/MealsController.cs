@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using YAWYE.Core;
+using YAWYE.Core.DTOs;
 using YAWYE.Data;
 
 

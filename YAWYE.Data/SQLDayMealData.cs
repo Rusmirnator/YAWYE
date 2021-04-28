@@ -64,14 +64,14 @@ namespace YAWYE.Data
 
         public DayMeal SetValues(Day day, Meal meal, MealCategory category)
         {
-            return new DayMeal 
-            { 
-                Day = day, 
-                Meal = meal, 
-                Category = category, 
-                DayId = day.DayId, 
-                MealId = meal.MealId 
-            };
+                return new DayMeal
+                {
+                    Day = day,
+                    Meal = meal,
+                    Category = category,
+                    DayId = day.DayId,
+                    MealId = meal.MealId
+                };      
         }
 
         public DayMeal Update(DayMeal updatedT)
@@ -92,6 +92,18 @@ namespace YAWYE.Data
             }
 
             return dayMeal;
+        }
+
+        public DayMeal SetValuesByIds(int did, int mid, MealCategory cat)
+        {
+            return new DayMeal
+            {
+                DayId = did,
+                MealId = mid,
+                Category = cat,
+                Day = db.Set<Day>().Find(did),
+                Meal = db.Set<Meal>().Find(mid)
+            };
         }
     }
 }

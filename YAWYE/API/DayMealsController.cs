@@ -26,6 +26,11 @@ namespace YAWYE.API
         }
         public DayMeal DayMeal { get; set; }
         public List<DayMeal> DayMeals { get; set; }
+        public DayMealDTO DayMealDTO { get; set; }
+        public List<DayMealDTO> DayMealDTOs { get; set; }
+        public Day Day { get; set; }
+        public Meal Meal { get; set; }
+
 
         // GET: api/<DayMealsController>
         [HttpGet]
@@ -39,8 +44,9 @@ namespace YAWYE.API
                 {
                     return NotFound();
                 }
+                DayMealDTOs = ApiRepository.DayMealsToDto(DayMeals);
 
-                return Ok(ApiRepository.DayMealsToDto(DayMeals));
+                return Ok(DayMealDTOs);
 
             }
             catch (Exception)
@@ -86,11 +92,13 @@ namespace YAWYE.API
                     return BadRequest("Cannot add, entity already exists!");
                 }
 
+                DayMeal = dayMealData.SetValuesByIds(dto.DayId, dto.MealId, dto.Category);
+
                 dayMealData.Add(DayMeal);
 
                 if (dayMealData.Commit() > 0)
                 {
-                    CreatedAtAction("GetById", new { id = DayMeal.DayMealId}, DayMeal);
+                    return CreatedAtAction("GetById", new { id = DayMeal.DayMealId}, DayMeal);
                 }
             }
             catch (Exception)

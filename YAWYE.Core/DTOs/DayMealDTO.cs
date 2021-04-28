@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace YAWYE.Core.DTOs
@@ -10,10 +11,8 @@ namespace YAWYE.Core.DTOs
         public int DayMealId { get; set; }
         [Required]
         public int DayId { get; set; }
-        public Day Day { get; set; }
         [Required]
         public int MealId { get; set; }
-        public Meal Meal { get; set; }
         public MealCategory Category { get; set; }
     }
 }

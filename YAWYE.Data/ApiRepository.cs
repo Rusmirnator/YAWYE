@@ -156,8 +156,6 @@ namespace YAWYE.Data
                 {
                     MealId = product.MealId,
                     ProductId = product.ProductId,
-                    Meal = product.Meal,
-                    Product = product.Product,
                     ProductWeight = product.ProductWeight,
                 };
             }
@@ -171,8 +169,6 @@ namespace YAWYE.Data
                 {
                     MealId = product.MealId,
                     ProductId = product.ProductId,
-                    Meal = product.Meal,
-                    Product = product.Product,
                     ProductWeight = product.ProductWeight,
                 };
             }
@@ -188,8 +184,6 @@ namespace YAWYE.Data
                     DayMealId = product.DayMealId,
                     DayId = product.DayId,
                     MealId = product.MealId,
-                    Day = product.Day,
-                    Meal = product.Meal,
                     Category = product.Category
                 };
             }
@@ -204,8 +198,6 @@ namespace YAWYE.Data
                     DayMealId = product.DayMealId,
                     DayId = product.DayId,
                     MealId = product.MealId,
-                    Day = product.Day,
-                    Meal = product.Meal,
                     Category = product.Category
                 };
             }

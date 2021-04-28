@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace YAWYE.Core
+namespace YAWYE.Core.DTOs
 {
     public class ProductDTO
     {

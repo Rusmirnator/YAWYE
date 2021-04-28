@@ -1,8 +1,0 @@
-7e9a3304-d818-4cba-88a4-c3ee16450c80_potato.png
-13d9efea-d6cf-47e3-89a8-39ce9696e739_onion.png
-fb014df7-85a8-4786-9af9-89dd4fdbe89d_cheese.png
-7f30e526-46e9-4c2c-b3d4-0d256a3f3b07_meat.png
-b16ab0ce-1083-4bc8-8713-2c3d2213bc56_bun.png
-f9f291d4-8046-41ea-abb3-5296dfce04c9_pickles.png
-628164d1-622e-40dc-81e8-7ac1a66b5a49_tomato.png
-beeb1fde-b661-47a9-825f-f99357bb8aa8_spaghetti.png

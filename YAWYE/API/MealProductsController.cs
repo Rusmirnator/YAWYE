@@ -26,6 +26,9 @@ namespace YAWYE.API
         }
         public MealProduct MealProduct { get; set; }
         public List<MealProduct> MealProducts { get; set; }
+        public MealProductDTO MealProductDTO { get; set; }
+        public List<MealProductDTO> MealProductDTOs { get; set; }
+
         // GET: api/<MealProductsController>
         [HttpGet]
         public IActionResult GetAll()
@@ -39,7 +42,9 @@ namespace YAWYE.API
                     return NotFound();
                 }
 
-                return Ok(ApiRepository.MealProductsToDto(MealProducts));
+                MealProductDTOs = ApiRepository.MealProductsToDto(MealProducts);
+
+                return Ok(MealProductDTOs);
 
             }
             catch (Exception)
@@ -56,7 +61,7 @@ namespace YAWYE.API
             {
                 MealProduct = mealProductData.GetByIds(mid, pid);
 
-                if(MealProduct == null)
+                if (MealProduct == null)
                 {
                     return NotFound();
                 }
@@ -80,16 +85,17 @@ namespace YAWYE.API
 
                 var exists = mealProductData.GetByIds(MealProduct.MealId, MealProduct.ProductId);
 
-                if(exists != null)
+                if (exists != null)
                 {
                     return BadRequest("Cannot add, entity already exists!");
                 }
 
+                mealProductData.SetValues(MealProduct, dto.MealId, dto.ProductId, dto.ProductWeight);
                 mealProductData.Add(MealProduct);
 
                 if (mealProductData.Commit() > 0)
                 {
-                    CreatedAtAction("GetById", new { mid = MealProduct.MealId, pid = MealProduct.ProductId }, MealProduct);
+                    return CreatedAtAction("GetById", new { mid = MealProduct.MealId, pid = MealProduct.ProductId }, MealProduct);
                 }
             }
             catch (Exception)
@@ -107,7 +113,7 @@ namespace YAWYE.API
         {
             try
             {
-                MealProduct = mealProductData.GetByIds(mid,pid);
+                MealProduct = mealProductData.GetByIds(mid, pid);
                 if (MealProduct == null)
                 {
                     return NotFound($"Could not find entity with ids:{mid},{pid}");
@@ -135,7 +141,7 @@ namespace YAWYE.API
         {
             try
             {
-                MealProduct = mealProductData.GetByIds(mid,pid);
+                MealProduct = mealProductData.GetByIds(mid, pid);
 
                 if (MealProduct == null)
                 {
