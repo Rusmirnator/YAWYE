@@ -31,7 +31,6 @@ namespace YAWYE.API
 
 
 
-        // GET: api/<ProductsController>
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -52,7 +51,6 @@ namespace YAWYE.API
             }
         }
 
-        // GET api/<ProductsController>/5
         [HttpGet("{id:int}")]
         public ActionResult<ProductDTO> GetById(int id)
         {
@@ -74,7 +72,6 @@ namespace YAWYE.API
 
         }
 
-        // POST api/<ProductsController>
         [HttpPost]
         public IActionResult Post(ProductDTO dto)
         {
@@ -97,7 +94,6 @@ namespace YAWYE.API
             return BadRequest();
         }
 
-        // PUT api/<ProductsController>/5
         [HttpPut("{id:int}")]
         public IActionResult Put(int id, ProductDTO dto)
         {
@@ -125,7 +121,6 @@ namespace YAWYE.API
             return BadRequest();
         }
 
-        // DELETE api/<ProductsController>/5
         [HttpDelete("{id:int}")]
         public IActionResult Delete(int id)
         {

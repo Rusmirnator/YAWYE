@@ -14,7 +14,7 @@ using YAWYE.Data;
 namespace YAWYE.API
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/days/{dayid}/[controller]")]
     [ApiController]
     public class DayMealsController : ControllerBase
     {
@@ -32,13 +32,13 @@ namespace YAWYE.API
         public Meal Meal { get; set; }
 
 
-        // GET: api/<DayMealsController>
+
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll(int dayid)
         {
             try
             {
-                DayMeals = dayMealData.GetAll().ToList();
+                DayMeals = dayMealData.GetRelated(dayid).ToList();
 
                 if (!DayMeals.Any())
                 {
@@ -55,7 +55,7 @@ namespace YAWYE.API
             }
         }
 
-        // GET api/<DayMealsController>/5
+
         [HttpGet("{id:int}")]
         public IActionResult GetById(int id)
         {
@@ -77,7 +77,7 @@ namespace YAWYE.API
             }
         }
 
-        // POST api/<DayMealsController>
+
         [HttpPost]
         public IActionResult Post(DayMealDTO dto)
         {
@@ -109,7 +109,7 @@ namespace YAWYE.API
             return BadRequest();
         }
 
-        // PUT api/<DayMealsController>/5
+
         [HttpPut("{id:int}")]
         public IActionResult Put(int id, DayMealDTO dto)
         {
@@ -137,7 +137,7 @@ namespace YAWYE.API
             return BadRequest();
         }
 
-        // DELETE api/<DayMealsController>/5
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

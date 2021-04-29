@@ -14,7 +14,7 @@ using YAWYE.Data;
 namespace YAWYE.API
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/meals/{mealid}/[controller]")]
     [ApiController]
     public class MealProductsController : ControllerBase
     {
@@ -29,7 +29,6 @@ namespace YAWYE.API
         public MealProductDTO MealProductDTO { get; set; }
         public List<MealProductDTO> MealProductDTOs { get; set; }
 
-        // GET: api/<MealProductsController>
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -53,7 +52,6 @@ namespace YAWYE.API
             }
         }
 
-        // GET api/<MealProductsController>/5
         [HttpGet("{mid:int}/{pid:int}")]
         public IActionResult GetById(int mid, int pid)
         {
@@ -75,7 +73,6 @@ namespace YAWYE.API
 
         }
 
-        // POST api/<MealProductsController>
         [HttpPost]
         public IActionResult Post(MealProductDTO dto)
         {
@@ -107,7 +104,6 @@ namespace YAWYE.API
 
         }
 
-        // PUT api/<MealProductsController>/5
         [HttpPut("{mid:int}/{pid:int}")]
         public IActionResult Put(int mid, int pid, MealProductDTO dto)
         {
@@ -135,7 +131,6 @@ namespace YAWYE.API
             return BadRequest();
         }
 
-        // DELETE api/<MealProductsController>/5
         [HttpDelete("{mid:int}/{pid:int}")]
         public IActionResult Delete(int mid, int pid)
         {

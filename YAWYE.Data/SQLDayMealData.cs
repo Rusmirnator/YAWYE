@@ -105,5 +105,10 @@ namespace YAWYE.Data
                 Meal = db.Set<Meal>().Find(mid)
             };
         }
+
+        public IEnumerable<DayMeal> GetRelated(int did)
+        {
+            return db.Set<DayMeal>().Where(dm => dm.DayId == did);
+        }
     }
 }
